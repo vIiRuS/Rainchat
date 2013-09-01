@@ -7,7 +7,6 @@
 //
 
 #import "MXIAppDelegate.h"
-#import "AFHTTPClient.h"
 #import "SRWebSocket.h"
 #import "RFKeychain.h"
 
