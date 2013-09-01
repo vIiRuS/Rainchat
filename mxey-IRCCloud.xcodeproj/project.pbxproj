@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8AE2694F5A0147099679819F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F866E98F511A4C498E3456F5 /* libPods.a */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */; };
 		F288A9CE17D35D1D00D4AF6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F288A9CD17D35D1D00D4AF6A /* main.m */; };
@@ -18,6 +19,7 @@
 		F288A9E217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9EA17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9E817D35D1D00D4AF6A /* InfoPlist.strings */; };
 		F288A9EC17D35D1D00D4AF6A /* mxey_IRCCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F288A9EB17D35D1D00D4AF6A /* mxey_IRCCloudTests.m */; };
+		F2ACECCA17D3DF3100D3F5C1 /* MXIConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIConnection.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		263842E134D146DEBCEB8203 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		F288A9BE17D35D1D00D4AF6A /* mxey-IRCCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mxey-IRCCloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9C117D35D1D00D4AF6A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F288A9C417D35D1D00D4AF6A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -50,6 +53,11 @@
 		F288A9E717D35D1D00D4AF6A /* mxey-IRCCloudTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mxey-IRCCloudTests-Info.plist"; sourceTree = "<group>"; };
 		F288A9E917D35D1D00D4AF6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F288A9EB17D35D1D00D4AF6A /* mxey_IRCCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mxey_IRCCloudTests.m; sourceTree = "<group>"; };
+		F29D69F817D3646200B44A15 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		F2ACECC817D3DF3100D3F5C1 /* MXIConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIConnection.h; sourceTree = "<group>"; };
+		F2ACECC917D3DF3100D3F5C1 /* MXIConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIConnection.m; sourceTree = "<group>"; };
+		F2ACECCB17D3E07E00D3F5C1 /* MXIConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXIConnectionDelegate.h; sourceTree = "<group>"; };
+		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */,
+				8AE2694F5A0147099679819F /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +89,7 @@
 				F288A9E517D35D1D00D4AF6A /* mxey-IRCCloudTests */,
 				F288A9C017D35D1D00D4AF6A /* Frameworks */,
 				F288A9BF17D35D1D00D4AF6A /* Products */,
+				263842E134D146DEBCEB8203 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +108,7 @@
 				F288A9C117D35D1D00D4AF6A /* Cocoa.framework */,
 				F288A9E017D35D1D00D4AF6A /* XCTest.framework */,
 				F288A9C317D35D1D00D4AF6A /* Other Frameworks */,
+				F866E98F511A4C498E3456F5 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -117,6 +128,10 @@
 			children = (
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
+				F2ACECCB17D3E07E00D3F5C1 /* MXIConnectionDelegate.h */,
+				F2ACECC817D3DF3100D3F5C1 /* MXIConnection.h */,
+				F2ACECC917D3DF3100D3F5C1 /* MXIConnection.m */,
+				F29D69F817D3646200B44A15 /* Podfile */,
 				F288A9D617D35D1D00D4AF6A /* MainMenu.xib */,
 				F288A9D917D35D1D00D4AF6A /* Images.xcassets */,
 				F288A9C817D35D1D00D4AF6A /* Supporting Files */,
@@ -161,9 +176,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F288A9EF17D35D1D00D4AF6A /* Build configuration list for PBXNativeTarget "mxey-IRCCloud" */;
 			buildPhases = (
+				4A83D566761445238A0468C4 /* Check Pods Manifest.lock */,
 				F288A9BA17D35D1C00D4AF6A /* Sources */,
 				F288A9BB17D35D1C00D4AF6A /* Frameworks */,
 				F288A9BC17D35D1C00D4AF6A /* Resources */,
+				344C541B52E44A5D8F446A6B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,6 +265,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		344C541B52E44A5D8F446A6B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A83D566761445238A0468C4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F288A9BA17D35D1C00D4AF6A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -255,6 +305,7 @@
 			files = (
 				F288A9CE17D35D1D00D4AF6A /* main.m in Sources */,
 				F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */,
+				F2ACECCA17D3DF3100D3F5C1 /* MXIConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +435,7 @@
 		};
 		F288A9F017D35D1D00D4AF6A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 263842E134D146DEBCEB8203 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -397,6 +449,7 @@
 		};
 		F288A9F117D35D1D00D4AF6A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 263842E134D146DEBCEB8203 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -467,6 +520,7 @@
 				F288A9F117D35D1D00D4AF6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F288A9F217D35D1D00D4AF6A /* Build configuration list for PBXNativeTarget "mxey-IRCCloudTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +529,7 @@
 				F288A9F417D35D1D00D4AF6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
