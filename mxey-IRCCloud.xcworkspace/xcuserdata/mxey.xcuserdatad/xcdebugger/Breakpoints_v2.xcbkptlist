@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mxey-IRCCloud/MXIConnection.h"
-            timestampString = "399762078.447573"
+            timestampString = "399763521.758863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
             landmarkName = "-initWithEmail:andPassword:"
             landmarkType = "4">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "mxey-IRCCloud/MXIConnection.h"
-            timestampString = "399762078.447573"
+            timestampString = "399763521.758863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
             landmarkName = "delegate"
             landmarkType = "19">
          </BreakpointContent>

@@ -7,11 +7,12 @@
 //
 
 #import "MXIConnection.h"
-#import <AFHTTPClient.h>
 #import <SRWebSocket.h>
 
 @interface MXIConnection ()
 @property (nonatomic) SRWebSocket *webSocket;
+@property (nonatomic) NSURL *IRCCloudURL;
+@property (nonatomic) NSString *cookie;
 @end
 
 
@@ -22,32 +23,56 @@
     if (!self) {
         return nil;
     }
-    
-    AFHTTPClient *HTTPClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://www.irccloud.com/chat/"]];
-    NSDictionary *loginParameters = @{@"email": email, @"password": password};
-    
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://www.irccloud.com/chat/"]];
-    
-    if (cookies.count == 0) {
-        [HTTPClient postPath:@"login" parameters:loginParameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"Success: %@", responseObject);
-            [self openWebSocket];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Failure: %@", error);
-        }];
-    } else {
-        [self openWebSocket];
-    }
+
+    self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
+    [self loginWithEmail:email andPassword:password];
     
     return self;
 }
 
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
+{
+    NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"login"]];
+    NSData *loginPostBody = [[NSString stringWithFormat:@"email=%@&password=%@", [self URLEncodeString:email], [self URLEncodeString:password]] dataUsingEncoding:NSUTF8StringEncoding];
+    loginRequest.HTTPBody = loginPostBody;
+    loginRequest.HTTPMethod = @"POST";
+    loginRequest.HTTPShouldHandleCookies = false;
+    
+    [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
+        self.cookie = [HTTPResponse allHeaderFields][@"Set-Cookie"];
+        [self openWebSocket];
+    }];
+}
+
+// From http://stackoverflow.com/questions/3423545/objective-c-iphone-percent-encode-a-string/3426140#3426140
+- URLEncodeString:(NSString *)string
+{
+    NSMutableString * output = [NSMutableString string];
+    const unsigned char * source = (const unsigned char *)[string UTF8String];
+    int sourceLen = strlen((const char *)source);
+    for (int i = 0; i < sourceLen; ++i) {
+        const unsigned char thisChar = source[i];
+        if (thisChar == ' '){
+            [output appendString:@"+"];
+        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
+                   (thisChar >= 'a' && thisChar <= 'z') ||
+                   (thisChar >= 'A' && thisChar <= 'Z') ||
+                   (thisChar >= '0' && thisChar <= '9')) {
+            [output appendFormat:@"%c", thisChar];
+        } else {
+            [output appendFormat:@"%%%02X", thisChar];
+        }
+    }
+    return output;
+}
+
 - (void)openWebSocket
 {
-    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"https://www.irccloud.com/chat/"]];
     NSMutableURLRequest *webSocketURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"wss://www.irccloud.com/"]];
     
-    [webSocketURLRequest setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:cookies]];
+    webSocketURLRequest.HTTPShouldHandleCookies = false;
+    [webSocketURLRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [webSocketURLRequest setValue:@"https://www.irccloud.com" forHTTPHeaderField:@"Origin"];
     
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:webSocketURLRequest];
