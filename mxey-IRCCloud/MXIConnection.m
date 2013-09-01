@@ -73,7 +73,7 @@
     NSLog(@"Received \"%@\"", messageObject);
     
     if ([messageObject[@"type"] isEqualToString:@"buffer_msg"]) {
-        [self.delegate connection:self DidReceiveBufferMsg:messageObject];
+        [self.delegate connection:self didReceiveBufferMsg:messageObject];
     }
     
 }

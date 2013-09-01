@@ -11,5 +11,5 @@
 @class MXIConnection;
 
 @protocol MXIConnectionDelegate <NSObject>
-- (void)connection:(MXIConnection *)connection DidReceiveBufferMsg:(NSDictionary *)bufferMsg;
+- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(NSDictionary *)bufferMsg;
 @end
