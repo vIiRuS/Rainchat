@@ -51,7 +51,7 @@
     [webSocketURLRequest setValue:@"https://www.irccloud.com" forHTTPHeaderField:@"Origin"];
     
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:webSocketURLRequest];
-    self.webSocket.delegate = (id<SRWebSocketDelegate>) self;
+    self.webSocket.delegate = self;
     [self.webSocket open];
 }
 
