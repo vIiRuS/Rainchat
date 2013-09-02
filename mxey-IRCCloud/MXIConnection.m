@@ -92,18 +92,34 @@
     self.webSocket = nil;
 }
 
+- (void)processMessage:(NSDictionary *)messageAttributes
+{
+    NSDictionary *messageHandlers = @{
+        @"buffer_msg": ^() {
+            MXIBufferMessage *bufferMessage = [[MXIBufferMessage alloc] initWithDictionary:messageAttributes error:NULL];
+            [self.delegate connection:self didReceiveBufferMsg:bufferMessage];
+        },
+        @"oob_include": ^() {
+            [self loadInitialBacklogFromURL:[NSURL URLWithString:messageAttributes[@"url"] relativeToURL:self.IRCCloudURL]];
+        }
+    };
+    
+    
+    void (^messageHandler)()  = messageHandlers[messageAttributes[@"type"]];
+    if (messageHandler) {
+        messageHandler();
+    }
+    else {
+        NSLog(@"Unhandled message type: %@", messageAttributes[@"type"]);
+    }
+   
+}
+
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message;
 {
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *messageObject = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:NULL];
-    NSLog(@"Received \"%@\"", messageObject);
-    
-    if ([messageObject[@"type"] isEqualToString:@"buffer_msg"]) {
-        [self.delegate connection:self didReceiveBufferMsg:[[MXIBufferMessage alloc] initWithDictionary:messageObject error:NULL]];;
-    }
-    else if ([messageObject[@"type"] isEqualToString:@"oob_include"]) {
-        [self loadInitialBacklogFromURL:[NSURL URLWithString:messageObject[@"url"] relativeToURL:self.IRCCloudURL]];
-    }
+    NSDictionary *messageAttributes = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:NULL];
+    [self processMessage:messageAttributes];
 }
 
 - (void)loadInitialBacklogFromURL:(NSURL *)URL
@@ -113,11 +129,8 @@
     [backlogFetchRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [NSURLConnection sendAsynchronousRequest:backlogFetchRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSArray *decodedBacklog = [NSJSONSerialization JSONObjectWithData:data options:NULL error:NULL];
-        
-        for (NSDictionary *messageObject in decodedBacklog) {
-            if ([messageObject[@"type"] isEqualToString:@"buffer_msg"]) {
-                [self.delegate connection:self didReceiveBufferMsg:[[MXIBufferMessage alloc] initWithDictionary:messageObject error:NULL]];;
-            }
+        for (NSDictionary *messageAttributes in decodedBacklog) {
+            [self processMessage:messageAttributes];
         }
     }];
 }
