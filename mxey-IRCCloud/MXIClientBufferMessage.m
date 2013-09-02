@@ -16,7 +16,7 @@
         @"chan": @"channel",
         @"msg": @"message",
         @"from": @"fromNick",
-        @"cid:": @"connectionId",
+        @"cid": @"connectionId",
         @"bid": @"bufferId",
         @"eid": @"eventId",
     }];
