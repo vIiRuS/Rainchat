@@ -21,9 +21,11 @@
     self.connection.delegate = self;
 }
 
-- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(NSDictionary *)bufferMsg
+- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(MXIBufferMessage *)bufferMsg
 {
-    NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", bufferMsg[@"chan"], bufferMsg[@"from"], bufferMsg[@"msg"]];
+    
+    NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMsg.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+    NSString *output = [NSString stringWithFormat:@"[%@] %@ [%@] %@ <%@> %@\n", bufferMsg.bufferId, localizedDate, bufferMsg.eventId, bufferMsg.channel, bufferMsg.fromNick, bufferMsg.message];
     NSMutableString *text = [self.textView.string mutableCopy];
     [text appendString:output];
     self.textView.string = text;

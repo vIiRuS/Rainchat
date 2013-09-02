@@ -1,12 +1,15 @@
 PODS:
+  - JSONModel (0.9.2)
   - RFKeychain (0.1)
   - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
+  - JSONModel
   - RFKeychain (~> 0.1)
   - SocketRocket
 
 SPEC CHECKSUMS:
+  JSONModel: 66da536be3d10507afbaffb2b1ace3da2bc18808
   RFKeychain: 6f70ff418c01b5d76b84796941f3d63672c9e316
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
 

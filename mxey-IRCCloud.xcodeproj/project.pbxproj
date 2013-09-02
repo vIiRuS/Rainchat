@@ -20,6 +20,7 @@
 		F288A9EA17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9E817D35D1D00D4AF6A /* InfoPlist.strings */; };
 		F288A9EC17D35D1D00D4AF6A /* mxey_IRCCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F288A9EB17D35D1D00D4AF6A /* mxey_IRCCloudTests.m */; };
 		F2ACECCA17D3DF3100D3F5C1 /* MXIConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIConnection.m */; };
+		F2ACECCF17D5000D00D3F5C1 /* MXIBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIBufferMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		F2ACECC917D3DF3100D3F5C1 /* MXIConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIConnection.m; sourceTree = "<group>"; };
 		F2ACECCB17D3E07E00D3F5C1 /* MXIConnectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXIConnectionDelegate.h; sourceTree = "<group>"; };
 		F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
+		F2ACECCD17D5000D00D3F5C1 /* MXIBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIBufferMessage.h; sourceTree = "<group>"; };
+		F2ACECCE17D5000D00D3F5C1 /* MXIBufferMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIBufferMessage.m; sourceTree = "<group>"; };
 		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,6 +130,8 @@
 		F288A9C717D35D1D00D4AF6A /* mxey-IRCCloud */ = {
 			isa = PBXGroup;
 			children = (
+				F2ACECCD17D5000D00D3F5C1 /* MXIBufferMessage.h */,
+				F2ACECCE17D5000D00D3F5C1 /* MXIBufferMessage.m */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
 				F2ACECCB17D3E07E00D3F5C1 /* MXIConnectionDelegate.h */,
@@ -307,6 +312,7 @@
 			files = (
 				F288A9CE17D35D1D00D4AF6A /* main.m in Sources */,
 				F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */,
+				F2ACECCF17D5000D00D3F5C1 /* MXIBufferMessage.m in Sources */,
 				F2ACECCA17D3DF3100D3F5C1 /* MXIConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,6 +7,7 @@
 //
 
 #import "MXIConnection.h"
+#import "MXIBufferMessage.h"
 #import <SRWebSocket.h>
 
 @interface MXIConnection ()
@@ -98,9 +99,27 @@
     NSLog(@"Received \"%@\"", messageObject);
     
     if ([messageObject[@"type"] isEqualToString:@"buffer_msg"]) {
-        [self.delegate connection:self didReceiveBufferMsg:messageObject];
+        [self.delegate connection:self didReceiveBufferMsg:[[MXIBufferMessage alloc] initWithDictionary:messageObject error:NULL]];;
     }
-    
+    else if ([messageObject[@"type"] isEqualToString:@"oob_include"]) {
+        [self loadInitialBacklogFromURL:[NSURL URLWithString:messageObject[@"url"] relativeToURL:self.IRCCloudURL]];
+    }
+}
+
+- (void)loadInitialBacklogFromURL:(NSURL *)URL
+{
+    NSMutableURLRequest *backlogFetchRequest = [NSMutableURLRequest requestWithURL:URL];
+    backlogFetchRequest.HTTPShouldHandleCookies = false;
+    [backlogFetchRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
+    [NSURLConnection sendAsynchronousRequest:backlogFetchRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSArray *decodedBacklog = [NSJSONSerialization JSONObjectWithData:data options:NULL error:NULL];
+        
+        for (NSDictionary *messageObject in decodedBacklog) {
+            if ([messageObject[@"type"] isEqualToString:@"buffer_msg"]) {
+                [self.delegate connection:self didReceiveBufferMsg:[[MXIBufferMessage alloc] initWithDictionary:messageObject error:NULL]];;
+            }
+        }
+    }];
 }
 
 @end

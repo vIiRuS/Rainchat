@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXIBufferMessage.h"
 
 @class MXIConnection;
 
 @protocol MXIConnectionDelegate <NSObject>
-- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(NSDictionary *)bufferMsg;
+- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(MXIBufferMessage *)bufferMsg;
 @end

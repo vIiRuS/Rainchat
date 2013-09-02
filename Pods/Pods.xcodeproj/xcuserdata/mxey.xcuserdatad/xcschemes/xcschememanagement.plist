@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>Pods-JSONModel.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Pods-RFKeychain.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -27,12 +32,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>05A2E0DB76C04A3EBBFBFBE2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0F76F3A18D8643AFA8829349</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>19FE7AA4B3C84941BA2C0D79</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1A5F85F98D8B4685BA0AAE8F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +117,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6BFFE2DE7D8B463A9BDDE200</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>6DA2E36DBF16428F994539F2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7A6713D2ACB84D24A2E2DEC5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -142,6 +167,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>9E68DA7DB3894F1C87544D88</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>A90EA073CD62475F9B83741C</key>
 		<dict>
 			<key>primary</key>
@@ -152,7 +182,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>ADFE45FED7FB4154BF8D65E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B6346CECC32644A789ECBE44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BBE7FC72215C429D8169E045</key>
 		<dict>
 			<key>primary</key>
 			<true/>
