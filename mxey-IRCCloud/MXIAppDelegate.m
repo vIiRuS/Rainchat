@@ -21,7 +21,7 @@
     self.connection.delegate = self;
 }
 
-- (void)connection:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg
+- (void)client:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg
 {
     
     NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMsg.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
@@ -31,7 +31,7 @@
     self.textView.string = text;
 }
 
-- (void)connectionDidFinishBacklog:(MXIClient *)connection
+- (void)clientDidFinishBacklog:(MXIClient *)connection
 {
     NSMutableString *text = [self.textView.string mutableCopy];
     [text appendString:[connection.connections description]];

@@ -106,7 +106,7 @@
                 return;
             }
 
-            [self.delegate connection:self didReceiveBufferMsg:bufferMessage];
+            [self.delegate client:self didReceiveBufferMsg:bufferMessage];
         },
         @"oob_include": ^() {
             [self loadInitialBacklogFromURL:[NSURL URLWithString:messageAttributes[@"url"] relativeToURL:self.IRCCloudURL]];
@@ -137,7 +137,7 @@
             [connection.buffers addObject:buffer];
         },
         @"end_of_backlog": ^() {
-            [self.delegate connectionDidFinishBacklog:self];
+            [self.delegate clientDidFinishBacklog:self];
         }
     };
     
