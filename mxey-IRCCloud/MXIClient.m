@@ -119,8 +119,11 @@
                 return;
             }
             
-            self.connections[connection.name] = connection;
+            self.connections[connection.connectionId] = connection;
             NSLog(@"Connections: %@", self.connections);
+        },
+        @"makebuffer": ^() {
+            
         }
     };
     
