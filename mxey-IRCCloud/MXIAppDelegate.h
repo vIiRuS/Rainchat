@@ -7,13 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MXIConnection.h"
-#import "MXIConnectionDelegate.h"
+#import "MXIClient.h"
+#import "MXIClientDelegate.h"
 
-@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIConnectionDelegate>
+@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
-@property (nonatomic) MXIConnection *connection;
+@property (nonatomic) MXIClient *connection;
 
 @end

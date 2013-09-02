@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
-#import "MXIBufferMessage.h"
+#import "MXIClientBufferMessage.h"
 
-@implementation MXIBufferMessage
+@implementation MXIClientBufferMessage
 
 + (JSONKeyMapper *)keyMapper
 {

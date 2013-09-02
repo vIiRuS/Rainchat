@@ -6,18 +6,18 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
-#import "MXIConnection.h"
-#import "MXIBufferMessage.h"
+#import "MXIClient.h"
+#import "MXIClientBufferMessage.h"
 #import <SRWebSocket.h>
 
-@interface MXIConnection ()
+@interface MXIClient ()
 @property (nonatomic) SRWebSocket *webSocket;
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
 @end
 
 
-@implementation MXIConnection
+@implementation MXIClient
 - (id)initWithEmail:(NSString *)email andPassword:(NSString *)password
 {
     self = [self init];
@@ -96,7 +96,7 @@
 {
     NSDictionary *messageHandlers = @{
         @"buffer_msg": ^() {
-            MXIBufferMessage *bufferMessage = [[MXIBufferMessage alloc] initWithDictionary:messageAttributes error:NULL];
+            MXIClientBufferMessage *bufferMessage = [[MXIClientBufferMessage alloc] initWithDictionary:messageAttributes error:NULL];
             [self.delegate connection:self didReceiveBufferMsg:bufferMessage];
         },
         @"oob_include": ^() {

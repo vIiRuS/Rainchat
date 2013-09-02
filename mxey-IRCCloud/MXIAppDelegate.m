@@ -17,11 +17,11 @@
 {
     NSString *account = @"mxey@mxey.net";
     NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
-    self.connection = [[MXIConnection alloc] initWithEmail:account andPassword:password];
+    self.connection = [[MXIClient alloc] initWithEmail:account andPassword:password];
     self.connection.delegate = self;
 }
 
-- (void)connection:(MXIConnection *)connection didReceiveBufferMsg:(MXIBufferMessage *)bufferMsg
+- (void)connection:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg
 {
     
     NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMsg.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];

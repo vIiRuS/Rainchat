@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <SRWebSocket.h>
-#import "MXIConnectionDelegate.h"
+#import "MXIClientDelegate.h"
 
-@interface MXIConnection : NSObject <SRWebSocketDelegate>
-@property (nonatomic) id<MXIConnectionDelegate> delegate;
+@interface MXIClient : NSObject <SRWebSocketDelegate>
+@property (nonatomic) id<MXIClientDelegate> delegate;
 - initWithEmail:(NSString *)email andPassword:(NSString *)password;
 @end

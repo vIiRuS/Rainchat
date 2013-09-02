@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
 
-@interface MXIBufferMessage : JSONModel
+@interface MXIClientBufferMessage : JSONModel
 @property (nonatomic) NSString *channel;
 @property (nonatomic) NSString *fromNick;
 @property (nonatomic) NSString *message;
