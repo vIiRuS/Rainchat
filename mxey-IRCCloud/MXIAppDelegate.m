@@ -31,6 +31,13 @@
     self.textView.string = text;
 }
 
+- (void)connectionDidFinishBacklog:(MXIClient *)connection
+{
+    NSMutableString *text = [self.textView.string mutableCopy];
+    [text appendString:[connection.connections description]];
+    self.textView.string = text;
+}
+
 
 
 

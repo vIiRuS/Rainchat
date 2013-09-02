@@ -7,6 +7,7 @@
 //
 
 #import "MXIClient.h"
+#import "MXIClientBuffer.h"
 #import "MXIClientBufferMessage.h"
 #import "MXIClientConnection.h"
 #import <SRWebSocket.h>
@@ -15,7 +16,6 @@
 @property (nonatomic) SRWebSocket *webSocket;
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
-@property (nonatomic) NSMutableDictionary *connections;
 @end
 
 
@@ -120,10 +120,24 @@
             }
             
             self.connections[connection.connectionId] = connection;
-            NSLog(@"Connections: %@", self.connections);
         },
         @"makebuffer": ^() {
+            NSError *error;
+            MXIClientBuffer *buffer = [[MXIClientBuffer alloc] initWithDictionary:messageAttributes error:&error];
+            if (!buffer) {
+                NSLog(@"%@", [error localizedDescription]);
+                return;
+            }
             
+            MXIClientConnection *connection = self.connections[buffer.connectionId];
+            if (!connection) {
+                return;
+            }
+            
+            [connection.buffers addObject:buffer];
+        },
+        @"end_of_backlog": ^() {
+            [self.delegate connectionDidFinishBacklog:self];
         }
     };
     

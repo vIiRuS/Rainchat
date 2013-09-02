@@ -22,6 +22,7 @@
 		F2ACECCA17D3DF3100D3F5C1 /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClient.m */; };
 		F2ACECCF17D5000D00D3F5C1 /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */; };
 		F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */; };
+		F2ACECD517D5299200D3F5C1 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferMessage.m; sourceTree = "<group>"; };
 		F2ACECD017D523E400D3F5C1 /* MXIClientConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientConnection.h; sourceTree = "<group>"; };
 		F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientConnection.m; sourceTree = "<group>"; };
+		F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
+		F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
 		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,6 +140,8 @@
 				F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */,
 				F2ACECD017D523E400D3F5C1 /* MXIClientConnection.h */,
 				F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */,
+				F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */,
+				F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
 				F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */,
@@ -318,6 +323,7 @@
 				F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */,
 				F288A9CE17D35D1D00D4AF6A /* main.m in Sources */,
 				F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */,
+				F2ACECD517D5299200D3F5C1 /* MXIClientBuffer.m in Sources */,
 				F2ACECCF17D5000D00D3F5C1 /* MXIClientBufferMessage.m in Sources */,
 				F2ACECCA17D3DF3100D3F5C1 /* MXIClient.m in Sources */,
 			);

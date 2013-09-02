@@ -1,5 +1,5 @@
 //
-//  MXIClientConnection.h
+//  MXIClientBuffer.h
 //  mxey-IRCCloud
 //
 //  Created by Maximilian Gaß on 02.09.13.
@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
 
-@interface MXIClientConnection : JSONModel
+@interface MXIClientBuffer : JSONModel
 @property (nonatomic) NSNumber *connectionId;
 @property (nonatomic) NSString *name;
-@property (nonatomic) NSString *nick;
-@property (nonatomic) NSMutableArray<Optional> *buffers;
+
 @end

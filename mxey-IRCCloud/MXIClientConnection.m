@@ -9,6 +9,15 @@
 #import "MXIClientConnection.h"
 
 @implementation MXIClientConnection
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
+{
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.buffers = [NSMutableArray array];
+    }
+    return self;
+}
+
 + (JSONKeyMapper *)keyMapper
 {
     return [[JSONKeyMapper alloc] initWithDictionary:@{

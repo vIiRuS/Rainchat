@@ -13,4 +13,5 @@
 
 @protocol MXIClientDelegate <NSObject>
 - (void)connection:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg;
+- (void)connectionDidFinishBacklog:(MXIClient *)connection;
 @end
