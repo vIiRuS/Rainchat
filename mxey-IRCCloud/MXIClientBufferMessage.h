@@ -15,5 +15,6 @@
 @property (nonatomic) NSString *message;
 @property (nonatomic) NSNumber *eventId;
 @property (nonatomic) NSNumber *bufferId;
+@property (nonatomic) NSNumber *connectionId;
 - (NSDate *)timestamp;
 @end
