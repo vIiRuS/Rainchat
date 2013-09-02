@@ -8,12 +8,14 @@
 
 #import "MXIClient.h"
 #import "MXIClientBufferMessage.h"
+#import "MXIClientConnection.h"
 #import <SRWebSocket.h>
 
 @interface MXIClient ()
 @property (nonatomic) SRWebSocket *webSocket;
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
+@property (nonatomic) NSMutableDictionary *connections;
 @end
 
 
@@ -26,6 +28,7 @@
     }
 
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
+    self.connections = [NSMutableDictionary dictionary];
     [self loginWithEmail:email andPassword:password];
     
     return self;
@@ -96,11 +99,28 @@
 {
     NSDictionary *messageHandlers = @{
         @"buffer_msg": ^() {
+            NSError *error;
             MXIClientBufferMessage *bufferMessage = [[MXIClientBufferMessage alloc] initWithDictionary:messageAttributes error:NULL];
+            if (!bufferMessage) {
+                NSLog(@"%@", [error localizedDescription]);
+                return;
+            }
+
             [self.delegate connection:self didReceiveBufferMsg:bufferMessage];
         },
         @"oob_include": ^() {
             [self loadInitialBacklogFromURL:[NSURL URLWithString:messageAttributes[@"url"] relativeToURL:self.IRCCloudURL]];
+        },
+        @"makeserver": ^() {
+            NSError *error;
+            MXIClientConnection *connection = [[MXIClientConnection alloc] initWithDictionary:messageAttributes error:&error];
+            if (!connection) {
+                NSLog(@"%@", [error localizedDescription]);
+                return;
+            }
+            
+            self.connections[connection.name] = connection;
+            NSLog(@"Connections: %@", self.connections);
         }
     };
     
