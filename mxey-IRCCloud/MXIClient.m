@@ -112,7 +112,21 @@
             [self.delegate client:self didReceiveBufferMsg:bufferMessage];
         },
         @"oob_include": ^() {
-            [self loadInitialBacklogFromURL:[NSURL URLWithString:messageAttributes[@"url"] relativeToURL:self.IRCCloudURL]];
+            NSLog(@"Initial backlog start");
+            self.messageBufferDuringBacklog = [NSMutableArray array];
+            self.processingBacklog = YES;
+            [self loadBacklogFromURL:[NSURL URLWithString:messageAttributes[@"url"] relativeToURL:self.IRCCloudURL]];
+        },
+        @"backlog_complete": ^() {
+            self.processingBacklog = NO;
+            NSLog(@"Initial backlog finished");
+            
+            NSLog(@"Handling messages received during backlog replay");
+            for (NSDictionary *messageAttributes in self.messageBufferDuringBacklog) {
+                [self processMessage:messageAttributes];
+            }
+            self.messageBufferDuringBacklog = nil;
+            [self.delegate clientDidFinishInitialBacklog:self];
         },
         @"makeserver": ^() {
             NSError *error;
@@ -138,17 +152,6 @@
             }
             
             [connection.buffers addObject:buffer];
-        },
-        @"backlog_complete": ^() {
-            self.processingBacklog = NO;
-            NSLog(@"Initial backlog finished");
-            
-            NSLog(@"Handling messages received during backlog replay");
-            for (NSDictionary *messageAttributes in self.messageBufferDuringBacklog) {
-                [self processMessage:messageAttributes];
-            }
-            self.messageBufferDuringBacklog = nil;
-            [self.delegate clientDidFinishBacklog:self];
         }
     };
     
@@ -176,11 +179,8 @@
     }
 }
 
-- (void)loadInitialBacklogFromURL:(NSURL *)URL
+- (void)loadBacklogFromURL:(NSURL *)URL
 {
-    NSLog(@"Initial backlog start");
-    self.messageBufferDuringBacklog = [NSMutableArray array];
-    self.processingBacklog = YES;
     NSMutableURLRequest *backlogFetchRequest = [NSMutableURLRequest requestWithURL:URL];
     backlogFetchRequest.HTTPShouldHandleCookies = false;
     [backlogFetchRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
