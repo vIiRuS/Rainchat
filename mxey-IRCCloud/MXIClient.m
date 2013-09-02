@@ -16,6 +16,8 @@
 @property (nonatomic) SRWebSocket *webSocket;
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
+@property (nonatomic) BOOL *processingBacklog;
+@property (nonatomic) NSMutableArray *messageBufferDuringBacklog;
 @end
 
 
@@ -29,6 +31,7 @@
 
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
     self.connections = [NSMutableDictionary dictionary];
+    self.processingBacklog = NO;
     [self loginWithEmail:email andPassword:password];
     
     return self;
@@ -136,7 +139,15 @@
             
             [connection.buffers addObject:buffer];
         },
-        @"end_of_backlog": ^() {
+        @"backlog_complete": ^() {
+            self.processingBacklog = NO;
+            NSLog(@"Initial backlog finished");
+            
+            NSLog(@"Handling messages received during backlog replay");
+            for (NSDictionary *messageAttributes in self.messageBufferDuringBacklog) {
+                [self processMessage:messageAttributes];
+            }
+            self.messageBufferDuringBacklog = nil;
             [self.delegate clientDidFinishBacklog:self];
         }
     };
@@ -156,11 +167,20 @@
 {
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageAttributes = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:NULL];
-    [self processMessage:messageAttributes];
+    
+    if (self.processingBacklog) {
+        [self.messageBufferDuringBacklog addObject:messageAttributes];
+    }
+    else {
+        [self processMessage:messageAttributes];
+    }
 }
 
 - (void)loadInitialBacklogFromURL:(NSURL *)URL
 {
+    NSLog(@"Initial backlog start");
+    self.messageBufferDuringBacklog = [NSMutableArray array];
+    self.processingBacklog = YES;
     NSMutableURLRequest *backlogFetchRequest = [NSMutableURLRequest requestWithURL:URL];
     backlogFetchRequest.HTTPShouldHandleCookies = false;
     [backlogFetchRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
