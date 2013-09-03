@@ -109,7 +109,7 @@
             NSError *error;
             MXIClientBufferMessage *bufferMessage = [[MXIClientBufferMessage alloc] initWithDictionary:messageAttributes error:NULL];
             if (!bufferMessage) {
-                NSLog(@"%@", [error localizedDescription]);
+                NSLog(@"Failed to create MXIClientBufferMessage: %@", [error localizedDescription]);
                 return;
             }
 
@@ -136,7 +136,7 @@
             NSError *error;
             MXIClientConnection *connection = [[MXIClientConnection alloc] initWithDictionary:messageAttributes error:&error];
             if (!connection) {
-                NSLog(@"%@", [error localizedDescription]);
+                NSLog(@"Failed to create MXIClientConnection: %@", [error localizedDescription]);
                 return;
             }
             
@@ -146,7 +146,7 @@
             NSError *error;
             MXIClientBuffer *buffer = [[MXIClientBuffer alloc] initWithDictionary:messageAttributes error:&error];
             if (!buffer) {
-                NSLog(@"%@", [error localizedDescription]);
+                NSLog(@"Failed to create MXIClientBuffer: %@", [error localizedDescription]);
                 return;
             }
             
