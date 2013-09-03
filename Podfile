@@ -2,3 +2,7 @@ platform :osx, '10.9'
 pod 'SocketRocket'
 pod 'RFKeychain', '~> 0.1'
 pod 'JSONModel'
+
+target 'mxey-IRCCloudTests' do
+  pod 'Kiwi'
+end

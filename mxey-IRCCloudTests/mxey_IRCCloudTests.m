@@ -1,34 +1,13 @@
-//
-//  mxey_IRCCloudTests.m
-//  mxey-IRCCloudTests
-//
-//  Created by Maximilian Gaß on 01.09.13.
-//  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
-//
+#import "Kiwi.h"
 
-#import <XCTest/XCTest.h>
+SPEC_BEGIN(MathSpec)
 
-@interface mxey_IRCCloudTests : XCTestCase
+describe(@"Math", ^{
+    it(@"is pretty cool", ^{
+        NSUInteger a = 16;
+        NSUInteger b = 26;
+        [[theValue(a + b) should] equal:theValue(43)];
+    });
+});
 
-@end
-
-@implementation mxey_IRCCloudTests
-
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
-}
-
-@end
+SPEC_END

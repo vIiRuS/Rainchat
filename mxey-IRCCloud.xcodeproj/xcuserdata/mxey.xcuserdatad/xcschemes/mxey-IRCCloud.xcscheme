@@ -32,8 +32,8 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F288A9DE17D35D1D00D4AF6A"
-               BuildableName = "mxey-IRCCloudTests.xctest"
+               BlueprintIdentifier = "F28399A517D659A800CF291D"
+               BuildableName = "mxey-IRCCloudTests.octest"
                BlueprintName = "mxey-IRCCloudTests"
                ReferencedContainer = "container:mxey-IRCCloud.xcodeproj">
             </BuildableReference>

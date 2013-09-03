@@ -1,0 +1,2 @@
+PODS_MXEY_IRCCLOUDTESTS_KIWI_FRAMEWORK_SEARCH_PATHS = $(inherited) "$(DEVELOPER_LIBRARY_DIR)/Frameworks" "$(SDKROOT)/Developer/Library/Frameworks" $(inherited) "$(DEVELOPER_LIBRARY_DIR)/Frameworks" $(inherited) "$(DEVELOPER_LIBRARY_DIR)/Frameworks"
+PODS_MXEY_IRCCLOUDTESTS_KIWI_OTHER_LDFLAGS = -framework SenTestingKit
