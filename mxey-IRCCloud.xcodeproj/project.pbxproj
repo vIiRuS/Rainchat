@@ -11,8 +11,6 @@
 		D74764FF18C74A72BA6E5B45 /* libPods-mxey-IRCCloudTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */; };
 		F28399A817D659A800CF291D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28399A717D659A800CF291D /* SenTestingKit.framework */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
-		F28399AF17D659A800CF291D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F28399AD17D659A800CF291D /* InfoPlist.strings */; };
-		F28399B217D659A800CF291D /* mxey_IRCCloudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F28399B117D659A800CF291D /* mxey_IRCCloudTests.m */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */; };
 		F288A9CE17D35D1D00D4AF6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F288A9CD17D35D1D00D4AF6A /* main.m */; };
@@ -31,11 +29,6 @@
 		83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mxey-IRCCloudTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F28399A617D659A800CF291D /* mxey-IRCCloudTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mxey-IRCCloudTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F28399A717D659A800CF291D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		F28399AC17D659A800CF291D /* mxey-IRCCloudTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mxey-IRCCloudTests-Info.plist"; sourceTree = "<group>"; };
-		F28399AE17D659A800CF291D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		F28399B017D659A800CF291D /* mxey_IRCCloudTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mxey_IRCCloudTests.h; sourceTree = "<group>"; };
-		F28399B117D659A800CF291D /* mxey_IRCCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mxey_IRCCloudTests.m; sourceTree = "<group>"; };
-		F28399B317D659A800CF291D /* mxey-IRCCloudTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mxey-IRCCloudTests-Prefix.pch"; sourceTree = "<group>"; };
 		F288A9BE17D35D1D00D4AF6A /* mxey-IRCCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mxey-IRCCloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9C117D35D1D00D4AF6A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		F288A9C417D35D1D00D4AF6A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -92,32 +85,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F28399AA17D659A800CF291D /* mxey-IRCCloudTests */ = {
-			isa = PBXGroup;
-			children = (
-				F28399B017D659A800CF291D /* mxey_IRCCloudTests.h */,
-				F28399B117D659A800CF291D /* mxey_IRCCloudTests.m */,
-				F28399AB17D659A800CF291D /* Supporting Files */,
-			);
-			path = "mxey-IRCCloudTests";
-			sourceTree = "<group>";
-		};
-		F28399AB17D659A800CF291D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				F28399AC17D659A800CF291D /* mxey-IRCCloudTests-Info.plist */,
-				F28399AD17D659A800CF291D /* InfoPlist.strings */,
-				F28399B317D659A800CF291D /* mxey-IRCCloudTests-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		F288A9B517D35D1C00D4AF6A = {
 			isa = PBXGroup;
 			children = (
 				F288A9C717D35D1D00D4AF6A /* mxey-IRCCloud */,
 				F288A9E517D35D1D00D4AF6A /* mxey-IRCCloudTests */,
-				F28399AA17D659A800CF291D /* mxey-IRCCloudTests */,
 				F288A9C017D35D1D00D4AF6A /* Frameworks */,
 				F288A9BF17D35D1D00D4AF6A /* Products */,
 				263842E134D146DEBCEB8203 /* Pods.xcconfig */,
@@ -286,7 +258,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F28399AF17D659A800CF291D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,7 +355,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F28399B217D659A800CF291D /* mxey_IRCCloudTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,14 +374,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		F28399AD17D659A800CF291D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F28399AE17D659A800CF291D /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
