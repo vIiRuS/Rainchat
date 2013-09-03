@@ -38,7 +38,7 @@ describe(@"MXIClient", ^{
             [[loginRequest.HTTPMethod should] equal:@"POST"];
         });
         
-        it(@"disabled implicit cookie handling", ^{
+        it(@"disables implicit cookie handling", ^{
             [[theValue(loginRequest.HTTPShouldHandleCookies) should] equal:theValue(NO)];
         });
     });
