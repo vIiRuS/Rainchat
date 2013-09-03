@@ -17,13 +17,30 @@ describe(@"MXIClient", ^{
         client = [[MXIClient alloc] init];
     });
     
-    it(@"makes a login request with given email and password", ^{
-        NSURLRequest *loginRequest = [client makeLoginRequestWithEmail:email andPassword:password];
-        [[loginRequest.URL should] equal:[NSURL URLWithString:@"https://www.irccloud.com/chat/login"]];
-        NSString *loginRequestBodyString = [[NSString alloc] initWithData:loginRequest.HTTPBody encoding:NSUTF8StringEncoding];
-        [[loginRequestBodyString should] equal:@"email=foo%40example.com&password=password"];
-        [[loginRequest.HTTPMethod should] equal:@"POST"];
-        [[theValue(loginRequest.HTTPShouldHandleCookies) should] equal:theValue(NO)];
+    describe(@"making a login request", ^{
+        __block NSURLRequest *loginRequest;
+        
+        beforeEach(^{
+            loginRequest = [client makeLoginRequestWithEmail:email andPassword:password];
+        });
+
+        
+        it(@"sets correct URL", ^{
+            [[loginRequest.URL should] equal:[NSURL URLWithString:@"https://www.irccloud.com/chat/login"]];
+        });
+        
+        it(@"sets correct request body", ^{
+            NSString *loginRequestBodyString = [[NSString alloc] initWithData:loginRequest.HTTPBody encoding:NSUTF8StringEncoding];
+            [[loginRequestBodyString should] equal:@"email=foo%40example.com&password=password"];
+        });
+        
+        it(@"sets correct request method", ^{
+            [[loginRequest.HTTPMethod should] equal:@"POST"];
+        });
+        
+        it(@"disabled implicit cookie handling", ^{
+            [[theValue(loginRequest.HTTPShouldHandleCookies) should] equal:theValue(NO)];
+        });
     });
     
     it(@"notifies delegate of incoming message", ^{
