@@ -17,8 +17,9 @@
 {
     NSString *account = @"mxey@mxey.net";
     NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
-    self.connection = [[MXIClient alloc] initWithEmail:account andPassword:password];
+    self.connection = [[MXIClient alloc] init];
     self.connection.delegate = self;
+    [self.connection loginWithEmail:account andPassword:password];
 }
 
 - (void)client:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg

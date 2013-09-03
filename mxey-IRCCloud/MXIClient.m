@@ -22,9 +22,9 @@
 
 
 @implementation MXIClient
-- (id)initWithEmail:(NSString *)email andPassword:(NSString *)password
+- (id)init
 {
-    self = [self init];
+    self = [super init];
     if (!self) {
         return nil;
     }
@@ -32,19 +32,23 @@
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
     self.connections = [NSMutableDictionary dictionary];
     self.processingBacklog = NO;
-    [self loginWithEmail:email andPassword:password];
     
     return self;
 }
 
-- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
+- (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password
 {
     NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"login"]];
     NSData *loginPostBody = [[NSString stringWithFormat:@"email=%@&password=%@", [self URLEncodeString:email], [self URLEncodeString:password]] dataUsingEncoding:NSUTF8StringEncoding];
     loginRequest.HTTPBody = loginPostBody;
     loginRequest.HTTPMethod = @"POST";
     loginRequest.HTTPShouldHandleCookies = false;
-    
+    return loginRequest;
+}
+
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
+{
+    NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
         self.cookie = [HTTPResponse allHeaderFields][@"Set-Cookie"];

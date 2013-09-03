@@ -13,5 +13,5 @@
 @interface MXIClient : NSObject <SRWebSocketDelegate>
 @property (nonatomic) id<MXIClientDelegate> delegate;
 @property (nonatomic) NSMutableDictionary *connections;
-- initWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
 @end
