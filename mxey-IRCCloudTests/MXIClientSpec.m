@@ -5,6 +5,7 @@
 - (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password;
 - (NSURLRequest *)makeWebSocketURLRequest;
 - (void)processMessage:(NSDictionary *)messageAttributes;
+- (void)setCookie:(NSString *)cookie;
 @end
 
 SPEC_BEGIN(MXIClientSpec)
@@ -24,7 +25,6 @@ describe(@"MXIClient", ^{
         beforeEach(^{
             loginRequest = [client makeLoginRequestWithEmail:email andPassword:password];
         });
-
         
         it(@"sets correct URL", ^{
             [[loginRequest.URL should] equal:[NSURL URLWithString:@"https://www.irccloud.com/chat/login"]];
@@ -42,8 +42,10 @@ describe(@"MXIClient", ^{
     
     describe(@"making a base NSURLRequest for the WebSocket", ^{
         __block NSURLRequest *webSocketRequest;
+        NSString *sessionCookie = @"faketestsessioncookie";
         
         beforeEach(^{
+            client.cookie = sessionCookie;
             webSocketRequest = [client makeWebSocketURLRequest];
         });
         
@@ -53,6 +55,10 @@ describe(@"MXIClient", ^{
         
         it(@"sets correct Origin header", ^{
             [[[webSocketRequest valueForHTTPHeaderField:@"Origin"] should] equal:@"https://www.irccloud.com"];
+        });
+        
+        it(@"sets correct cookie", ^{
+            [[[webSocketRequest valueForHTTPHeaderField:@"Cookie"] should] equal:sessionCookie];
         });
     });
     
