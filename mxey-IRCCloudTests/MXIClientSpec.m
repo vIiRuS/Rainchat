@@ -19,7 +19,7 @@ describe(@"MXIClient", ^{
         client = [[MXIClient alloc] init];
     });
     
-    describe(@"making a login request", ^{
+    describe(@"making a login NSURLRequest", ^{
         __block NSURLRequest *loginRequest;
         
         beforeEach(^{
