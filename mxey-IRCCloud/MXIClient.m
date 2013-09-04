@@ -78,14 +78,19 @@
     return output;
 }
 
-- (void)openWebSocket
+- (NSURLRequest *)makeWebSocketURLRequest
 {
     NSMutableURLRequest *webSocketURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"wss://www.irccloud.com/"]];
     
     webSocketURLRequest.HTTPShouldHandleCookies = false;
     [webSocketURLRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [webSocketURLRequest setValue:@"https://www.irccloud.com" forHTTPHeaderField:@"Origin"];
-    
+    return webSocketURLRequest;
+}
+
+- (void)openWebSocket
+{
+    NSURLRequest *webSocketURLRequest = [self makeWebSocketURLRequest];
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:webSocketURLRequest];
     self.webSocket.delegate = self;
     [self.webSocket open];

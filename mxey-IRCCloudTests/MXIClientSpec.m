@@ -3,6 +3,7 @@
 
 @interface MXIClient (Test)
 - (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password;
+- (NSURLRequest *)makeWebSocketURLRequest;
 - (void)processMessage:(NSDictionary *)messageAttributes;
 @end
 
@@ -37,9 +38,21 @@ describe(@"MXIClient", ^{
         it(@"sets correct request method", ^{
             [[loginRequest.HTTPMethod should] equal:@"POST"];
         });
+    });
+    
+    describe(@"making a base NSURLRequest for the WebSocket", ^{
+        __block NSURLRequest *webSocketRequest;
         
-        it(@"disables implicit cookie handling", ^{
-            [[theValue(loginRequest.HTTPShouldHandleCookies) should] equal:theValue(NO)];
+        beforeEach(^{
+            webSocketRequest = [client makeWebSocketURLRequest];
+        });
+        
+        it(@"sets correct URL", ^{
+            [[webSocketRequest.URL should] equal:[NSURL URLWithString:@"wss://www.irccloud.com/"]];
+        });
+        
+        it(@"sets correct Origin header", ^{
+            [[[webSocketRequest valueForHTTPHeaderField:@"Origin"] should] equal:@"https://www.irccloud.com"];
         });
     });
     
