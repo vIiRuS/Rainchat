@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8AE2694F5A0147099679819F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F866E98F511A4C498E3456F5 /* libPods.a */; };
 		D74764FF18C74A72BA6E5B45 /* libPods-mxey-IRCCloudTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */; };
+		F21B4C7317D7FC8800F7E1E0 /* MXIClientInitialBacklog.m in Sources */ = {isa = PBXBuildFile; fileRef = F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */; };
+		F21B4C7417D7FC8800F7E1E0 /* MXIClientInitialBacklog.m in Sources */ = {isa = PBXBuildFile; fileRef = F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */; };
+		F21B4C7717D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m in Sources */ = {isa = PBXBuildFile; fileRef = F21B4C7617D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m */; };
+		F21B4C7817D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m in Sources */ = {isa = PBXBuildFile; fileRef = F21B4C7617D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m */; };
 		F28399A817D659A800CF291D /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28399A717D659A800CF291D /* SenTestingKit.framework */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
@@ -18,20 +22,26 @@
 		F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */; };
 		F288A9D817D35D1D00D4AF6A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F288A9D617D35D1D00D4AF6A /* MainMenu.xib */; };
 		F288A9DA17D35D1D00D4AF6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F288A9D917D35D1D00D4AF6A /* Images.xcassets */; };
-		F28FCA1217D665D500BBEF7C /* MXIClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F28FCA1117D665D500BBEF7C /* MXIClientSpec.m */; };
-		F2ACECCA17D3DF3100D3F5C1 /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClient.m */; };
+		F28FCA1217D665D500BBEF7C /* MXIClientTransportSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = F28FCA1117D665D500BBEF7C /* MXIClientTransportSpec.m */; };
+		F2ACECCA17D3DF3100D3F5C1 /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2ACECCF17D5000D00D3F5C1 /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */; };
 		F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */; };
 		F2ACECD517D5299200D3F5C1 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */; };
-		F2F7701F17D7A2BC0017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClient.m */; };
+		F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2F7702017D7A2C90017F91D /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */; };
 		F2F7702117D7A2CC0017F91D /* MXIClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */; };
 		F2F7702217D7A2CE0017F91D /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */; };
+		F2F7702517D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
+		F2F7702617D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		263842E134D146DEBCEB8203 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mxey-IRCCloudTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F21B4C7117D7FC8800F7E1E0 /* MXIClientInitialBacklog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientInitialBacklog.h; sourceTree = "<group>"; };
+		F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientInitialBacklog.m; sourceTree = "<group>"; };
+		F21B4C7517D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientInitialBacklogEnd.h; sourceTree = "<group>"; };
+		F21B4C7617D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientInitialBacklogEnd.m; sourceTree = "<group>"; };
 		F28399A617D659A800CF291D /* mxey-IRCCloudTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mxey-IRCCloudTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F28399A717D659A800CF291D /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		F288A9BE17D35D1D00D4AF6A /* mxey-IRCCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mxey-IRCCloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,10 +62,10 @@
 		F288A9E717D35D1D00D4AF6A /* mxey-IRCCloudTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mxey-IRCCloudTests-Info.plist"; sourceTree = "<group>"; };
 		F288A9E917D35D1D00D4AF6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F288A9EB17D35D1D00D4AF6A /* mxey_IRCCloudTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mxey_IRCCloudTests.m; sourceTree = "<group>"; };
-		F28FCA1117D665D500BBEF7C /* MXIClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientSpec.m; sourceTree = "<group>"; };
+		F28FCA1117D665D500BBEF7C /* MXIClientTransportSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientTransportSpec.m; sourceTree = "<group>"; };
 		F29D69F817D3646200B44A15 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		F2ACECC817D3DF3100D3F5C1 /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClient.h; sourceTree = "<group>"; };
-		F2ACECC917D3DF3100D3F5C1 /* MXIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClient.m; sourceTree = "<group>"; };
+		F2ACECC817D3DF3100D3F5C1 /* MXIClientTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientTransport.h; sourceTree = "<group>"; };
+		F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientTransport.m; sourceTree = "<group>"; };
 		F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXIClientDelegate.h; sourceTree = "<group>"; };
 		F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
 		F2ACECCD17D5000D00D3F5C1 /* MXIClientBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferMessage.h; sourceTree = "<group>"; };
@@ -64,6 +74,8 @@
 		F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientConnection.m; sourceTree = "<group>"; };
 		F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
 		F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
+		F2F7702317D7FA860017F91D /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClient.h; sourceTree = "<group>"; };
+		F2F7702417D7FA860017F91D /* MXIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClient.m; sourceTree = "<group>"; };
 		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA753E9D36254A44B872A17C /* Pods-mxey-IRCCloudTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mxey-IRCCloudTests.xcconfig"; path = "Pods/Pods-mxey-IRCCloudTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -143,13 +155,19 @@
 				F2ACECD017D523E400D3F5C1 /* MXIClientConnection.h */,
 				F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */,
 				F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */,
+				F21B4C7117D7FC8800F7E1E0 /* MXIClientInitialBacklog.h */,
+				F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */,
+				F21B4C7517D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.h */,
+				F21B4C7617D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m */,
 				F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
 				F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */,
 				F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */,
-				F2ACECC817D3DF3100D3F5C1 /* MXIClient.h */,
-				F2ACECC917D3DF3100D3F5C1 /* MXIClient.m */,
+				F2ACECC817D3DF3100D3F5C1 /* MXIClientTransport.h */,
+				F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */,
+				F2F7702317D7FA860017F91D /* MXIClient.h */,
+				F2F7702417D7FA860017F91D /* MXIClient.m */,
 				F29D69F817D3646200B44A15 /* Podfile */,
 				F288A9D617D35D1D00D4AF6A /* MainMenu.xib */,
 				F288A9D917D35D1D00D4AF6A /* Images.xcassets */,
@@ -173,7 +191,7 @@
 		F288A9E517D35D1D00D4AF6A /* mxey-IRCCloudTests */ = {
 			isa = PBXGroup;
 			children = (
-				F28FCA1117D665D500BBEF7C /* MXIClientSpec.m */,
+				F28FCA1117D665D500BBEF7C /* MXIClientTransportSpec.m */,
 				F288A9EB17D35D1D00D4AF6A /* mxey_IRCCloudTests.m */,
 				F288A9E617D35D1D00D4AF6A /* Supporting Files */,
 			);
@@ -362,11 +380,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21B4C7817D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m in Sources */,
 				F2F7702017D7A2C90017F91D /* MXIClientBuffer.m in Sources */,
+				F2F7702617D7FA860017F91D /* MXIClient.m in Sources */,
 				F2F7702117D7A2CC0017F91D /* MXIClientConnection.m in Sources */,
-				F28FCA1217D665D500BBEF7C /* MXIClientSpec.m in Sources */,
+				F28FCA1217D665D500BBEF7C /* MXIClientTransportSpec.m in Sources */,
 				F2F7702217D7A2CE0017F91D /* MXIClientBufferMessage.m in Sources */,
-				F2F7701F17D7A2BC0017F91D /* MXIClient.m in Sources */,
+				F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */,
+				F21B4C7417D7FC8800F7E1E0 /* MXIClientInitialBacklog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,9 +398,12 @@
 				F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */,
 				F288A9CE17D35D1D00D4AF6A /* main.m in Sources */,
 				F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */,
+				F2F7702517D7FA860017F91D /* MXIClient.m in Sources */,
 				F2ACECD517D5299200D3F5C1 /* MXIClientBuffer.m in Sources */,
 				F2ACECCF17D5000D00D3F5C1 /* MXIClientBufferMessage.m in Sources */,
-				F2ACECCA17D3DF3100D3F5C1 /* MXIClient.m in Sources */,
+				F21B4C7317D7FC8800F7E1E0 /* MXIClientInitialBacklog.m in Sources */,
+				F2ACECCA17D3DF3100D3F5C1 /* MXIClientTransport.m in Sources */,
+				F21B4C7717D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
