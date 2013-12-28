@@ -5,3 +5,6 @@
 #import "Pods-mxey-IRCCloudTests-environment.h"
 
 
+
+#import <SenTestingKit/SenTestingKit.h>
+

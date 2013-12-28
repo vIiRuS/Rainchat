@@ -1,7 +1,7 @@
 //
 //  JSONModelError.m
 //
-//  @version 0.9.0
+//  @version 0.10.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -18,14 +18,17 @@
 
 NSString* const JSONModelErrorDomain = @"JSONModelErrorDomain";
 NSString* const kJSONModelMissingKeys = @"kJSONModelMissingKeys";
+NSString* const kJSONModelTypeMismatch = @"kJSONModelTypeMismatch";
+NSString* const kJSONModelKeyPath = @"kJSONModelKeyPath";
 
 @implementation JSONModelError
 
-+(id)errorInvalidData
++(id)errorInvalidDataWithMessage:(NSString*)message
 {
+	message = [NSString stringWithFormat:@"Invalid JSON data: %@", message];
     return [JSONModelError errorWithDomain:JSONModelErrorDomain
-                                                   code:kJSONModelErrorInvalidData
-                                                userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON data. Malformed JSON, server response invalid or other reason for invalid input to a JSONModel class."}];
+                                      code:kJSONModelErrorInvalidData
+                                  userInfo:@{NSLocalizedDescriptionKey:message}];
 }
 
 +(id)errorInvalidDataWithMissingKeys:(NSSet *)keys
@@ -33,6 +36,13 @@ NSString* const kJSONModelMissingKeys = @"kJSONModelMissingKeys";
     return [JSONModelError errorWithDomain:JSONModelErrorDomain
                                       code:kJSONModelErrorInvalidData
                                   userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON data. Required JSON keys are missing from the input. Check the error user information.",kJSONModelMissingKeys:[keys allObjects]}];
+}
+
++(id)errorInvalidDataWithTypeMismatch:(NSString*)mismatchDescription
+{
+    return [JSONModelError errorWithDomain:JSONModelErrorDomain
+                                      code:kJSONModelErrorInvalidData
+                                  userInfo:@{NSLocalizedDescriptionKey:@"Invalid JSON data. The JSON type mismatches the expected type. Check the error user information.",kJSONModelTypeMismatch:mismatchDescription}];
 }
 
 +(id)errorBadResponse
@@ -63,5 +73,21 @@ NSString* const kJSONModelMissingKeys = @"kJSONModelMissingKeys";
                                   userInfo:@{NSLocalizedDescriptionKey:@"Initializing model with nil input object."}];
 }
 
+- (instancetype)errorByPrependingKeyPathComponent:(NSString*)component
+{
+    // Create a mutable  copy of the user info so that we can add to it and update it
+    NSMutableDictionary* userInfo = [self.userInfo mutableCopy];
+
+    // Create or update the key-path
+    NSString* existingPath = [userInfo objectForKey:kJSONModelKeyPath];
+    NSString* separator = [existingPath hasPrefix:@"["] ? @"" : @".";
+    NSString* updatedPath = (existingPath == nil) ? component : [component stringByAppendingFormat:@"%@%@", separator, existingPath];
+    [userInfo setObject:updatedPath forKey:kJSONModelKeyPath];
+
+    // Create the new error
+    return [JSONModelError errorWithDomain:self.domain
+                                      code:self.code
+                                  userInfo:[NSDictionary dictionaryWithDictionary:userInfo]];
+}
 
 @end

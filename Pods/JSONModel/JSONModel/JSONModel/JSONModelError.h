@@ -1,7 +1,7 @@
 //
 //  JSONModelError.h
 //
-//  @version 0.9.0
+//  @version 0.10.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -33,10 +33,25 @@ extern NSString* const JSONModelErrorDomain;
 /** 
  * If the model JSON input misses keys that are required, check the
  * userInfo dictionary of the JSONModelError instance you get back - 
- * under the kJSONModelErrorInvalidData key you will find a list of the 
+ * under the kJSONModelMissingKeys key you will find a list of the
  * names of the missing keys.
  */
 extern NSString* const kJSONModelMissingKeys;
+
+/**
+ * If JSON input has a different type than expected by the model, check the
+ * userInfo dictionary of the JSONModelError instance you get back -
+ * under the kJSONModelTypeMismatch key you will find a description
+ * of the mismatched types.
+ */
+extern NSString* const kJSONModelTypeMismatch;
+
+/**
+ * If an error occurs in a nested model, check the userInfo dictionary of
+ * the JSONModelError instance you get back - under the kJSONModelKeyPath
+ * key you will find key-path at which the error occurred.
+ */
+extern NSString* const kJSONModelKeyPath;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -50,13 +65,19 @@ extern NSString* const kJSONModelMissingKeys;
 /**
  * Creates a JSONModelError instance with code kJSONModelErrorInvalidData = 1
  */
-+(id)errorInvalidData;
++(id)errorInvalidDataWithMessage:(NSString*)message;
 
 /**
  * Creates a JSONModelError instance with code kJSONModelErrorInvalidData = 1
  * @param keys a set of field names that were required, but not found in the input
  */
 +(id)errorInvalidDataWithMissingKeys:(NSSet*)keys;
+
+/**
+ * Creates a JSONModelError instance with code kJSONModelErrorInvalidData = 1
+ * @param A description of the type mismatch that was encountered.
+ */
++(id)errorInvalidDataWithTypeMismatch:(NSString*)mismatchDescription;
 
 /**
  * Creates a JSONModelError instance with code kJSONModelErrorBadResponse = 2
@@ -77,6 +98,15 @@ extern NSString* const kJSONModelMissingKeys;
  * Creates a JSONModelError instance with code kJSONModelErrorNilInput = 5
  */
 +(id)errorInputIsNil;
+
+/**
+ * Creates a new JSONModelError with the same values plus information about the key-path of the error.
+ * Properties in the new error object are the same as those from the receiver,
+ * except that a new key kJSONModelKeyPath is added to the userInfo dictionary.
+ * This key contains the component string parameter. If the key is already present
+ * then the new error object has the component string prepended to the existing value.
+ */
+- (instancetype)errorByPrependingKeyPathComponent:(NSString*)component;
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 @end

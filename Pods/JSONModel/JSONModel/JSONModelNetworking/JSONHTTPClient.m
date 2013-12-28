@@ -1,7 +1,7 @@
 //
 //  JSONModelHTTPClient.m
 //
-//  @version 0.9.0
+//  @version 0.10.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -29,13 +29,8 @@ NSString* const kContentTypeWWWEncoded   = @"application/x-www-form-urlencoded";
 /**
  * Defaults for HTTP requests
  */
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-static int defaultTextEncoding = NSUTF8StringEncoding;
-static int defaultCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-#else
-static long defaultTextEncoding = NSUTF8StringEncoding;
-static long defaultCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-#endif
+static NSStringEncoding defaultTextEncoding = NSUTF8StringEncoding;
+static NSURLRequestCachePolicy defaultCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 
 static int defaultTimeoutInSeconds = 60;
 
@@ -104,7 +99,7 @@ static NSString* requestContentType = nil;
     //fetch the charset name from the default string encoding
     NSString* contentType = requestContentType;
 
-    if ([contentType isEqualToString:kContentTypeAutomatic]) {
+    if (requestString.length>0 && [contentType isEqualToString:kContentTypeAutomatic]) {
         //check for "eventual" JSON array or dictionary
         NSString* firstAndLastChar = [NSString stringWithFormat:@"%@%@",
                                       [requestString substringToIndex:1],
@@ -143,7 +138,7 @@ static NSString* requestContentType = nil;
 }
 
 #pragma mark - networking worker methods
-+(NSData*)syncRequestDataFromURL:(NSURL*)url method:(NSString*)method requestBody:(NSString*)bodyString headers:(NSDictionary*)headers etag:(NSString**)etag error:(JSONModelError**)err
++(NSData*)syncRequestDataFromURL:(NSURL*)url method:(NSString*)method requestBody:(NSData*)bodyData headers:(NSDictionary*)headers etag:(NSString**)etag error:(JSONModelError**)err
 {
     //turn on network indicator
     if (doesControlIndicator) dispatch_async(dispatch_get_main_queue(), ^{[self setNetworkIndicatorVisible:YES];});
@@ -155,35 +150,28 @@ static NSString* requestContentType = nil;
 
     if ([requestContentType isEqualToString:kContentTypeAutomatic]) {
         //automatic content type
-        if (bodyString) {
-            [request addValue: [self contentTypeForRequestString: bodyString] forHTTPHeaderField:@"Content-type"];
+        if (bodyData) {
+            NSString *bodyString = [[NSString alloc] initWithData:bodyData encoding:NSUTF8StringEncoding];
+            [request setValue: [self contentTypeForRequestString: bodyString] forHTTPHeaderField:@"Content-type"];
         }
     } else {
         //user set content type
-        [request addValue: requestContentType forHTTPHeaderField:@"Content-type"];
+        [request setValue: requestContentType forHTTPHeaderField:@"Content-type"];
     }
     
     //add all the custom headers defined
     for (NSString* key in [requestHeaders allKeys]) {
-        [request addValue:requestHeaders[key] forHTTPHeaderField:key];
+        [request setValue:requestHeaders[key] forHTTPHeaderField:key];
     }
     
     //add the custom headers
     for (NSString* key in [headers allKeys]) {
-        [request addValue:headers[key] forHTTPHeaderField:key];
+        [request setValue:headers[key] forHTTPHeaderField:key];
     }
     
-    if (bodyString) {
-        //BODY params
-        NSData* bodyData = [bodyString dataUsingEncoding:defaultTextEncoding];
-        
+    if (bodyData) {
         [request setHTTPBody: bodyData];
-#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED
-        [request addValue:[NSString stringWithFormat:@"%i", [bodyData length]] forHTTPHeaderField:@"Content-Length"];
-#else
-        [request addValue:[NSString stringWithFormat:@"%ld", [bodyData length]] forHTTPHeaderField:@"Content-Length"];
-#endif
-        
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)bodyData.length] forHTTPHeaderField:@"Content-Length"];
     }
     
     //prepare output
@@ -253,7 +241,7 @@ static NSString* requestContentType = nil;
     //call the more general synq request method
     return [self syncRequestDataFromURL: url
                                  method: method
-                            requestBody: [method isEqualToString:kHTTPMethodPOST]?paramsString:nil
+                            requestBody: [method isEqualToString:kHTTPMethodPOST]?[paramsString dataUsingEncoding:NSUTF8StringEncoding]:nil
                                 headers: headers
                                    etag: etag
                                   error: err];
@@ -262,20 +250,40 @@ static NSString* requestContentType = nil;
 #pragma mark - Async network request
 +(void)JSONFromURLWithString:(NSString*)urlString method:(NSString*)method params:(NSDictionary*)params orBodyString:(NSString*)bodyString completion:(JSONObjectBlock)completeBlock
 {
-    NSDictionary* customHeaders = nil;
+    [self JSONFromURLWithString:urlString
+                         method:method
+                         params:params
+                   orBodyString:bodyString
+                        headers:nil
+                     completion:completeBlock];
+}
+
++(void)JSONFromURLWithString:(NSString *)urlString method:(NSString *)method params:(NSDictionary *)params orBodyString:(NSString *)bodyString headers:(NSDictionary *)headers completion:(JSONObjectBlock)completeBlock
+{
+    [self JSONFromURLWithString:urlString
+                         method:method
+                         params:params
+                     orBodyData:[bodyString dataUsingEncoding:NSUTF8StringEncoding]
+                        headers:headers
+                     completion:completeBlock];
+}
+
++(void)JSONFromURLWithString:(NSString*)urlString method:(NSString*)method params:(NSDictionary *)params orBodyData:(NSData*)bodyData headers:(NSDictionary*)headers completion:(JSONObjectBlock)completeBlock
+{
+    NSDictionary* customHeaders = headers;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        NSDictionary* jsonObject = nil;
+        id jsonObject = nil;
         JSONModelError* error = nil;
         NSData* responseData = nil;
         NSString* etag = nil;
         
         @try {
-            if (bodyString) {
+            if (bodyData) {
                 responseData = [self syncRequestDataFromURL: [NSURL URLWithString:urlString]
                                                      method: method
-                                                requestBody: bodyString
+                                                requestBody: bodyData
                                                     headers: customHeaders
                                                        etag: &etag
                                                       error: &error];
@@ -324,7 +332,7 @@ static NSString* requestContentType = nil;
 {
     [self JSONFromURLWithString:urlString method:kHTTPMethodGET
                          params:nil
-                   orBodyString:nil completion:^(NSDictionary *json, JSONModelError* e) {
+                   orBodyString:nil completion:^(id json, JSONModelError* e) {
                        if (completeBlock) completeBlock(json, e);
                    }];
 }
@@ -333,7 +341,7 @@ static NSString* requestContentType = nil;
 {
     [self JSONFromURLWithString:urlString method:kHTTPMethodGET
                          params:params
-                   orBodyString:nil completion:^(NSDictionary *json, JSONModelError* e) {
+                   orBodyString:nil completion:^(id json, JSONModelError* e) {
                        if (completeBlock) completeBlock(json, e);
                    }];
 }
@@ -342,7 +350,7 @@ static NSString* requestContentType = nil;
 {
     [self JSONFromURLWithString:urlString method:kHTTPMethodPOST
                          params:params
-                   orBodyString:nil completion:^(NSDictionary *json, JSONModelError* e) {
+                   orBodyString:nil completion:^(id json, JSONModelError* e) {
                        if (completeBlock) completeBlock(json, e);
                    }];
 
@@ -352,7 +360,7 @@ static NSString* requestContentType = nil;
 {
     [self JSONFromURLWithString:urlString method:kHTTPMethodPOST
                          params:nil
-                   orBodyString:bodyString completion:^(NSDictionary *json, JSONModelError* e) {
+                   orBodyString:bodyString completion:^(id json, JSONModelError* e) {
                        if (completeBlock) completeBlock(json, e);
                    }];
 }
@@ -362,7 +370,7 @@ static NSString* requestContentType = nil;
     [self JSONFromURLWithString:urlString method:kHTTPMethodPOST
                          params:nil
                    orBodyString:[[NSString alloc] initWithData:bodyData encoding:defaultTextEncoding]
-                                 completion:^(NSDictionary *json, JSONModelError* e) {
+                                 completion:^(id json, JSONModelError* e) {
                        if (completeBlock) completeBlock(json, e);
                    }];
 }

@@ -1,7 +1,7 @@
 //
 //  JSONValueTransformer.m
 //
-//  @version 0.9.0
+//  @version 0.10.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -33,7 +33,8 @@ extern BOOL isNull(id value)
     if (self) {
         _primitivesNames = @{@"f":@"float", @"i":@"int", @"d":@"double", @"l":@"long", @"c":@"BOOL", @"s":@"short", @"q":@"long",
                              //and some famos aliases of primitive types
-                             @"I":@"NSInteger"};
+                             // BOOL is now "B" on iOS __LP64 builds
+                             @"I":@"NSInteger", @"B":@"BOOL"};
     }
     return self;
 }
@@ -109,10 +110,22 @@ extern BOOL isNull(id value)
 }
 
 
-#pragma mark - BOOL <-> number
+#pragma mark - BOOL <-> number/string
 -(NSNumber*)BOOLFromNSNumber:(NSNumber*)number
 {
     if (isNull(number)) return @0;
+    return number;
+}
+
+-(NSNumber*)BOOLFromNSString:(NSString*)string
+{
+    int val = [string intValue];
+    if (val!=0) val=1;
+    return @(val);
+}
+
+-(NSNumber*)JSONObjectFromBOOL:(NSNumber*)number
+{
     return number;
 }
 
