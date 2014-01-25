@@ -1,25 +1,16 @@
 PODS:
   - JSONModel (0.10.0)
-  - Kiwi (2.2.3):
-    - Kiwi/SenTestingKit
-  - Kiwi/ARC (2.2.3)
-  - Kiwi/NonARC (2.2.3)
-  - Kiwi/SenTestingKit (2.2.3):
-    - Kiwi/ARC
-    - Kiwi/NonARC
   - RFKeychain (0.1)
   - SocketRocket (0.3.1-beta2)
 
 DEPENDENCIES:
   - JSONModel
-  - Kiwi
   - RFKeychain (~> 0.1)
   - SocketRocket
 
 SPEC CHECKSUMS:
   JSONModel: cecca3c3a9ee1a248b56f7139e2d64b85ce536ec
-  Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
   RFKeychain: 6f70ff418c01b5d76b84796941f3d63672c9e316
   SocketRocket: 7ac946bcce46287a791dfff3c1f8daa692821dae
 
-COCOAPODS: 0.23.0
+COCOAPODS: 0.29.0
