@@ -1,7 +1,7 @@
 //
 //  JSONValueTransformer.m
 //
-//  @version 0.10.0
+//  @version 0.11.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -161,10 +161,20 @@ extern BOOL isNull(id value)
     return [number stringValue];
 }
 
+-(NSDecimalNumber*)NSDecimalNumberFromNSString:(NSString*)string
+{
+    return [NSDecimalNumber decimalNumberWithString:string];
+}
+
+-(NSString*)NSStringFromNSDecimalNumber:(NSDecimalNumber*)number
+{
+    return [number stringValue];
+}
+
 #pragma mark - string <-> url
 -(NSURL*)NSURLFromNSString:(NSString*)string
 {
-    return [NSURL URLWithString: [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    return [NSURL URLWithString:string];
 }
 
 -(NSString*)JSONObjectFromNSURL:(NSURL*)url

@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F28399A517D659A800CF291D"
-               BuildableName = "mxey-IRCCloudTests.octest"
+               BuildableName = "mxey-IRCCloudTests.xctest"
                BlueprintName = "mxey-IRCCloudTests"
                ReferencedContainer = "container:mxey-IRCCloud.xcodeproj">
             </BuildableReference>

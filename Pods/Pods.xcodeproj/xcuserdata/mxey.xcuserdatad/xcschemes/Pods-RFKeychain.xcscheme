@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F37CA7BBEA443D898FFD916"
+               BlueprintIdentifier = "B2ECBD9357D442FEBCCA0FC4"
                BuildableName = "libPods-RFKeychain.a"
                BlueprintName = "Pods-RFKeychain"
                ReferencedContainer = "container:Pods.xcodeproj">
