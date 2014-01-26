@@ -52,8 +52,14 @@
     NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
-        self.cookie = [HTTPResponse allHeaderFields][@"Set-Cookie"];
-        [self openWebSocket];
+        NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        if (decodedResponse[@"success"]) {
+            // Set cookie manually from session ID, instead of copying it from HTTP response, because IRCCloud's WebSocket will not accept their own cookie flags
+            self.cookie = [NSString stringWithFormat:@"%@=%@", @"session", decodedResponse[@"session"]];
+            [self openWebSocket];
+        } else {
+            NSLog(@"Failed to log in.");
+        }
     }];
 }
 
@@ -86,6 +92,7 @@
     webSocketURLRequest.HTTPShouldHandleCookies = false;
     [webSocketURLRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [webSocketURLRequest setValue:@"https://www.irccloud.com" forHTTPHeaderField:@"Origin"];
+    [webSocketURLRequest setValue:@"mxey-IRCCloud" forHTTPHeaderField:@"User-Agent"];
     return webSocketURLRequest;
 }
 
