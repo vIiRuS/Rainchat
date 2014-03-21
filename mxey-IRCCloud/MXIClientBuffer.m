@@ -14,6 +14,7 @@
     return [[JSONKeyMapper alloc] initWithDictionary:@{
         @"cid": @"connectionId",
         @"name": @"name",
+        @"archived": @"isArchived",
     }];
 }
 

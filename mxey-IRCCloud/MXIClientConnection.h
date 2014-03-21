@@ -11,6 +11,7 @@
 
 @interface MXIClientConnection : JSONModel
 @property (nonatomic) NSNumber *connectionId;
+@property (nonatomic) NSString *order;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *nick;
 @property (nonatomic) NSMutableArray<Optional> *buffers;

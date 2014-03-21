@@ -10,10 +10,11 @@
 #import "MXIClient.h"
 #import "MXIClientDelegate.h"
 
-@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate>
+@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
-@property (nonatomic) MXIClient *connection;
+@property (nonatomic) MXIClient *client;
+@property (weak) IBOutlet NSOutlineView *sourceListView;
 
 @end

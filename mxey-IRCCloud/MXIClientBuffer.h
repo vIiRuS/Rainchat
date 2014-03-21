@@ -12,5 +12,5 @@
 @interface MXIClientBuffer : JSONModel
 @property (nonatomic) NSNumber *connectionId;
 @property (nonatomic) NSString *name;
-
+@property(nonatomic) BOOL isArchived;
 @end

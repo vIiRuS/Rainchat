@@ -30,6 +30,7 @@
     
     self.transport = [[MXIClientTransport alloc] initWithClient:self];
     self.connections = [NSMutableDictionary dictionary];
+    self.connectionOrder = [NSMutableArray array];
     return self;
 }
 
@@ -70,11 +71,12 @@
     else if ([message isKindOfClass:[MXIClientConnection class]]) {
         MXIClientConnection *connection = (MXIClientConnection *)message;
         self.connections[connection.connectionId] = connection;
+        [self.connectionOrder addObject:connection];
     }
     else if ([message isKindOfClass:[MXIClientBuffer class]]) {
         MXIClientBuffer *buffer = (MXIClientBuffer *)message;
         MXIClientConnection *connection = self.connections[buffer.connectionId];
-        if (connection) {
+        if (connection && !buffer.isArchived) {
             [connection.buffers addObject:buffer];
         }
     }
