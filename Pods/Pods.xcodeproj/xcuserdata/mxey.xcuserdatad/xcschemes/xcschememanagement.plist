@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-PXSourceList.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-RFKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>7499A33D9FF745F4A2417A61</key>
+		<key>258D5EE73D8349AD8FF42F62</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9B5C12099CF741C5B740879A</key>
+		<key>5CDFF9F4B0DC46DD885885A9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B6E49BCC3E1045FCB23C640C</key>
+		<key>958A4FF36604401DA49B8977</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D8A2EA778E5C4DBCAE6A202C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FBE0460EB711414D95CE3199</key>
+		<key>CFF3B4B1C9F04C85BFA2400C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
