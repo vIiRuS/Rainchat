@@ -71,8 +71,8 @@
 }
 
 - (NSString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
-    NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-    NSString *output = [NSString stringWithFormat:@" %@ <%@> %@\n", localizedDate, bufferMessage.fromNick, bufferMessage.message];
+    NSString *formattedTime = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle];
+    NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.message];
     return output;
 }
 
