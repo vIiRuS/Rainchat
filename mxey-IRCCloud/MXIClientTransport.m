@@ -10,7 +10,7 @@
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
 #import "MXIClientBufferMessage.h"
-#import "MXIClientConnection.h"
+#import "MXIClientServer.h"
 #import "MXIClientInitialBacklog.h"
 #import "MXIClientTransportDelegate.h"
 #import "MXIClientTransportDelegate.h"
@@ -121,7 +121,7 @@
 {
     NSDictionary *messageModelClasses = @{
                                      @"buffer_msg": [MXIClientBufferMessage class],
-                                     @"makeserver": [MXIClientConnection class],
+                                     @"makeserver": [MXIClientServer class],
                                      @"makebuffer": [MXIClientBuffer class],
                                      @"oob_include": [MXIClientInitialBacklog class],
                                      @"backlog_complete": [MXIClientInitialBacklogEnd class],

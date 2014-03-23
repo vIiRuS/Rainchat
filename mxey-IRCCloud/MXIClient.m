@@ -9,7 +9,7 @@
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
 #import "MXIClientBufferMessage.h"
-#import "MXIClientConnection.h"
+#import "MXIClientServer.h"
 #import "MXIClientInitialBacklog.h"
 #import "MXIClientInitialBacklogEnd.h"
 
@@ -29,8 +29,8 @@
     }
     
     self.transport = [[MXIClientTransport alloc] initWithClient:self];
-    self.connections = [NSMutableDictionary dictionary];
-    self.connectionOrder = [NSMutableArray array];
+    self.servers = [NSMutableDictionary dictionary];
+    self.serverOrder = [NSMutableArray array];
     return self;
 }
 
@@ -68,14 +68,14 @@
         self.messageBufferDuringBacklog = nil;
         [self.delegate clientDidFinishInitialBacklog:self];
     }
-    else if ([message isKindOfClass:[MXIClientConnection class]]) {
-        MXIClientConnection *connection = (MXIClientConnection *)message;
-        self.connections[connection.connectionId] = connection;
-        [self.connectionOrder addObject:connection];
+    else if ([message isKindOfClass:[MXIClientServer class]]) {
+        MXIClientServer *connection = (MXIClientServer *)message;
+        self.servers[connection.connectionId] = connection;
+        [self.serverOrder addObject:connection];
     }
     else if ([message isKindOfClass:[MXIClientBuffer class]]) {
         MXIClientBuffer *buffer = (MXIClientBuffer *)message;
-        MXIClientConnection *connection = self.connections[buffer.connectionId];
+        MXIClientServer *connection = self.servers[buffer.connectionId];
         if (connection && !buffer.isArchived) {
             [connection.buffers addObject:buffer];
         }

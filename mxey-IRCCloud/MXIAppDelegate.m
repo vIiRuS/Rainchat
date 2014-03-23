@@ -9,7 +9,7 @@
 #import "MXIAppDelegate.h"
 #import "SRWebSocket.h"
 #import "RFKeychain.h"
-#import "MXIClientConnection.h"
+#import "MXIClientServer.h"
 #import "MXIClientBuffer.h"
 
 
@@ -26,21 +26,21 @@
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     if (item) {
-        MXIClientConnection *connection = item;
+        MXIClientServer *connection = item;
         return connection.buffers.count;
     } else {
-        return self.client.connectionOrder.count;
+        return self.client.serverOrder.count;
     }
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    return [self.client.connectionOrder containsObject:item];
+    return [self.client.serverOrder containsObject:item];
 }
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-    if ([self.client.connectionOrder containsObject:item]) {
+    if ([self.client.serverOrder containsObject:item]) {
         NSTableCellView *connectionCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
-        MXIClientConnection *connection = item;
+        MXIClientServer *connection = item;
         connectionCellView.textField.stringValue = [connection.name uppercaseString];
         return connectionCellView;
     } else {
@@ -53,10 +53,10 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index1 ofItem:(id)item {
     if (item) {
-        MXIClientConnection *connection = item;
+        MXIClientServer *connection = item;
         return connection.buffers[(NSUInteger) index1];
     } else {
-        return self.client.connectionOrder[(NSUInteger) index1];
+        return self.client.serverOrder[(NSUInteger) index1];
     }
 }
 
@@ -78,7 +78,7 @@
 - (void)clientDidFinishInitialBacklog:(MXIClient *)connection
 {
     NSMutableString *text = [self.textView.string mutableCopy];
-    [text appendString:[connection.connections description]];
+    [text appendString:[connection.servers description]];
     self.textView.string = text;
     [self.sourceListView reloadData];
 }

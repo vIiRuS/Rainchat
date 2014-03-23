@@ -23,11 +23,11 @@
 		F288A9DA17D35D1D00D4AF6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F288A9D917D35D1D00D4AF6A /* Images.xcassets */; };
 		F2ACECCA17D3DF3100D3F5C1 /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2ACECCF17D5000D00D3F5C1 /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */; };
-		F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */; };
+		F2ACECD217D523E400D3F5C1 /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientServer.m */; };
 		F2ACECD517D5299200D3F5C1 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */; };
 		F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2F7702017D7A2C90017F91D /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */; };
-		F2F7702117D7A2CC0017F91D /* MXIClientConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */; };
+		F2F7702117D7A2CC0017F91D /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECD117D523E400D3F5C1 /* MXIClientServer.m */; };
 		F2F7702217D7A2CE0017F91D /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */; };
 		F2F7702517D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
 		F2F7702617D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
@@ -66,8 +66,8 @@
 		F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
 		F2ACECCD17D5000D00D3F5C1 /* MXIClientBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferMessage.h; sourceTree = "<group>"; };
 		F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferMessage.m; sourceTree = "<group>"; };
-		F2ACECD017D523E400D3F5C1 /* MXIClientConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientConnection.h; sourceTree = "<group>"; };
-		F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientConnection.m; sourceTree = "<group>"; };
+		F2ACECD017D523E400D3F5C1 /* MXIClientServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientServer.h; sourceTree = "<group>"; };
+		F2ACECD117D523E400D3F5C1 /* MXIClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientServer.m; sourceTree = "<group>"; };
 		F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
 		F2ACECD417D5299200D3F5C1 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
 		F2F7702317D7FA860017F91D /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClient.h; sourceTree = "<group>"; };
@@ -146,8 +146,8 @@
 			children = (
 				F2ACECCD17D5000D00D3F5C1 /* MXIClientBufferMessage.h */,
 				F2ACECCE17D5000D00D3F5C1 /* MXIClientBufferMessage.m */,
-				F2ACECD017D523E400D3F5C1 /* MXIClientConnection.h */,
-				F2ACECD117D523E400D3F5C1 /* MXIClientConnection.m */,
+				F2ACECD017D523E400D3F5C1 /* MXIClientServer.h */,
+				F2ACECD117D523E400D3F5C1 /* MXIClientServer.m */,
 				F2ACECD317D5299200D3F5C1 /* MXIClientBuffer.h */,
 				F21B4C7117D7FC8800F7E1E0 /* MXIClientInitialBacklog.h */,
 				F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */,
@@ -376,7 +376,7 @@
 				F21B4C7817D7FCA000F7E1E0 /* MXIClientInitialBacklogEnd.m in Sources */,
 				F2F7702017D7A2C90017F91D /* MXIClientBuffer.m in Sources */,
 				F2F7702617D7FA860017F91D /* MXIClient.m in Sources */,
-				F2F7702117D7A2CC0017F91D /* MXIClientConnection.m in Sources */,
+				F2F7702117D7A2CC0017F91D /* MXIClientServer.m in Sources */,
 				F2F7702217D7A2CE0017F91D /* MXIClientBufferMessage.m in Sources */,
 				F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */,
 				F21B4C7417D7FC8800F7E1E0 /* MXIClientInitialBacklog.m in Sources */,
@@ -387,7 +387,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2ACECD217D523E400D3F5C1 /* MXIClientConnection.m in Sources */,
+				F2ACECD217D523E400D3F5C1 /* MXIClientServer.m in Sources */,
 				F288A9CE17D35D1D00D4AF6A /* main.m in Sources */,
 				F288A9D517D35D1D00D4AF6A /* MXIAppDelegate.m in Sources */,
 				F2F7702517D7FA860017F91D /* MXIClient.m in Sources */,

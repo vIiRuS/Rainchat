@@ -1,14 +1,14 @@
 //
-//  MXIClientConnection.m
+//  MXIClientServer.m
 //  mxey-IRCCloud
 //
 //  Created by Maximilian Gaß on 02.09.13.
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
-#import "MXIClientConnection.h"
+#import "MXIClientServer.h"
 
-@implementation MXIClientConnection
+@implementation MXIClientServer
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
 {
     self = [super initWithDictionary:dict error:err];

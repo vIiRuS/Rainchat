@@ -1,5 +1,5 @@
 //
-//  MXIClientConnection.h
+//  MXIClientServer.h
 //  mxey-IRCCloud
 //
 //  Created by Maximilian Gaß on 02.09.13.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
 
-@interface MXIClientConnection : JSONModel
+@interface MXIClientServer : JSONModel
 @property (nonatomic) NSNumber *connectionId;
 @property (nonatomic) NSString *order;
 @property (nonatomic) NSString *name;
