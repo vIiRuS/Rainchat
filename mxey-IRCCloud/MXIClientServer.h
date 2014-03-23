@@ -15,7 +15,7 @@
 @property (nonatomic) NSString *order;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *nick;
-@property (nonatomic) NSMutableArray<Optional> *buffers;
+@property(nonatomic) NSMutableArray <Ignore> *buffers;
 @property (nonatomic) MXIClientBuffer<Ignore> *serverConsoleBuffer;
 
 - (void)addBuffer:(MXIClientBuffer *)buffer;
