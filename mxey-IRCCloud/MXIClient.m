@@ -77,7 +77,7 @@
         MXIClientBuffer *buffer = (MXIClientBuffer *)message;
         MXIClientServer *connection = self.servers[buffer.connectionId];
         if (connection && !buffer.isArchived) {
-            [connection.buffers addObject:buffer];
+            [connection addBuffer:buffer];
         }
     }
   

@@ -7,6 +7,7 @@
 //
 
 #import "MXIClientServer.h"
+#import "MXIClientBuffer.h"
 
 @implementation MXIClientServer
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
@@ -26,6 +27,14 @@
         @"nick": @"nick",
         @"order": @"order",
     }];
+}
+
+- (void)addBuffer:(MXIClientBuffer *)buffer {
+    if (buffer.type == MXIClientBufferTypeServerConsole) {
+        self.serverConsoleBuffer = buffer;
+    } else {
+        [self.buffers addObject:buffer];
+    }
 }
 
 @end

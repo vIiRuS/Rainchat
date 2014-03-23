@@ -9,13 +9,22 @@
 #import "MXIClientBuffer.h"
 
 @implementation MXIClientBuffer
-+ (JSONKeyMapper *)keyMapper
-{
++ (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"cid": @"connectionId",
-        @"name": @"name",
-        @"archived": @"isArchived",
+        @"cid" : @"connectionId",
+        @"name" : @"name",
+        @"archived" : @"isArchived",
+        @"buffer_type" : @"type",
     }];
+}
+
+- (void)setTypeWithNSString:(NSString *)typeString {
+    NSDictionary *bufferTypes = @{
+        @"console" : @(MXIClientBufferTypeServerConsole),
+        @"channel" : @(MXIClientBufferTypeChannel),
+        @"conversation" : @(MXIClientBufferTypeConversation),
+    };
+    self.type = (MXIClientBufferType) [bufferTypes[typeString] integerValue];
 }
 
 @end
