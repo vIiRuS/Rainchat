@@ -12,8 +12,10 @@
 #import "MXIClientBufferMessage.h"
 #import "MXIClientConnection.h"
 #import "MXIClientInitialBacklog.h"
+#import "MXIClientTransportDelegate.h"
+#import "MXIClientTransportDelegate.h"
 #import "MXIClientInitialBacklogEnd.h"
-#import <SRWebSocket.h>
+#import "MXIClientTransportDelegate.h"
 
 
 @interface MXIClientTransport ()

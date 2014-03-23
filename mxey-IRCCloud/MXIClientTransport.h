@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <SRWebSocket.h>
-#import "MXIClientDelegate.h"
 
-@class MXIClient;
+@protocol MXIClientTransportDelegate;
+
 
 @interface MXIClientTransport : NSObject <SRWebSocketDelegate>
-- (id)initWithClient:(MXIClient *)client;
+- (id)initWithClient:(id<MXIClientTransportDelegate>)client;
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
 - (void)loadBacklogFromRelativeURL:(NSString *)relativeURL;
 @end

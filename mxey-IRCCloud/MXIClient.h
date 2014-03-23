@@ -10,10 +10,11 @@
 
 #import "MXIClientDelegate.h"
 #import "MXIClientTransport.h"
+#import "MXIClientTransportDelegate.h"
 
-@interface MXIClient : NSObject
+@interface MXIClient : NSObject <MXIClientTransportDelegate>
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
-- (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog;
+
 @property (nonatomic) NSMutableDictionary *connections;
 @property(nonatomic) NSMutableArray *connectionOrder;
 @property (nonatomic) id<MXIClientDelegate> delegate;

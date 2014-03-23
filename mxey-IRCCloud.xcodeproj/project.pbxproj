@@ -35,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		263842E134D146DEBCEB8203 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientTransportDelegate.h; sourceTree = "<group>"; };
 		83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mxey-IRCCloudTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F21B4C7117D7FC8800F7E1E0 /* MXIClientInitialBacklog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientInitialBacklog.h; sourceTree = "<group>"; };
 		F21B4C7217D7FC8800F7E1E0 /* MXIClientInitialBacklog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientInitialBacklog.m; sourceTree = "<group>"; };
@@ -165,6 +166,7 @@
 				F288A9D617D35D1D00D4AF6A /* MainMenu.xib */,
 				F288A9D917D35D1D00D4AF6A /* Images.xcassets */,
 				F288A9C817D35D1D00D4AF6A /* Supporting Files */,
+				335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */,
 			);
 			path = "mxey-IRCCloud";
 			sourceTree = "<group>";
