@@ -16,6 +16,7 @@
 @property (nonatomic) MXIClientTransport *transport;
 @property (nonatomic) NSMutableArray *messageBufferDuringBacklog;
 @property (nonatomic) BOOL processingBacklog;
+@property(nonatomic, strong) NSMutableDictionary *buffers;
 @end
 
 @implementation MXIClient
@@ -30,6 +31,7 @@
     self.transport = [[MXIClientTransport alloc] initWithClient:self];
     self.servers = [NSMutableDictionary dictionary];
     self.serverOrder = [NSMutableArray array];
+    self.buffers = [NSMutableDictionary dictionary];
     return self;
 }
 
@@ -48,6 +50,12 @@
     if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
         MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *)message;
         [self.delegate client:self didReceiveBufferMsg:bufferMessage];
+        MXIClientBuffer *buffer = self.buffers[bufferMessage.bufferId];
+        if (!buffer) {
+            NSLog(@"Received buffer message for non-existent buffer: %@", bufferMessage.bufferId);
+            return;
+        }
+        [buffer didReceiveBufferMessage:bufferMessage];
     }
     else if ([message isKindOfClass:[MXIClientInitialBacklog class]]) {
         MXIClientInitialBacklog *backlog = (MXIClientInitialBacklog *)message;
@@ -78,6 +86,7 @@
         if (server && !buffer.isArchived) {
             [server addBuffer:buffer];
         }
+        self.buffers[buffer.bufferId] = buffer;
     }
   
 }

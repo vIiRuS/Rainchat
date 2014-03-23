@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
+#import "MXIClientBufferMessage.h"
 
 typedef NS_ENUM(NSInteger, MXIClientBufferType) {
     MXIClientBufferTypeServerConsole,
@@ -16,8 +17,14 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 };
 
 @interface MXIClientBuffer : JSONModel
-@property (nonatomic) NSNumber *connectionId;
-@property (nonatomic) NSString *name;
+@property(nonatomic) NSNumber *connectionId;
+@property(nonatomic) NSNumber *bufferId;
+@property(nonatomic) NSString *name;
 @property(nonatomic) BOOL isArchived;
 @property(nonatomic) MXIClientBufferType type;
+
+@property(nonatomic, strong) NSMutableArray <Ignore> *events;
+
+- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage;
+
 @end

@@ -64,11 +64,16 @@
 
 
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
-    NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMsg.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-    NSString *output = [NSString stringWithFormat:@"[%@] %@ [%@] %@ <%@> %@\n", bufferMsg.bufferId, localizedDate, bufferMsg.eventId, bufferMsg.channel, bufferMsg.fromNick, bufferMsg.message];
+    NSString *output = [self formatBufferMessage:bufferMsg];
     NSMutableString *text = [self.textView.string mutableCopy];
     [text appendString:output];
     self.textView.string = text;
+}
+
+- (NSString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
+    NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+    NSString *output = [NSString stringWithFormat:@"[%@] %@ [%@] %@ <%@> %@\n", bufferMessage.bufferId, localizedDate, bufferMessage.eventId, bufferMessage.channel, bufferMessage.fromNick, bufferMessage.message];
+    return output;
 }
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
@@ -79,6 +84,32 @@
 }
 
 
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    MXIClientBuffer *selectedBuffer = [self getSelectedBuffer];
+    if (selectedBuffer) {
+        NSMutableString *bufferText = [NSMutableString string];
+        for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
+            [bufferText appendString:[self formatBufferMessage:bufferMessage]];
+            self.textView.string = bufferText;
+        }
+    }
+}
+
+- (MXIClientBuffer *)getSelectedBuffer {
+    if (self.sourceListView.selectedRow == -1) {
+        return nil;
+    }
+
+    NSObject *item = [self.sourceListView itemAtRow:self.sourceListView.selectedRow];
+    MXIClientBuffer *selectedBuffer;
+    if ([item isKindOfClass:[MXIClientServer class]]) {
+        MXIClientServer *server = (MXIClientServer *) item;
+        selectedBuffer = server.serverConsoleBuffer;
+    } else {
+        selectedBuffer = (MXIClientBuffer *) item;
+    }
+    return selectedBuffer;
+}
 
 
 @end

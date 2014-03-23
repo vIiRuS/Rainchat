@@ -9,9 +9,11 @@
 #import "MXIClientBuffer.h"
 
 @implementation MXIClientBuffer
+
 + (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithDictionary:@{
         @"cid" : @"connectionId",
+        @"bid" : @"bufferId",
         @"name" : @"name",
         @"archived" : @"isArchived",
         @"buffer_type" : @"type",
@@ -27,4 +29,16 @@
     self.type = (MXIClientBufferType) [bufferTypes[typeString] integerValue];
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError **)err {
+    self = [super initWithDictionary:dict error:err];
+    if (self) {
+        self.events = [NSMutableArray array];
+    }
+
+    return self;
+}
+
+- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
+    [self.events addObject:bufferMessage];
+}
 @end
