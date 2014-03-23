@@ -8,7 +8,6 @@
 
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
-#import "MXIClientBufferMessage.h"
 #import "MXIClientServer.h"
 #import "MXIClientInitialBacklog.h"
 #import "MXIClientInitialBacklogEnd.h"
@@ -69,15 +68,15 @@
         [self.delegate clientDidFinishInitialBacklog:self];
     }
     else if ([message isKindOfClass:[MXIClientServer class]]) {
-        MXIClientServer *connection = (MXIClientServer *)message;
-        self.servers[connection.connectionId] = connection;
-        [self.serverOrder addObject:connection];
+        MXIClientServer *server = (MXIClientServer *) message;
+        self.servers[server.connectionId] = server;
+        [self.serverOrder addObject:server];
     }
     else if ([message isKindOfClass:[MXIClientBuffer class]]) {
         MXIClientBuffer *buffer = (MXIClientBuffer *)message;
-        MXIClientServer *connection = self.servers[buffer.connectionId];
-        if (connection && !buffer.isArchived) {
-            [connection addBuffer:buffer];
+        MXIClientServer *server = self.servers[buffer.connectionId];
+        if (server && !buffer.isArchived) {
+            [server addBuffer:buffer];
         }
     }
   

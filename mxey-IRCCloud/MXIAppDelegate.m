@@ -7,10 +7,8 @@
 //
 
 #import "MXIAppDelegate.h"
-#import "SRWebSocket.h"
 #import "RFKeychain.h"
 #import "MXIClientServer.h"
-#import "MXIClientBuffer.h"
 
 
 @implementation MXIAppDelegate
@@ -26,8 +24,8 @@
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     if (item) {
-        MXIClientServer *connection = item;
-        return connection.buffers.count;
+        MXIClientServer *server = item;
+        return server.buffers.count;
     } else {
         return self.client.serverOrder.count;
     }
@@ -39,10 +37,10 @@
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if ([self.client.serverOrder containsObject:item]) {
-        NSTableCellView *connectionCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
-        MXIClientServer *connection = item;
-        connectionCellView.textField.stringValue = [connection.name uppercaseString];
-        return connectionCellView;
+        NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+        MXIClientServer *server = item;
+        serverCellView.textField.stringValue = [server.name uppercaseString];
+        return serverCellView;
     } else {
         NSTableCellView *bufferCellView = [outlineView makeViewWithIdentifier:@"DataCell" owner:self];
         MXIClientBuffer *buffer = item;
@@ -53,8 +51,8 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index1 ofItem:(id)item {
     if (item) {
-        MXIClientServer *connection = item;
-        return connection.buffers[(NSUInteger) index1];
+        MXIClientServer *server = item;
+        return server.buffers[(NSUInteger) index1];
     } else {
         return self.client.serverOrder[(NSUInteger) index1];
     }
@@ -65,9 +63,7 @@
 }
 
 
-
-- (void)client:(MXIClient *)connection didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg
-{
+- (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
     NSString *localizedDate = [NSDateFormatter localizedStringFromDate:bufferMsg.timestamp dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
     NSString *output = [NSString stringWithFormat:@"[%@] %@ [%@] %@ <%@> %@\n", bufferMsg.bufferId, localizedDate, bufferMsg.eventId, bufferMsg.channel, bufferMsg.fromNick, bufferMsg.message];
     NSMutableString *text = [self.textView.string mutableCopy];
@@ -75,10 +71,9 @@
     self.textView.string = text;
 }
 
-- (void)clientDidFinishInitialBacklog:(MXIClient *)connection
-{
+- (void)clientDidFinishInitialBacklog:(MXIClient *)client {
     NSMutableString *text = [self.textView.string mutableCopy];
-    [text appendString:[connection.servers description]];
+    [text appendString:[client.servers description]];
     self.textView.string = text;
     [self.sourceListView reloadData];
 }
