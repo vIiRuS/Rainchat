@@ -656,7 +656,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="696" height="545"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJo-4j-px8">
+                    <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJo-4j-px8">
                         <rect key="frame" x="243" y="20" width="433" height="505"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" id="HdQ-pi-f3e">
@@ -693,7 +693,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frl-hm-DHn">
+                    <scrollView ambiguous="YES" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frl-hm-DHn">
                         <rect key="frame" x="20" y="20" width="202" height="505"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" id="2fI-Lo-hgZ">
@@ -783,6 +783,15 @@
                         </scroller>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="frl-hm-DHn" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="5iF-aO-OS6"/>
+                    <constraint firstAttribute="bottom" secondItem="eJo-4j-px8" secondAttribute="bottom" constant="20" id="Bsw-22-EN4"/>
+                    <constraint firstAttribute="bottom" secondItem="frl-hm-DHn" secondAttribute="bottom" constant="20" id="Mz8-rO-dQm"/>
+                    <constraint firstItem="eJo-4j-px8" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="VxE-yq-R3C"/>
+                    <constraint firstItem="frl-hm-DHn" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="X4C-5d-x5t"/>
+                    <constraint firstAttribute="trailing" secondItem="eJo-4j-px8" secondAttribute="trailing" constant="20" id="peR-wR-d7d"/>
+                    <constraint firstItem="eJo-4j-px8" firstAttribute="leading" secondItem="frl-hm-DHn" secondAttribute="trailing" constant="21" id="uCu-5b-5Av"/>
+                </constraints>
             </view>
         </window>
         <customObject id="494" customClass="MXIAppDelegate">
