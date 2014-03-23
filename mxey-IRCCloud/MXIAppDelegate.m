@@ -90,8 +90,9 @@
         NSMutableString *bufferText = [NSMutableString string];
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
             [bufferText appendString:[self formatBufferMessage:bufferMessage]];
-            self.textView.string = bufferText;
         }
+        self.textView.string = bufferText;
+        [self.textView scrollToEndOfDocument:self];
     }
 }
 
