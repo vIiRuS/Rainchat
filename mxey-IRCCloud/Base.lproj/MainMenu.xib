@@ -782,7 +782,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Gu-wP9">
+                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Gu-wP9">
                         <rect key="frame" x="243" y="20" width="433" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kB3-KX-eRo">
@@ -799,17 +799,21 @@
                     <constraint firstItem="frl-hm-DHn" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="5iF-aO-OS6"/>
                     <constraint firstAttribute="bottom" secondItem="frl-hm-DHn" secondAttribute="bottom" constant="20" id="Mz8-rO-dQm"/>
                     <constraint firstItem="eJo-4j-px8" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="VxE-yq-R3C"/>
+                    <constraint firstItem="h9o-Gu-wP9" firstAttribute="leading" secondItem="frl-hm-DHn" secondAttribute="trailing" constant="21" id="WVV-7z-9hb"/>
                     <constraint firstItem="frl-hm-DHn" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="X4C-5d-x5t"/>
+                    <constraint firstAttribute="trailing" secondItem="h9o-Gu-wP9" secondAttribute="trailing" constant="20" id="YYU-hO-Boz"/>
+                    <constraint firstAttribute="bottom" secondItem="h9o-Gu-wP9" secondAttribute="bottom" constant="20" id="oOF-mK-AMo"/>
                     <constraint firstAttribute="trailing" secondItem="eJo-4j-px8" secondAttribute="trailing" constant="20" id="peR-wR-d7d"/>
+                    <constraint firstItem="h9o-Gu-wP9" firstAttribute="top" secondItem="eJo-4j-px8" secondAttribute="bottom" constant="8" id="qG1-tc-kEi"/>
                     <constraint firstItem="eJo-4j-px8" firstAttribute="leading" secondItem="frl-hm-DHn" secondAttribute="trailing" constant="21" id="uCu-5b-5Av"/>
                 </constraints>
             </view>
         </window>
         <customObject id="494" customClass="MXIAppDelegate">
             <connections>
-                <outlet property="messageTextField" destination="h9o-Gu-wP9" id="WQg-6Z-iCt"/>
-                <outlet property="buffersOutlineView" destination="7IG-fx-CDS" id="X69-oW-0Nd"/>
                 <outlet property="bufferTextView" destination="dzb-JW-biU" id="6W8-tH-TWM"/>
+                <outlet property="buffersOutlineView" destination="7IG-fx-CDS" id="X69-oW-0Nd"/>
+                <outlet property="messageTextField" destination="h9o-Gu-wP9" id="WQg-6Z-iCt"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
