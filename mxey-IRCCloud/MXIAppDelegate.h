@@ -16,5 +16,8 @@
 @property (unsafe_unretained) IBOutlet NSTextView *textView;
 @property (nonatomic) MXIClient *client;
 @property (weak) IBOutlet NSOutlineView *sourceListView;
+@property(weak) IBOutlet NSTextField *inputTextField;
+
+- (IBAction)pressedEnterInInputTextField:(NSTextFieldCell *)sender;
 
 @end

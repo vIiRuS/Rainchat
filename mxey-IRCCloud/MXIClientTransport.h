@@ -13,7 +13,11 @@
 
 
 @interface MXIClientTransport : NSObject <SRWebSocketDelegate>
-- (id)initWithClient:(id<MXIClientTransportDelegate>)client;
+- (id)initWithClient:(id <MXIClientTransportDelegate>)client;
+
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
+
 - (void)loadBacklogFromRelativeURL:(NSString *)relativeURL;
+
+- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId;
 @end

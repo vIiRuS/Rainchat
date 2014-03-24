@@ -9,13 +9,9 @@
 #import "MXIClientTransport.h"
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
-#import "MXIClientBufferMessage.h"
 #import "MXIClientServer.h"
 #import "MXIClientInitialBacklog.h"
-#import "MXIClientTransportDelegate.h"
-#import "MXIClientTransportDelegate.h"
 #import "MXIClientInitialBacklogEnd.h"
-#import "MXIClientTransportDelegate.h"
 
 
 @interface MXIClientTransport ()
@@ -23,6 +19,7 @@
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
 @property (nonatomic) MXIClient *client;
+@property(nonatomic) NSUInteger nextMethodCallRequestId;
 @end
 
 
@@ -36,6 +33,7 @@
 
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
     self.client = client;
+    self.nextMethodCallRequestId = 0;
     return self;
 }
 
@@ -126,7 +124,6 @@
                                      @"oob_include": [MXIClientInitialBacklog class],
                                      @"backlog_complete": [MXIClientInitialBacklogEnd class],
                                      };
-    
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];
     if (!messageModelClass) {
@@ -147,7 +144,7 @@
 {
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageAttributes = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:NULL];
-    
+
     [self processMessage:messageAttributes fromBacklog:NO];
 }
 
@@ -165,4 +162,26 @@
     }];
 }
 
+- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
+    NSDictionary *methodCall = @{
+        @"_reqid" : @([self getNextMethodCallRequestId]),
+        @"_method" : @"say",
+        @"cid" : connectionId,
+        @"to" : bufferName,
+        @"msg" : message
+    };
+    [self sendDictionaryAsJSON:methodCall];
+}
+
+- (void)sendDictionaryAsJSON:(NSDictionary *)dictionary {
+    NSData *dictionaryData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
+    NSString *dictionaryString = [[NSString alloc] initWithData:dictionaryData encoding:NSUTF8StringEncoding];
+    [self.webSocket send:dictionaryString];
+}
+
+- (NSUInteger)getNextMethodCallRequestId {
+    NSUInteger methodCallRequestId = self.nextMethodCallRequestId;
+    self.nextMethodCallRequestId++;
+    return methodCallRequestId;
+}
 @end

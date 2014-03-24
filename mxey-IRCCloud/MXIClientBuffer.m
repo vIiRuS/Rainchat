@@ -41,4 +41,8 @@
 - (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     [self.events addObject:bufferMessage];
 }
+
+- (void)sendMessageWithString:(NSString *)string {
+    [self.client sendMessage:string toBufferName:self.name onConnectionId:self.connectionId];
+}
 @end

@@ -82,6 +82,7 @@
     }
     else if ([message isKindOfClass:[MXIClientBuffer class]]) {
         MXIClientBuffer *buffer = (MXIClientBuffer *)message;
+        buffer.client = self;
         MXIClientServer *server = self.servers[buffer.connectionId];
         if (server && !buffer.isArchived) {
             [server addBuffer:buffer];
@@ -92,4 +93,7 @@
 }
 
 
+- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
+    [self.transport sendMessage:message toBufferName:bufferName onConnectionId:connectionId];
+}
 @end

@@ -66,7 +66,9 @@
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
     if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
         NSString *formattedBufferMessage = [self formatBufferMessage:bufferMsg];
-        [self.textView insertText:formattedBufferMessage];
+        NSMutableString *bufferText = self.textView.textStorage.mutableString;
+        [bufferText appendString:formattedBufferMessage];
+        [self.textView scrollToEndOfDocument:self];
     }
 }
 
@@ -110,4 +112,8 @@
 }
 
 
+- (IBAction)pressedEnterInInputTextField:(NSTextFieldCell *)sender {
+    [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
+    sender.stringValue = @"";
+}
 @end

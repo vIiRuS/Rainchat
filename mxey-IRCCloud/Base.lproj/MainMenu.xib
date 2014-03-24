@@ -657,17 +657,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView ambiguous="YES" misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJo-4j-px8">
-                        <rect key="frame" x="243" y="20" width="433" height="505"/>
+                        <rect key="frame" x="243" y="50" width="433" height="475"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" id="HdQ-pi-f3e">
-                            <rect key="frame" x="1" y="1" width="431" height="503"/>
+                            <rect key="frame" x="1" y="1" width="431" height="473"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" editable="NO" importsGraphics="NO" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="dzb-JW-biU">
-                                    <rect key="frame" x="0.0" y="0.0" width="431" height="503"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="431" height="473"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="431" height="503"/>
+                                    <size key="minSize" width="431" height="473"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment content="Buffer Text">
@@ -678,7 +678,7 @@
                                         </fragment>
                                     </attributedString>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="431" height="503"/>
+                                    <size key="minSize" width="431" height="473"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                 </textView>
                             </subviews>
@@ -689,7 +689,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="VTq-aN-fZh">
-                            <rect key="frame" x="416" y="1" width="16" height="503"/>
+                            <rect key="frame" x="416" y="1" width="16" height="473"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -774,7 +774,7 @@
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="DBl-gj-I7o">
-                            <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
+                            <rect key="frame" x="1" y="488" width="0.0" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="FT8-ff-m1W">
@@ -782,10 +782,21 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Gu-wP9">
+                        <rect key="frame" x="243" y="20" width="433" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="kB3-KX-eRo">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <connections>
+                                <action selector="pressedEnterInInputTextField:" target="494" id="6GS-Uk-OSx"/>
+                            </connections>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="frl-hm-DHn" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="5iF-aO-OS6"/>
-                    <constraint firstAttribute="bottom" secondItem="eJo-4j-px8" secondAttribute="bottom" constant="20" id="Bsw-22-EN4"/>
                     <constraint firstAttribute="bottom" secondItem="frl-hm-DHn" secondAttribute="bottom" constant="20" id="Mz8-rO-dQm"/>
                     <constraint firstItem="eJo-4j-px8" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="VxE-yq-R3C"/>
                     <constraint firstItem="frl-hm-DHn" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="X4C-5d-x5t"/>
@@ -796,6 +807,7 @@
         </window>
         <customObject id="494" customClass="MXIAppDelegate">
             <connections>
+                <outlet property="inputTextField" destination="h9o-Gu-wP9" id="WQg-6Z-iCt"/>
                 <outlet property="sourceListView" destination="7IG-fx-CDS" id="X69-oW-0Nd"/>
                 <outlet property="textView" destination="dzb-JW-biU" id="6W8-tH-TWM"/>
                 <outlet property="window" destination="371" id="532"/>

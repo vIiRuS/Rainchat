@@ -15,7 +15,10 @@
 @interface MXIClient : NSObject <MXIClientTransportDelegate>
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
 
+- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId;
+
 @property (nonatomic) NSMutableDictionary *servers;
+
 @property(nonatomic) NSMutableArray *serverOrder;
 @property (nonatomic) id<MXIClientDelegate> delegate;
 @end
