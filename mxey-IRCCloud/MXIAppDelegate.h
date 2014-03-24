@@ -13,11 +13,11 @@
 @interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (unsafe_unretained) IBOutlet NSTextView *textView;
+@property(unsafe_unretained) IBOutlet NSTextView *bufferTextView;
 @property (nonatomic) MXIClient *client;
-@property (weak) IBOutlet NSOutlineView *sourceListView;
-@property(weak) IBOutlet NSTextField *inputTextField;
+@property(weak) IBOutlet NSOutlineView *buffersOutlineView;
+@property(weak) IBOutlet NSTextField *messageTextField;
 
-- (IBAction)pressedEnterInInputTextField:(NSTextFieldCell *)sender;
+- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender;
 
 @end

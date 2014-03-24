@@ -66,9 +66,9 @@
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
     if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
         NSString *formattedBufferMessage = [self formatBufferMessage:bufferMsg];
-        NSMutableString *bufferText = self.textView.textStorage.mutableString;
+        NSMutableString *bufferText = self.bufferTextView.textStorage.mutableString;
         [bufferText appendString:formattedBufferMessage];
-        [self.textView scrollToEndOfDocument:self];
+        [self.bufferTextView scrollToEndOfDocument:self];
     }
 }
 
@@ -79,7 +79,7 @@
 }
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
-    [self.sourceListView reloadData];
+    [self.buffersOutlineView reloadData];
 }
 
 
@@ -90,17 +90,17 @@
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
             [bufferText appendString:[self formatBufferMessage:bufferMessage]];
         }
-        self.textView.string = bufferText;
-        [self.textView scrollToEndOfDocument:self];
+        self.bufferTextView.string = bufferText;
+        [self.bufferTextView scrollToEndOfDocument:self];
     }
 }
 
 - (MXIClientBuffer *)getSelectedBuffer {
-    if (self.sourceListView.selectedRow == -1) {
+    if (self.buffersOutlineView.selectedRow == -1) {
         return nil;
     }
 
-    NSObject *item = [self.sourceListView itemAtRow:self.sourceListView.selectedRow];
+    NSObject *item = [self.buffersOutlineView itemAtRow:self.buffersOutlineView.selectedRow];
     MXIClientBuffer *selectedBuffer;
     if ([item isKindOfClass:[MXIClientServer class]]) {
         MXIClientServer *server = (MXIClientServer *) item;
@@ -112,7 +112,7 @@
 }
 
 
-- (IBAction)pressedEnterInInputTextField:(NSTextFieldCell *)sender {
+- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }

@@ -790,7 +790,7 @@
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             <connections>
-                                <action selector="pressedEnterInInputTextField:" target="494" id="6GS-Uk-OSx"/>
+                                <action selector="pressedEnterInMessageTextField:" target="494" id="6GS-Uk-OSx"/>
                             </connections>
                         </textFieldCell>
                     </textField>
@@ -807,9 +807,9 @@
         </window>
         <customObject id="494" customClass="MXIAppDelegate">
             <connections>
-                <outlet property="inputTextField" destination="h9o-Gu-wP9" id="WQg-6Z-iCt"/>
-                <outlet property="sourceListView" destination="7IG-fx-CDS" id="X69-oW-0Nd"/>
-                <outlet property="textView" destination="dzb-JW-biU" id="6W8-tH-TWM"/>
+                <outlet property="messageTextField" destination="h9o-Gu-wP9" id="WQg-6Z-iCt"/>
+                <outlet property="buffersOutlineView" destination="7IG-fx-CDS" id="X69-oW-0Nd"/>
+                <outlet property="bufferTextView" destination="dzb-JW-biU" id="6W8-tH-TWM"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
