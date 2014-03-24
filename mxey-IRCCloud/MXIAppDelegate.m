@@ -64,10 +64,10 @@
 
 
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
-    NSString *output = [self formatBufferMessage:bufferMsg];
-    NSMutableString *text = [self.textView.string mutableCopy];
-    [text appendString:output];
-    self.textView.string = text;
+    if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
+        NSString *formattedBufferMessage = [self formatBufferMessage:bufferMsg];
+        [self.textView insertText:formattedBufferMessage];
+    }
 }
 
 - (NSString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
@@ -77,9 +77,6 @@
 }
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
-    NSMutableString *text = [self.textView.string mutableCopy];
-    [text appendString:[client.servers description]];
-    self.textView.string = text;
     [self.sourceListView reloadData];
 }
 
