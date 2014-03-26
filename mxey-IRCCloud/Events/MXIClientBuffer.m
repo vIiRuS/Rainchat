@@ -7,6 +7,8 @@
 //
 
 
+#import "MXIClientBuffer.h"
+
 @implementation MXIClientBuffer
 
 + (JSONKeyMapper *)keyMapper {

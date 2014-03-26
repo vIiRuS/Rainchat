@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
+#import "MXIClientBufferMessage.h"
+
 NSString *const MXIClientBufferMessageNotification = @"net.mxey.rainchat.MXIClientBufferMessageNotification";
 
 
