@@ -8,8 +8,8 @@
 
 #import "MXIClientTransport.h"
 #import "MXIClient.h"
-#import "MXIClientBuffer.h"
-#import "MXIClientServer.h"
+#import "Events/MXIClientBuffer.h"
+#import "Events/MXIClientServer.h"
 
 
 @interface MXIClientTransport ()

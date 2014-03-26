@@ -10,20 +10,18 @@
 
 @implementation MXIClientBufferMessage
 
-+ (JSONKeyMapper *)keyMapper
-{
++ (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"chan": @"channel",
-        @"msg": @"message",
-        @"from": @"fromNick",
-        @"cid": @"connectionId",
-        @"bid": @"bufferId",
-        @"eid": @"eventId",
+        @"chan" : @"channel",
+        @"msg" : @"message",
+        @"from" : @"fromNick",
+        @"cid" : @"connectionId",
+        @"bid" : @"bufferId",
+        @"eid" : @"eventId",
     }];
 }
 
-- (NSDate *)timestamp
-{
+- (NSDate *)timestamp {
     double messageTimestampInMicroseconds = [self.eventId doubleValue];
     double messageTimestampInSeconds = messageTimestampInMicroseconds / 1000000;
     return [NSDate dateWithTimeIntervalSince1970:messageTimestampInSeconds];
