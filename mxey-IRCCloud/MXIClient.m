@@ -7,6 +7,7 @@
 //
 
 #import "MXIClient.h"
+#import "MXIClientServer.h"
 
 @interface MXIClient ()
 @property(nonatomic) MXIClientTransport *transport;
