@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		335B918EE0F0002B7E4CF229 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
+		335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */; };
 		335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
 		335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B935019C388A9957D78D5 /* MXIClientServer.m */; };
 		335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		263842E134D146DEBCEB8203 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferMessage.h; sourceTree = "<group>"; };
+		335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientSayMethodCall.m; sourceTree = "<group>"; };
+		335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientSayMethodCall.h; sourceTree = "<group>"; };
 		335B935019C388A9957D78D5 /* MXIClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientServer.m; sourceTree = "<group>"; };
 		335B93E9D656DF69C003DDC6 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
 		335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
@@ -90,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		335B908CC3894D2946017389 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */,
+				335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		335B91E4A425A5FB80D58209 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +175,7 @@
 				F288A9C817D35D1D00D4AF6A /* Supporting Files */,
 				335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */,
 				335B91E4A425A5FB80D58209 /* Events */,
+				335B908CC3894D2946017389 /* Commands */,
 			);
 			path = "mxey-IRCCloud";
 			sourceTree = "<group>";
@@ -388,6 +401,7 @@
 				335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */,
 				335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */,
 				335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */,
+				335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +551,7 @@
 				GCC_PREFIX_HEADER = "mxey-IRCCloud/mxey-IRCCloud-Prefix.pch";
 				INFOPLIST_FILE = "mxey-IRCCloud/mxey-IRCCloud-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -551,6 +566,7 @@
 				GCC_PREFIX_HEADER = "mxey-IRCCloud/mxey-IRCCloud-Prefix.pch";
 				INFOPLIST_FILE = "mxey-IRCCloud/mxey-IRCCloud-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

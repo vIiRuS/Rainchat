@@ -10,6 +10,7 @@
 #import "MXIClient.h"
 #import "Events/MXIClientBuffer.h"
 #import "Events/MXIClientServer.h"
+#import "MXIClientSayMethodCall.h"
 
 
 @interface MXIClientTransport ()
@@ -199,25 +200,21 @@
 }
 
 - (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
-    NSDictionary *methodCall = @{
-        @"_reqid" : @([self getNextMethodCallRequestId]),
-        @"_method" : @"say",
-        @"cid" : connectionId,
-        @"to" : bufferName,
-        @"msg" : message
-    };
-    [self sendDictionaryAsJSON:methodCall];
+    MXIClientSayMethodCall *sayMethodCall = [[MXIClientSayMethodCall alloc] init];
+    sayMethodCall.requestId = [self incrementAndReturnRequestId];
+    sayMethodCall.connectionId = connectionId;
+    sayMethodCall.bufferName = bufferName;
+    sayMethodCall.message = message;
+    [self callMethod:sayMethodCall];
 }
 
-- (void)sendDictionaryAsJSON:(NSDictionary *)dictionary {
-    NSData *dictionaryData = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:NULL];
-    NSString *dictionaryString = [[NSString alloc] initWithData:dictionaryData encoding:NSUTF8StringEncoding];
-    [self.webSocket send:dictionaryString];
+- (void)callMethod:(MXIClientSayMethodCall *)methodCall {
+    [self.webSocket send:[methodCall toJSONString]];
 }
 
-- (NSUInteger)getNextMethodCallRequestId {
+- (NSNumber *)incrementAndReturnRequestId {
     NSUInteger methodCallRequestId = self.nextMethodCallRequestId;
     self.nextMethodCallRequestId++;
-    return methodCallRequestId;
+    return [NSNumber numberWithUnsignedInteger:methodCallRequestId];
 }
 @end
