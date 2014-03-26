@@ -18,14 +18,13 @@
 @property (nonatomic) SRWebSocket *webSocket;
 @property (nonatomic) NSURL *IRCCloudURL;
 @property (nonatomic) NSString *cookie;
-@property (nonatomic) MXIClient *client;
+@property(nonatomic) id <MXIClientTransportDelegate> client;
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
 @end
 
 
 @implementation MXIClientTransport
-- (id)initWithClient:(MXIClient *)client
-{
+- (id)initWithClient:(id <MXIClientTransportDelegate>)client {
     self = [super init];
     if (!self) {
         return nil;
@@ -51,7 +50,6 @@
 {
     NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSHTTPURLResponse *HTTPResponse = (NSHTTPURLResponse *)response;
         NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
         if (decodedResponse[@"success"]) {
             // Set cookie manually from session ID, instead of copying it from HTTP response, because IRCCloud's WebSocket will not accept their own cookie flags
@@ -68,7 +66,7 @@
 {
     NSMutableString * output = [NSMutableString string];
     const unsigned char * source = (const unsigned char *)[string UTF8String];
-    int sourceLen = strlen((const char *)source);
+    unsigned long sourceLen = strlen((const char *) source);
     for (int i = 0; i < sourceLen; ++i) {
         const unsigned char thisChar = source[i];
         if (thisChar == ' '){
@@ -155,7 +153,7 @@
     backlogFetchRequest.HTTPShouldHandleCookies = false;
     [backlogFetchRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [NSURLConnection sendAsynchronousRequest:backlogFetchRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSArray *decodedBacklog = [NSJSONSerialization JSONObjectWithData:data options:NULL error:NULL];
+        NSArray *decodedBacklog = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
         for (NSDictionary *messageAttributes in decodedBacklog) {
             [self processMessage:messageAttributes fromBacklog:YES];
         }

@@ -10,11 +10,10 @@
 #import <JSONModel.h>
 
 @interface MXIClientBufferMessage : JSONModel
-@property (nonatomic) NSString *channel;
-@property (nonatomic) NSString *fromNick;
-@property (nonatomic) NSString *message;
-@property (nonatomic) NSNumber *eventId;
-@property (nonatomic) NSNumber *bufferId;
-@property (nonatomic) NSNumber *connectionId;
+@property(nonatomic) NSString *fromNick;
+@property(nonatomic) NSString *message;
+@property(nonatomic) NSNumber *eventId;
+@property(nonatomic) NSNumber *bufferId;
+
 - (NSDate *)timestamp;
 @end

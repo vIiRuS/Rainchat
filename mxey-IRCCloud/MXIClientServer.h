@@ -11,12 +11,10 @@
 #import "MXIClientBuffer.h"
 
 @interface MXIClientServer : JSONModel
-@property (nonatomic) NSNumber *connectionId;
-@property (nonatomic) NSString *order;
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *nick;
+@property(nonatomic) NSNumber *connectionId;
+@property(nonatomic) NSString *name;
 @property(nonatomic) NSMutableArray <Ignore> *buffers;
-@property (nonatomic) MXIClientBuffer<Ignore> *serverConsoleBuffer;
+@property(nonatomic) MXIClientBuffer <Ignore> *serverConsoleBuffer;
 
 - (void)addBuffer:(MXIClientBuffer *)buffer;
 @end

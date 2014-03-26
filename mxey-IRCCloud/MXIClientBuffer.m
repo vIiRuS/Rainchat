@@ -20,7 +20,7 @@
     }];
 }
 
-- (void)setTypeWithNSString:(NSString *)typeString {
+- (void)setTypeWithNSString:(NSString *)typeString __unused {
     NSDictionary *bufferTypes = @{
         @"console" : @(MXIClientBufferTypeServerConsole),
         @"channel" : @(MXIClientBufferTypeChannel),
@@ -29,6 +29,8 @@
     self.type = (MXIClientBufferType) [bufferTypes[typeString] integerValue];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Woverriding-method-mismatch"
 - (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError **)err {
     self = [super initWithDictionary:dict error:err];
     if (self) {
@@ -37,6 +39,7 @@
 
     return self;
 }
+#pragma clang diagnostic pop
 
 - (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     [self.events addObject:bufferMessage];

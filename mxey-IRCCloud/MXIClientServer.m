@@ -7,25 +7,25 @@
 //
 
 #import "MXIClientServer.h"
-#import "MXIClientBuffer.h"
 
 @implementation MXIClientServer
-- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err
-{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Woverriding-method-mismatch"
+- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError **)err {
     self = [super initWithDictionary:dict error:err];
     if (self) {
         self.buffers = [NSMutableArray array];
     }
     return self;
 }
+#pragma clang diagnostic pop
 
-+ (JSONKeyMapper *)keyMapper
-{
++ (JSONKeyMapper *)keyMapper {
     return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"cid": @"connectionId",
-        @"name": @"name",
-        @"nick": @"nick",
-        @"order": @"order",
+        @"cid" : @"connectionId",
+        @"name" : @"name",
+        @"nick" : @"nick",
+        @"order" : @"order",
     }];
 }
 
