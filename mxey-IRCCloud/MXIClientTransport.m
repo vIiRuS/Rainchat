@@ -13,9 +13,9 @@
 
 
 @interface MXIClientTransport ()
-@property (nonatomic) SRWebSocket *webSocket;
-@property (nonatomic) NSURL *IRCCloudURL;
-@property (nonatomic) NSString *cookie;
+@property(nonatomic) SRWebSocket *webSocket;
+@property(nonatomic) NSURL *IRCCloudURL;
+@property(nonatomic) NSString *cookie;
 @property(nonatomic) id <MXIClientTransportDelegate> client;
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
 @end
@@ -39,8 +39,7 @@
     return self;
 }
 
-- (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password
-{
+- (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password {
     NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"login"]];
     NSData *loginPostBody = [[NSString stringWithFormat:@"email=%@&password=%@", [self URLEncodeString:email], [self URLEncodeString:password]] dataUsingEncoding:NSUTF8StringEncoding];
     loginRequest.HTTPBody = loginPostBody;
@@ -49,8 +48,7 @@
     return loginRequest;
 }
 
-- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
-{
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password {
     NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
@@ -65,19 +63,18 @@
 }
 
 // From http://stackoverflow.com/questions/3423545/objective-c-iphone-percent-encode-a-string/3426140#3426140
-- URLEncodeString:(NSString *)string
-{
-    NSMutableString * output = [NSMutableString string];
-    const unsigned char * source = (const unsigned char *)[string UTF8String];
+- URLEncodeString:(NSString *)string {
+    NSMutableString *output = [NSMutableString string];
+    const unsigned char *source = (const unsigned char *) [string UTF8String];
     unsigned long sourceLen = strlen((const char *) source);
     for (int i = 0; i < sourceLen; ++i) {
         const unsigned char thisChar = source[i];
-        if (thisChar == ' '){
+        if (thisChar == ' ') {
             [output appendString:@"+"];
         } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
-                   (thisChar >= 'a' && thisChar <= 'z') ||
-                   (thisChar >= 'A' && thisChar <= 'Z') ||
-                   (thisChar >= '0' && thisChar <= '9')) {
+            (thisChar >= 'a' && thisChar <= 'z') ||
+            (thisChar >= 'A' && thisChar <= 'Z') ||
+            (thisChar >= '0' && thisChar <= '9')) {
             [output appendFormat:@"%c", thisChar];
         } else {
             [output appendFormat:@"%%%02X", thisChar];
@@ -86,10 +83,9 @@
     return output;
 }
 
-- (NSURLRequest *)makeWebSocketURLRequest
-{
+- (NSURLRequest *)makeWebSocketURLRequest {
     NSMutableURLRequest *webSocketURLRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"wss://www.irccloud.com/"]];
-    
+
     webSocketURLRequest.HTTPShouldHandleCookies = false;
     [webSocketURLRequest setValue:self.cookie forHTTPHeaderField:@"Cookie"];
     [webSocketURLRequest setValue:@"https://www.irccloud.com" forHTTPHeaderField:@"Origin"];
@@ -97,56 +93,46 @@
     return webSocketURLRequest;
 }
 
-- (void)openWebSocket
-{
+- (void)openWebSocket {
     NSURLRequest *webSocketURLRequest = [self makeWebSocketURLRequest];
     self.webSocket = [[SRWebSocket alloc] initWithURLRequest:webSocketURLRequest];
     self.webSocket.delegate = self;
     [self.webSocket open];
 }
 
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
-{
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket; {
     NSLog(@"Websocket Connected");
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
-{
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error; {
     NSLog(@":( Websocket Failed With Error %@", error);
     self.webSocket = nil;
 }
 
-- (void)processMessage:(NSDictionary *)messageAttributes fromBacklog:(BOOL)fromBacklog
-{
+- (void)processMessage:(NSDictionary *)messageAttributes fromBacklog:(BOOL)fromBacklog {
     if (self.processingBacklog && !fromBacklog) {
         [self.messageBufferDuringBacklog addObject:messageAttributes];
         return;
     }
 
     if ([messageAttributes[@"type"] isEqualTo:@"oob_include"]) {
-        NSLog(@"Initial backlog start");
-        self.messageBufferDuringBacklog = [NSMutableArray array];
-        self.processingBacklog = YES;
-        [self loadBacklogFromRelativeURL:messageAttributes[@"url"]];
+        [self loadInitialBacklogFromURLString:messageAttributes[@"url"]];
     }
     else if ([messageAttributes[@"type"] isEqualTo:@"backlog_complete"]) {
-        self.processingBacklog = NO;
-        NSLog(@"Initial backlog finished");
+        [self finishInitialBacklog];
 
-        NSLog(@"Handling messages received during backlog replay");
-        for (id backlogMessage in self.messageBufferDuringBacklog) {
-            [self.client transport:self receivedMessage:backlogMessage fromBacklog:NO];
-        }
-        self.messageBufferDuringBacklog = nil;
-        [self.client transportDidFinishInitialBacklog:self];
     }
+    else {
+        [self createMessageModelObjectWithAttributes:messageAttributes fromBacklog:fromBacklog];
+    }
+}
 
-
+- (void)createMessageModelObjectWithAttributes:(NSDictionary *)messageAttributes fromBacklog:(BOOL)fromBacklog {
     NSDictionary *messageModelClasses = @{
-                                     @"buffer_msg": [MXIClientBufferMessage class],
-                                     @"makeserver": [MXIClientServer class],
-                                     @"makebuffer": [MXIClientBuffer class],
-                                     };
+        @"buffer_msg" : [MXIClientBufferMessage class],
+        @"makeserver" : [MXIClientServer class],
+        @"makebuffer" : [MXIClientBuffer class],
+    };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];
     if (!messageModelClass) {
@@ -164,16 +150,33 @@
     [self.client transport:self receivedMessage:messageModelObject fromBacklog:fromBacklog];
 }
 
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message;
-{
+- (void)finishInitialBacklog {
+    self.processingBacklog = NO;
+    NSLog(@"Initial backlog finished");
+
+    NSLog(@"Handling messages received during backlog replay");
+    for (id backlogMessage in self.messageBufferDuringBacklog) {
+        [self.client transport:self receivedMessage:backlogMessage fromBacklog:NO];
+    }
+    self.messageBufferDuringBacklog = nil;
+    [self.client transportDidFinishInitialBacklog:self];
+}
+
+- (void)loadInitialBacklogFromURLString:(NSString *)backlogURLString {
+    NSLog(@"Initial backlog start");
+    self.messageBufferDuringBacklog = [NSMutableArray array];
+    self.processingBacklog = YES;
+    [self loadBacklogFromRelativeURL:backlogURLString];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(NSString *)message; {
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageAttributes = [NSJSONSerialization JSONObjectWithData:messageData options:0 error:NULL];
 
     [self processMessage:messageAttributes fromBacklog:NO];
 }
 
-- (void)loadBacklogFromRelativeURL:(NSString *)relativeURL
-{
+- (void)loadBacklogFromRelativeURL:(NSString *)relativeURL {
     NSURL *URL = [NSURL URLWithString:relativeURL relativeToURL:self.IRCCloudURL];
     NSMutableURLRequest *backlogFetchRequest = [NSMutableURLRequest requestWithURL:URL];
     backlogFetchRequest.HTTPShouldHandleCookies = false;
