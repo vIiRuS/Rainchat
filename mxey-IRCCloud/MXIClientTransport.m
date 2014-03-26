@@ -19,6 +19,7 @@
 @property(nonatomic) NSString *cookie;
 @property(nonatomic) id <MXIClientTransportDelegate> client;
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
+@property(nonatomic, strong) NSMutableDictionary *unansweredMethodCallCompletionBlocks;
 @end
 
 
@@ -37,6 +38,7 @@
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
     self.client = client;
     self.nextMethodCallRequestId = 0;
+    self.unansweredMethodCallCompletionBlocks = [NSMutableDictionary dictionary];
     return self;
 }
 
@@ -116,15 +118,24 @@
         return;
     }
 
-    if ([messageAttributes[@"type"] isEqualTo:@"oob_include"]) {
+    if (messageAttributes[@"_reqid"]) {
+        [self methodCallCompleted:messageAttributes[@"_reqid"]];
+    }
+    else if ([messageAttributes[@"type"] isEqualTo:@"oob_include"]) {
         [self loadInitialBacklogFromURLString:messageAttributes[@"url"]];
     }
     else if ([messageAttributes[@"type"] isEqualTo:@"backlog_complete"]) {
         [self finishInitialBacklog];
-
     }
     else {
         [self createMessageModelObjectWithAttributes:messageAttributes fromBacklog:fromBacklog];
+    }
+}
+
+- (void)methodCallCompleted:(NSNumber *)requestId {
+    void(^onCompletion)() = self.unansweredMethodCallCompletionBlocks[requestId];
+    if (onCompletion) {
+        onCompletion();
     }
 }
 
@@ -205,10 +216,13 @@
     sayMethodCall.connectionId = connectionId;
     sayMethodCall.bufferName = bufferName;
     sayMethodCall.message = message;
-    [self callMethod:sayMethodCall];
+    [self callMethod:sayMethodCall onCompletion:^{
+        NSLog(@"Received response to method call");
+    }];
 }
 
-- (void)callMethod:(MXIClientMethodCall *)methodCall {
+- (void)callMethod:(MXIClientMethodCall *)methodCall onCompletion:(void (^)())onCompletion {
+    self.unansweredMethodCallCompletionBlocks[methodCall.requestId] = onCompletion;
     [self.webSocket send:[methodCall toJSONString]];
 }
 
