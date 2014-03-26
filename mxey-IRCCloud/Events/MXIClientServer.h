@@ -15,6 +15,4 @@
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSMutableArray <Ignore> *buffers;
 @property(nonatomic) MXIClientBuffer <Ignore> *serverConsoleBuffer;
-
-- (void)addBuffer:(MXIClientBuffer *)buffer;
 @end

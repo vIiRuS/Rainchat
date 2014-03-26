@@ -7,23 +7,20 @@
 //
 
 #import "MXIClient.h"
-#import "MXIClientBuffer.h"
-#import "MXIClientServer.h"
 
 @interface MXIClient ()
-@property (nonatomic) MXIClientTransport *transport;
+@property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic, strong) NSMutableDictionary *buffers;
 @end
 
 @implementation MXIClient
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     if (!self) {
         return nil;
     }
-    
+
     self.transport = [[MXIClientTransport alloc] initWithClient:self];
     self.servers = [NSMutableDictionary dictionary];
     self.serverOrder = [NSMutableArray array];
@@ -31,8 +28,7 @@
     return self;
 }
 
-- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
-{
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password {
     [self.transport loginWithEmail:email andPassword:password];
 }
 
@@ -40,27 +36,13 @@
     [self.delegate clientDidFinishInitialBacklog:self];
 }
 
-- (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog
-{
+- (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog {
     if ([message isKindOfClass:[MXIClientServer class]]) {
         MXIClientServer *server = (MXIClientServer *) message;
         self.servers[server.connectionId] = server;
         [self.serverOrder addObject:server];
     }
-    else if ([message isKindOfClass:[MXIClientBuffer class]]) {
-        MXIClientBuffer *buffer = (MXIClientBuffer *)message;
-        buffer.client = self;
-        MXIClientServer *server = self.servers[buffer.connectionId];
-        if (server && !buffer.isArchived) {
-            [server addBuffer:buffer];
-        }
-        self.buffers[buffer.bufferId] = buffer;
-    }
-  
+
 }
 
-
-- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
-    [self.transport sendMessage:message toBufferName:bufferName onConnectionId:connectionId];
-}
 @end

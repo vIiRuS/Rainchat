@@ -146,8 +146,14 @@
         return;
     }
 
+    if ([messageModelObject respondsToSelector:@selector(setTransport:)]) {
+        [messageModelObject setTransport:self];
+    }
+
     if ([messageModelObject isKindOfClass:[MXIClientBufferMessage class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferMessageNotification object:messageModelObject];
+    } else if ([messageModelObject isKindOfClass:[MXIClientBuffer class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferNotification object:messageModelObject];
     } else {
         [self.client transport:self receivedMessage:messageModelObject fromBacklog:fromBacklog];
     }

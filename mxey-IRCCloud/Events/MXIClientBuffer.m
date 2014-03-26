@@ -9,6 +9,9 @@
 
 #import "MXIClientBuffer.h"
 
+NSString *const MXIClientBufferNotification = @"net.mxey.rainchat.MXIClientBufferNotification";
+
+
 @implementation MXIClientBuffer
 
 + (JSONKeyMapper *)keyMapper {
@@ -42,6 +45,9 @@
     return self;
 }
 #pragma clang diagnostic pop
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)receivedBufferMessage:(NSNotification *)notification {
     MXIClientBufferMessage *message = notification.object;
@@ -52,6 +58,6 @@
 }
 
 - (void)sendMessageWithString:(NSString *)string {
-    [self.client sendMessage:string toBufferName:self.name onConnectionId:self.connectionId];
+    [self.transport sendMessage:string toBufferName:self.name onConnectionId:self.connectionId];
 }
 @end
