@@ -8,6 +8,8 @@
 
 #import "MXIClientServer.h"
 
+NSString *const MXIClientServerNotification = @"net.mxey.rainchat.MXIClientServerNotification";
+
 @implementation MXIClientServer
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Woverriding-method-mismatch"

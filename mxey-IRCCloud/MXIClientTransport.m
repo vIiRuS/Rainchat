@@ -154,8 +154,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferMessageNotification object:messageModelObject];
     } else if ([messageModelObject isKindOfClass:[MXIClientBuffer class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferNotification object:messageModelObject];
-    } else {
-        [self.client transport:self receivedMessage:messageModelObject fromBacklog:fromBacklog];
+    } else if ([messageModelObject isKindOfClass:[MXIClientServer class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientServerNotification object:messageModelObject];
     }
 }
 
@@ -165,7 +165,7 @@
 
     NSLog(@"Handling messages received during backlog replay");
     for (id backlogMessage in self.messageBufferDuringBacklog) {
-        [self.client transport:self receivedMessage:backlogMessage fromBacklog:NO];
+        [self processMessage:backlogMessage fromBacklog:NO];
     }
     self.messageBufferDuringBacklog = nil;
     [self.client transportDidFinishInitialBacklog:self];
