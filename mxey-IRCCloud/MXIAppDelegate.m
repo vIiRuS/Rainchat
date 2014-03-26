@@ -8,15 +8,15 @@
 
 #import "MXIAppDelegate.h"
 #import "RFKeychain.h"
-#import "MXIClientServer.h"
+#import "Events/MXIClientServer.h"
 
 
 @implementation MXIAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSString *account = @"mxey@mxey.net";
     NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBufferMessage:) name:MXIClientBufferMessageNotification object:nil];
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
     [self.client loginWithEmail:account andPassword:password];
@@ -63,7 +63,8 @@
 }
 
 
-- (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
+- (void)receivedBufferMessage:(NSNotification *)notification {
+    MXIClientBufferMessage *bufferMsg = notification.object;
     if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
         NSString *formattedBufferMessage = [self formatBufferMessage:bufferMsg];
         NSMutableString *bufferText = self.bufferTextView.textStorage.mutableString;

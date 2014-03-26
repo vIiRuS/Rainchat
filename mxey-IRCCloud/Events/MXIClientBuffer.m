@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
-#import "MXIClientBuffer.h"
 
 @implementation MXIClientBuffer
 
@@ -35,14 +34,19 @@
     self = [super initWithDictionary:dict error:err];
     if (self) {
         self.events = [NSMutableArray array];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBufferMessage:) name:MXIClientBufferMessageNotification object:nil];
     }
 
     return self;
 }
 #pragma clang diagnostic pop
 
-- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
-    [self.events addObject:bufferMessage];
+- (void)receivedBufferMessage:(NSNotification *)notification {
+    MXIClientBufferMessage *message = notification.object;
+
+    if ([message.bufferId isEqualToNumber:self.bufferId]) {
+        [self.events addObject:message];
+    }
 }
 
 - (void)sendMessageWithString:(NSString *)string {

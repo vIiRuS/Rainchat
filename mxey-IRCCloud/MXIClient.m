@@ -42,17 +42,7 @@
 
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog
 {
-    if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
-        MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *)message;
-        [self.delegate client:self didReceiveBufferMsg:bufferMessage];
-        MXIClientBuffer *buffer = self.buffers[bufferMessage.bufferId];
-        if (!buffer) {
-            NSLog(@"Received buffer message for non-existent buffer: %@", bufferMessage.bufferId);
-            return;
-        }
-        [buffer didReceiveBufferMessage:bufferMessage];
-    }
-    else if ([message isKindOfClass:[MXIClientServer class]]) {
+    if ([message isKindOfClass:[MXIClientServer class]]) {
         MXIClientServer *server = (MXIClientServer *) message;
         self.servers[server.connectionId] = server;
         [self.serverOrder addObject:server];
