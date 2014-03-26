@@ -10,8 +10,6 @@
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
-#import "MXIClientInitialBacklog.h"
-#import "MXIClientInitialBacklogEnd.h"
 
 
 @interface MXIClientTransport ()
@@ -22,6 +20,11 @@
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
 @end
 
+
+@interface MXIClientTransport ()
+@property(nonatomic) NSMutableArray *messageBufferDuringBacklog;
+@property(nonatomic) BOOL processingBacklog;
+@end
 
 @implementation MXIClientTransport
 - (id)initWithClient:(id <MXIClientTransportDelegate>)client {
@@ -115,12 +118,34 @@
 
 - (void)processMessage:(NSDictionary *)messageAttributes fromBacklog:(BOOL)fromBacklog
 {
+    if (self.processingBacklog && !fromBacklog) {
+        [self.messageBufferDuringBacklog addObject:messageAttributes];
+        return;
+    }
+
+    if ([messageAttributes[@"type"] isEqualTo:@"oob_include"]) {
+        NSLog(@"Initial backlog start");
+        self.messageBufferDuringBacklog = [NSMutableArray array];
+        self.processingBacklog = YES;
+        [self loadBacklogFromRelativeURL:messageAttributes[@"url"]];
+    }
+    else if ([messageAttributes[@"type"] isEqualTo:@"backlog_complete"]) {
+        self.processingBacklog = NO;
+        NSLog(@"Initial backlog finished");
+
+        NSLog(@"Handling messages received during backlog replay");
+        for (id backlogMessage in self.messageBufferDuringBacklog) {
+            [self.client transport:self receivedMessage:backlogMessage fromBacklog:NO];
+        }
+        self.messageBufferDuringBacklog = nil;
+        [self.client transportDidFinishInitialBacklog:self];
+    }
+
+
     NSDictionary *messageModelClasses = @{
                                      @"buffer_msg": [MXIClientBufferMessage class],
                                      @"makeserver": [MXIClientServer class],
                                      @"makebuffer": [MXIClientBuffer class],
-                                     @"oob_include": [MXIClientInitialBacklog class],
-                                     @"backlog_complete": [MXIClientInitialBacklogEnd class],
                                      };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];
@@ -128,13 +153,14 @@
         NSLog(@"Unhandled IRCCloud stream message type: %@", messageAttributes[@"type"]);
         return;
     }
-    
+
     id messageModelObject = [[messageModelClass alloc] initWithDictionary:messageAttributes error:&error];
     if (!messageModelObject) {
         NSLog(@"Failed to create model object %@: %@", messageModelClass, [error localizedDescription]);
         return;
     }
-    
+
+
     [self.client transport:self receivedMessage:messageModelObject fromBacklog:fromBacklog];
 }
 

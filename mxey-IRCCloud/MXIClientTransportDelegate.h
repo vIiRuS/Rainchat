@@ -9,4 +9,6 @@
 
 @protocol MXIClientTransportDelegate <NSObject>
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog;
+
+- (void)transportDidFinishInitialBacklog:(MXIClientTransport *)transport;
 @end

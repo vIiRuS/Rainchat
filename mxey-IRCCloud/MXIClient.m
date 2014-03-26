@@ -9,13 +9,9 @@
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
-#import "MXIClientInitialBacklog.h"
-#import "MXIClientInitialBacklogEnd.h"
 
 @interface MXIClient ()
 @property (nonatomic) MXIClientTransport *transport;
-@property (nonatomic) NSMutableArray *messageBufferDuringBacklog;
-@property (nonatomic) BOOL processingBacklog;
 @property(nonatomic, strong) NSMutableDictionary *buffers;
 @end
 
@@ -40,13 +36,12 @@
     [self.transport loginWithEmail:email andPassword:password];
 }
 
+- (void)transportDidFinishInitialBacklog:(MXIClientTransport *)transport {
+    [self.delegate clientDidFinishInitialBacklog:self];
+}
+
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog
 {
-    if (self.processingBacklog && !fromBacklog) {
-        [self.messageBufferDuringBacklog addObject:message];
-        return;
-    }
-
     if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
         MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *)message;
         [self.delegate client:self didReceiveBufferMsg:bufferMessage];
@@ -56,24 +51,6 @@
             return;
         }
         [buffer didReceiveBufferMessage:bufferMessage];
-    }
-    else if ([message isKindOfClass:[MXIClientInitialBacklog class]]) {
-        MXIClientInitialBacklog *backlog = (MXIClientInitialBacklog *)message;
-        NSLog(@"Initial backlog start");
-        self.messageBufferDuringBacklog = [NSMutableArray array];
-        self.processingBacklog = YES;
-        [self.transport loadBacklogFromRelativeURL:backlog.url];
-    }
-    else if ([message isKindOfClass:[MXIClientInitialBacklogEnd class]]) {
-        self.processingBacklog = NO;
-        NSLog(@"Initial backlog finished");
-        
-        NSLog(@"Handling messages received during backlog replay");
-        for (id backlogMessage in self.messageBufferDuringBacklog) {
-            [self transport:self.transport receivedMessage:backlogMessage fromBacklog:NO];
-        }
-        self.messageBufferDuringBacklog = nil;
-        [self.delegate clientDidFinishInitialBacklog:self];
     }
     else if ([message isKindOfClass:[MXIClientServer class]]) {
         MXIClientServer *server = (MXIClientServer *) message;
