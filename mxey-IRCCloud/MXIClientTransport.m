@@ -208,7 +208,7 @@
     [self callMethod:sayMethodCall];
 }
 
-- (void)callMethod:(MXIClientSayMethodCall *)methodCall {
+- (void)callMethod:(MXIClientMethodCall *)methodCall {
     [self.webSocket send:[methodCall toJSONString]];
 }
 

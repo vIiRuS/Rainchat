@@ -5,11 +5,10 @@
 
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
+#import "MXIClientMethodCall.h"
 
 
-@interface MXIClientSayMethodCall : JSONModel
-@property(nonatomic) NSString *methodName;
-@property(nonatomic) NSNumber *requestId;
+@interface MXIClientSayMethodCall : MXIClientMethodCall
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *bufferName;
 @property(nonatomic) NSString *message;
