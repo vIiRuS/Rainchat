@@ -213,14 +213,6 @@
     }];
 }
 
-- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
-    MXIClientSayMethodCall *sayMethodCall = [[MXIClientSayMethodCall alloc] init];
-    sayMethodCall.connectionId = connectionId;
-    sayMethodCall.bufferName = bufferName;
-    sayMethodCall.message = message;
-    [self callMethod:sayMethodCall];
-}
-
 - (void)callMethod:(MXIClientMethodCall *)methodCall {
     methodCall.requestId = [self incrementAndReturnRequestId];
     self.unansweredMethodCalls[methodCall.requestId] = methodCall;

@@ -10,6 +10,7 @@
 #import <SRWebSocket.h>
 
 @protocol MXIClientTransportDelegate;
+@class MXIClientMethodCall;
 
 
 @interface MXIClientTransport : NSObject <SRWebSocketDelegate>
@@ -19,5 +20,5 @@
 
 - (void)loadBacklogFromRelativeURL:(NSString *)relativeURL;
 
-- (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId;
+- (void)callMethod:(MXIClientMethodCall *)methodCall;
 @end

@@ -7,6 +7,8 @@
 //
 
 
+#import "MXIClientSayMethodCall.h"
+#import "MXIClient.h"
 #import "MXIClientBuffer.h"
 
 NSString *const MXIClientBufferNotification = @"net.mxey.rainchat.MXIClientBufferNotification";
@@ -58,6 +60,11 @@ NSString *const MXIClientBufferNotification = @"net.mxey.rainchat.MXIClientBuffe
 }
 
 - (void)sendMessageWithString:(NSString *)string {
-    [self.transport sendMessage:string toBufferName:self.name onConnectionId:self.connectionId];
+    MXIClientSayMethodCall *sayMethodCall = [[MXIClientSayMethodCall alloc] init];
+    sayMethodCall.connectionId = self.connectionId;
+    sayMethodCall.bufferName = self.name;
+    sayMethodCall.message = string;
+    [self.transport callMethod:sayMethodCall];
 }
+
 @end
