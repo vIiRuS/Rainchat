@@ -6,10 +6,16 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
+#import "MXIClient.h"
 #import "MXIAppDelegate.h"
 #import "RFKeychain.h"
 #import "Events/MXIClientServer.h"
+#import "MXIClientUserStats.h"
 
+
+@interface MXIAppDelegate ()
+@property(nonatomic, strong) NSArray *highlights;
+@end
 
 @implementation MXIAppDelegate
 
@@ -17,8 +23,10 @@
     NSString *account = @"mxey@mxey.net";
     NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedBufferMessage:) name:MXIClientBufferMessageNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setUserStats:) name:MXIClientUserStatsNotification object:nil];
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
+    self.highlights = [NSArray array];
     [self.client loginWithEmail:account andPassword:password];
 }
 
@@ -73,9 +81,22 @@
     }
 }
 
+- (BOOL)isStringHighlighting:(NSString *)string {
+    for (NSString *highlight in self.highlights) {
+        if ([string rangeOfString:highlight].location != NSNotFound) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
 - (NSString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     NSString *formattedTime = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle];
     NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.message];
+    if ([self isStringHighlighting:bufferMessage.message]) {
+        output = [NSString stringWithFormat:@"HILIGHT: %@", output];
+    }
     return output;
 }
 
@@ -122,5 +143,10 @@
 - (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
+}
+
+- (void)setUserStats:(NSNotification *)notification {
+    MXIClientUserStats *userStats = notification.object;
+    self.highlights = userStats.highlights;
 }
 @end

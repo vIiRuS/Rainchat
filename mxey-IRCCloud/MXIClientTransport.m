@@ -11,6 +11,7 @@
 #import "Events/MXIClientBuffer.h"
 #import "Events/MXIClientServer.h"
 #import "MXIClientSayMethodCall.h"
+#import "MXIClientUserStats.h"
 
 
 @interface MXIClientTransport ()
@@ -145,6 +146,7 @@
         @"buffer_msg" : [MXIClientBufferMessage class],
         @"makeserver" : [MXIClientServer class],
         @"makebuffer" : [MXIClientBuffer class],
+        @"stat_user" : [MXIClientUserStats class],
     };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];
@@ -169,6 +171,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferNotification object:messageModelObject];
     } else if ([messageModelObject isKindOfClass:[MXIClientServer class]]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientServerNotification object:messageModelObject];
+    } else if ([messageModelObject isKindOfClass:[MXIClientUserStats class]]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientUserStatsNotification object:messageModelObject];
     }
 }
 
