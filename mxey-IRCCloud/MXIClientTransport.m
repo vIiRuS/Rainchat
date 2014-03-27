@@ -19,7 +19,7 @@
 @property(nonatomic) NSString *cookie;
 @property(nonatomic) id <MXIClientTransportDelegate> client;
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
-@property(nonatomic, strong) NSMutableDictionary *unansweredMethodCallCompletionBlocks;
+@property(nonatomic, strong) NSMutableDictionary *unansweredMethodCalls;
 @end
 
 
@@ -38,7 +38,7 @@
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
     self.client = client;
     self.nextMethodCallRequestId = 0;
-    self.unansweredMethodCallCompletionBlocks = [NSMutableDictionary dictionary];
+    self.unansweredMethodCalls = [NSMutableDictionary dictionary];
     return self;
 }
 
@@ -119,7 +119,11 @@
     }
 
     if (messageAttributes[@"_reqid"]) {
-        [self methodCallCompleted:messageAttributes[@"_reqid"]];
+        NSNumber *requestId = messageAttributes[@"_reqid"];
+        MXIClientMethodCall *methodCall = self.unansweredMethodCalls[requestId];
+        if (methodCall) {
+            [self methodCall:methodCall didFinish:[messageAttributes[@"success"] boolValue] error:messageAttributes[@"message"]];
+        }
     }
     else if ([messageAttributes[@"type"] isEqualTo:@"oob_include"]) {
         [self loadInitialBacklogFromURLString:messageAttributes[@"url"]];
@@ -132,10 +136,9 @@
     }
 }
 
-- (void)methodCallCompleted:(NSNumber *)requestId {
-    void(^onCompletion)() = self.unansweredMethodCallCompletionBlocks[requestId];
-    if (onCompletion) {
-        onCompletion();
+- (void)methodCall:(MXIClientMethodCall *)methodCall didFinish:(BOOL)successful error:(NSString *)errorMessage {
+    if (!successful) {
+        NSLog(@"Method call %@ failed: %@", methodCall, errorMessage);
     }
 }
 
@@ -216,13 +219,11 @@
     sayMethodCall.connectionId = connectionId;
     sayMethodCall.bufferName = bufferName;
     sayMethodCall.message = message;
-    [self callMethod:sayMethodCall onCompletion:^{
-        NSLog(@"Received response to method call");
-    }];
+    [self callMethod:sayMethodCall];
 }
 
-- (void)callMethod:(MXIClientMethodCall *)methodCall onCompletion:(void (^)())onCompletion {
-    self.unansweredMethodCallCompletionBlocks[methodCall.requestId] = onCompletion;
+- (void)callMethod:(MXIClientMethodCall *)methodCall {
+    self.unansweredMethodCalls[methodCall.requestId] = methodCall;
     [self.webSocket send:[methodCall toJSONString]];
 }
 
