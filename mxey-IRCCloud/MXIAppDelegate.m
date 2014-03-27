@@ -93,7 +93,13 @@
         }
         self.bufferTextView.string = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
+        [self focusMessageTextField];
     }
+}
+
+- (void)focusMessageTextField {
+    [self.window makeFirstResponder:self.messageTextField];
+    self.messageTextField.currentEditor.selectedRange = NSMakeRange(self.messageTextField.stringValue.length, 0);
 }
 
 - (MXIClientBuffer *)getSelectedBuffer {
