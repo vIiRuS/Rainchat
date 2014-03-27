@@ -215,7 +215,6 @@
 
 - (void)sendMessage:(NSString *)message toBufferName:(NSString *)bufferName onConnectionId:(NSNumber *)connectionId {
     MXIClientSayMethodCall *sayMethodCall = [[MXIClientSayMethodCall alloc] init];
-    sayMethodCall.requestId = [self incrementAndReturnRequestId];
     sayMethodCall.connectionId = connectionId;
     sayMethodCall.bufferName = bufferName;
     sayMethodCall.message = message;
@@ -223,6 +222,7 @@
 }
 
 - (void)callMethod:(MXIClientMethodCall *)methodCall {
+    methodCall.requestId = [self incrementAndReturnRequestId];
     self.unansweredMethodCalls[methodCall.requestId] = methodCall;
     [self.webSocket send:[methodCall toJSONString]];
 }
