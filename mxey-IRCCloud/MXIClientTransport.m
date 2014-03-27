@@ -17,7 +17,6 @@
 @property(nonatomic) SRWebSocket *webSocket;
 @property(nonatomic) NSURL *IRCCloudURL;
 @property(nonatomic) NSString *cookie;
-@property(nonatomic) id <MXIClientTransportDelegate> client;
 @property(nonatomic) NSUInteger nextMethodCallRequestId;
 @property(nonatomic, strong) NSMutableDictionary *unansweredMethodCalls;
 @end
@@ -29,14 +28,13 @@
 @end
 
 @implementation MXIClientTransport
-- (id)initWithClient:(id <MXIClientTransportDelegate>)client {
+- (id)init {
     self = [super init];
     if (!self) {
         return nil;
     }
 
     self.IRCCloudURL = [NSURL URLWithString:@"https://www.irccloud.com/chat/"];
-    self.client = client;
     self.nextMethodCallRequestId = 0;
     self.unansweredMethodCalls = [NSMutableDictionary dictionary];
     return self;
@@ -183,7 +181,7 @@
         [self processMessage:backlogMessage fromBacklog:NO];
     }
     self.messageBufferDuringBacklog = nil;
-    [self.client transportDidFinishInitialBacklog:self];
+    [self.delegate transportDidFinishInitialBacklog:self];
 }
 
 - (void)loadInitialBacklogFromURLString:(NSString *)backlogURLString {

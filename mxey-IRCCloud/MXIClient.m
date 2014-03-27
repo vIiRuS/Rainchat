@@ -22,7 +22,8 @@
         return nil;
     }
 
-    self.transport = [[MXIClientTransport alloc] initWithClient:self];
+    self.transport = [[MXIClientTransport alloc] init];
+    self.transport.delegate = self;
     self.servers = [NSMutableDictionary dictionary];
     self.serverOrder = [NSMutableArray array];
     self.buffers = [NSMutableDictionary dictionary];

@@ -14,7 +14,7 @@
 
 
 @interface MXIClientTransport : NSObject <SRWebSocketDelegate>
-- (id)initWithClient:(id <MXIClientTransportDelegate>)client;
+@property(nonatomic) id <MXIClientTransportDelegate> delegate;
 
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
 
