@@ -8,9 +8,6 @@
 
 #import "MXIClientBufferMessage.h"
 
-NSString *const MXIClientBufferMessageNotification = @"net.mxey.rainchat.MXIClientBufferMessageNotification";
-
-
 @implementation MXIClientBufferMessage
 
 + (JSONKeyMapper *)keyMapper {

@@ -7,16 +7,18 @@
 //
 
 #import "MXIClient.h"
+#import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
 
 @interface MXIClient ()
-@property(nonatomic) MXIClientTransport *transport;
+@property (nonatomic) MXIClientTransport *transport;
 @property(nonatomic, strong) NSMutableDictionary *buffers;
 @end
 
 @implementation MXIClient
 
-- (id)init {
+- (id)init
+{
     self = [super init];
     if (!self) {
         return nil;
@@ -27,27 +29,44 @@
     self.servers = [NSMutableDictionary dictionary];
     self.serverOrder = [NSMutableArray array];
     self.buffers = [NSMutableDictionary dictionary];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addServer:) name:MXIClientServerNotification object:nil];
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-
-- (void)addServer:(NSNotification *)notification {
-    MXIClientServer *server = notification.object;
-    self.servers[server.connectionId] = server;
-    [self.serverOrder addObject:server];
-}
-
-- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password {
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password
+{
     [self.transport loginWithEmail:email andPassword:password];
 }
 
 - (void)transportDidFinishInitialBacklog:(MXIClientTransport *)transport {
     [self.delegate clientDidFinishInitialBacklog:self];
+}
+
+- (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog
+{
+    if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
+        MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *)message;
+        [self.delegate client:self didReceiveBufferMsg:bufferMessage];
+        MXIClientBuffer *buffer = self.buffers[bufferMessage.bufferId];
+        if (!buffer) {
+            NSLog(@"Received buffer message for non-existent buffer: %@", bufferMessage.bufferId);
+            return;
+        }
+        [buffer didReceiveBufferMessage:bufferMessage];
+    }
+    else if ([message isKindOfClass:[MXIClientServer class]]) {
+        MXIClientServer *server = (MXIClientServer *) message;
+        self.servers[server.connectionId] = server;
+        [self.serverOrder addObject:server];
+    }
+    else if ([message isKindOfClass:[MXIClientBuffer class]]) {
+        MXIClientBuffer *buffer = (MXIClientBuffer *)message;
+        MXIClientServer *server = self.servers[buffer.connectionId];
+        if (server && !buffer.isArchived) {
+            [server addBuffer:buffer];
+        }
+        self.buffers[buffer.bufferId] = buffer;
+    }
+  
 }
 
 @end

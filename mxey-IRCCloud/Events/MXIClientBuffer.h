@@ -17,8 +17,6 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
     MXIClientBufferTypeConversation,
 };
 
-extern NSString *const MXIClientBufferNotification;
-
 
 @interface MXIClientBuffer : JSONModel
 @property(nonatomic) NSNumber *connectionId;
@@ -28,6 +26,8 @@ extern NSString *const MXIClientBufferNotification;
 @property(nonatomic) MXIClientBufferType type;
 @property(nonatomic, strong) NSMutableArray <Ignore> *events;
 @property(nonatomic) MXIClientTransport <Ignore> *transport;
+
+- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage;
 
 - (void)sendMessageWithString:(NSString *)string;
 @end

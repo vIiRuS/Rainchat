@@ -10,12 +10,11 @@
 #import <JSONModel.h>
 #import "MXIClientBuffer.h"
 
-extern NSString *const MXIClientServerNotification;
-
-
 @interface MXIClientServer : JSONModel
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSMutableArray <Ignore> *buffers;
 @property(nonatomic) MXIClientBuffer <Ignore> *serverConsoleBuffer;
+
+- (void)addBuffer:(MXIClientBuffer *)buffer;
 @end

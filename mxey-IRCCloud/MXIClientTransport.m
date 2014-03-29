@@ -11,7 +11,6 @@
 #import "Events/MXIClientBuffer.h"
 #import "Events/MXIClientServer.h"
 #import "MXIClientSayMethodCall.h"
-#import "MXIClientUserStats.h"
 
 
 @interface MXIClientTransport ()
@@ -146,7 +145,6 @@
         @"buffer_msg" : [MXIClientBufferMessage class],
         @"makeserver" : [MXIClientServer class],
         @"makebuffer" : [MXIClientBuffer class],
-        @"stat_user" : [MXIClientUserStats class],
     };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];
@@ -165,15 +163,7 @@
         [messageModelObject setTransport:self];
     }
 
-    if ([messageModelObject isKindOfClass:[MXIClientBufferMessage class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferMessageNotification object:messageModelObject];
-    } else if ([messageModelObject isKindOfClass:[MXIClientBuffer class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientBufferNotification object:messageModelObject];
-    } else if ([messageModelObject isKindOfClass:[MXIClientServer class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientServerNotification object:messageModelObject];
-    } else if ([messageModelObject isKindOfClass:[MXIClientUserStats class]]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:MXIClientUserStatsNotification object:messageModelObject];
-    }
+    [self.delegate transport:self receivedMessage:messageModelObject fromBacklog:fromBacklog];
 }
 
 - (void)finishInitialBacklog {
@@ -182,7 +172,7 @@
 
     NSLog(@"Handling messages received during backlog replay");
     for (id backlogMessage in self.messageBufferDuringBacklog) {
-        [self processMessage:backlogMessage fromBacklog:NO];
+        [self.delegate transport:self receivedMessage:backlogMessage fromBacklog:NO];
     }
     self.messageBufferDuringBacklog = nil;
     [self.delegate transportDidFinishInitialBacklog:self];

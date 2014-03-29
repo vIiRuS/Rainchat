@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <JSONModel.h>
 
-extern NSString *const MXIClientBufferMessageNotification;
-
 @interface MXIClientBufferMessage : JSONModel
 @property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *message;
