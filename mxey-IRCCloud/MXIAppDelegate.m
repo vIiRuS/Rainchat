@@ -90,7 +90,10 @@
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
             [bufferText appendString:[self formatBufferMessage:bufferMessage]];
         }
-        self.bufferTextView.string = bufferText;
+        NSAttributedString *attributedBufferText = [[NSAttributedString alloc] initWithString:bufferText attributes:@{
+            NSFontAttributeName : [NSFont systemFontOfSize:13]
+        }];
+        self.bufferTextView.textStorage.attributedString = attributedBufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
     }
