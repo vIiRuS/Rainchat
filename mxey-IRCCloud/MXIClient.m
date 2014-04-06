@@ -13,7 +13,6 @@
 
 @interface MXIClient ()
 @property(nonatomic) MXIClientTransport *transport;
-@property(nonatomic, strong) NSMutableDictionary *buffers;
 @property(nonatomic, strong) NSArray *highlightStrings;
 @end
 
@@ -44,14 +43,14 @@
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog {
     if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
         MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *) message;
-        [self.delegate client:self didReceiveBufferMsg:bufferMessage];
         MXIClientBuffer *buffer = self.buffers[bufferMessage.bufferId];
         if (!buffer) {
             NSLog(@"Received buffer message for non-existent buffer: %@", bufferMessage.bufferId);
             return;
         }
-
         [self checkMessageForHighlights:bufferMessage];
+
+        [self.delegate client:self didReceiveBufferMsg:bufferMessage];
         [buffer didReceiveBufferMessage:bufferMessage];
     }
     else if ([message isKindOfClass:[MXIClientServer class]]) {
@@ -75,6 +74,7 @@
 }
 
 - (void)checkMessageForHighlights:(MXIClientBufferMessage *)bufferMessage {
+    bufferMessage.highlightsUser = @NO;
     for (NSString *highlightString in self.highlightStrings) {
         if ([bufferMessage.message rangeOfString:highlightString].location != NSNotFound) {
             bufferMessage.highlightsUser = @YES;

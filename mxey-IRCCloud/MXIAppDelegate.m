@@ -11,6 +11,10 @@
 #import "MXIClientServer.h"
 
 
+@interface MXIAppDelegate ()
+@property(nonatomic) BOOL backlogFinished;
+@end
+
 @implementation MXIAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -67,6 +71,17 @@
         [self.bufferTextView.textStorage appendAttributedString:[self formatBufferMessage:bufferMsg]];
         [self.bufferTextView scrollToEndOfDocument:self];
     }
+    if (self.backlogFinished && bufferMsg.highlightsUser.boolValue) {
+        [self displayUserNotificationForMessage:bufferMsg];
+    }
+}
+
+- (void)displayUserNotificationForMessage:(MXIClientBufferMessage *)bufferMsg {
+    MXIClientBuffer *buffer = self.client.buffers[bufferMsg.bufferId];
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = buffer.name;
+    notification.informativeText = [NSString stringWithFormat:@"<%@> %@", bufferMsg.fromNick, bufferMsg.message];
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (NSAttributedString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
@@ -77,6 +92,8 @@
     } mutableCopy];
     if (bufferMessage.highlightsUser.boolValue) {
         attributes[NSForegroundColorAttributeName] = [NSColor redColor];
+    } else {
+        attributes[NSForegroundColorAttributeName] = [NSColor blackColor];
     }
     NSAttributedString *attributedOutput = [[NSAttributedString alloc] initWithString:output attributes:attributes];
     return attributedOutput;
@@ -84,6 +101,7 @@
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
     [self.buffersOutlineView reloadData];
+    self.backlogFinished = YES;
 }
 
 

@@ -19,4 +19,5 @@
 
 @property(nonatomic) NSMutableArray *serverOrder;
 @property(nonatomic) id <MXIClientDelegate> delegate;
+@property(nonatomic, strong) NSMutableDictionary *buffers;
 @end
