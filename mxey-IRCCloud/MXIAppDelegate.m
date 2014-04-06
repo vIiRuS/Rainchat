@@ -13,8 +13,7 @@
 
 @implementation MXIAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSString *account = @"mxey@mxey.net";
     NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
     self.client = [[MXIClient alloc] init];
@@ -65,17 +64,22 @@
 
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
     if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
-        NSString *formattedBufferMessage = [self formatBufferMessage:bufferMsg];
-        NSMutableString *bufferText = self.bufferTextView.textStorage.mutableString;
-        [bufferText appendString:formattedBufferMessage];
+        [self.bufferTextView.textStorage appendAttributedString:[self formatBufferMessage:bufferMsg]];
         [self.bufferTextView scrollToEndOfDocument:self];
     }
 }
 
-- (NSString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
+- (NSAttributedString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     NSString *formattedTime = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle];
     NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.message];
-    return output;
+    NSMutableDictionary *attributes = [@{
+        NSFontAttributeName : [NSFont systemFontOfSize:13]
+    } mutableCopy];
+    if (bufferMessage.highlightsUser.boolValue) {
+        attributes[NSForegroundColorAttributeName] = [NSColor redColor];
+    }
+    NSAttributedString *attributedOutput = [[NSAttributedString alloc] initWithString:output attributes:attributes];
+    return attributedOutput;
 }
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
@@ -86,14 +90,11 @@
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     MXIClientBuffer *selectedBuffer = [self getSelectedBuffer];
     if (selectedBuffer) {
-        NSMutableString *bufferText = [NSMutableString string];
+        NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
-            [bufferText appendString:[self formatBufferMessage:bufferMessage]];
+            [bufferText appendAttributedString:[self formatBufferMessage:bufferMessage]];
         }
-        NSAttributedString *attributedBufferText = [[NSAttributedString alloc] initWithString:bufferText attributes:@{
-            NSFontAttributeName : [NSFont systemFontOfSize:13]
-        }];
-        self.bufferTextView.textStorage.attributedString = attributedBufferText;
+        self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
     }

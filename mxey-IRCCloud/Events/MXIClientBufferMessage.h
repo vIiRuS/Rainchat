@@ -14,6 +14,7 @@
 @property(nonatomic) NSString *message;
 @property(nonatomic) NSNumber *eventId;
 @property(nonatomic) NSNumber *bufferId;
+@property(nonatomic) NSNumber <Ignore> *highlightsUser;
 
 - (NSDate *)timestamp;
 @end
