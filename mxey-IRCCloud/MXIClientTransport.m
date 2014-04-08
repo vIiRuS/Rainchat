@@ -155,7 +155,7 @@
         return;
     }
 
-    id messageModelObject = [[messageModelClass alloc] initWithDictionary:messageAttributes error:&error];
+    id messageModelObject = [MTLJSONAdapter modelOfClass:messageModelClass fromJSONDictionary:messageAttributes error:&error];
     if (!messageModelObject) {
         NSLog(@"Failed to create model object %@: %@", messageModelClass, [error localizedDescription]);
         return;
@@ -210,7 +210,15 @@
 - (void)callMethod:(MXIClientMethodCall *)methodCall {
     methodCall.requestId = [self incrementAndReturnRequestId];
     self.unansweredMethodCalls[methodCall.requestId] = methodCall;
-    [self.webSocket send:[methodCall toJSONString]];
+
+    NSError *error = nil;
+    NSData *methodCallData = [NSJSONSerialization dataWithJSONObject:[MTLJSONAdapter JSONDictionaryFromModel:methodCall] options:0 error:&error];
+    if (error) {
+        NSLog(@"Error serializing method call: %@", [error localizedDescription]);
+    }
+    NSString *methodCallString = [[NSString alloc] initWithData:methodCallData encoding:NSUTF8StringEncoding];
+
+    [self.webSocket send:methodCallString];
 }
 
 - (NSNumber *)incrementAndReturnRequestId {

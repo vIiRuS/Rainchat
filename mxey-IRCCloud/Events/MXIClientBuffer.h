@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel.h>
+#import <Mantle/MTLModel.h>
+#import <Mantle/MTLJSONAdapter.h>
 #import "MXIClient.h"
 #import "MXIClientBufferMessage.h"
 
@@ -18,14 +19,14 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 };
 
 
-@interface MXIClientBuffer : JSONModel
+@interface MXIClientBuffer : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSString *name;
 @property(nonatomic) BOOL isArchived;
 @property(nonatomic) MXIClientBufferType type;
-@property(nonatomic, strong) NSMutableArray <Ignore> *events;
-@property(nonatomic) MXIClientTransport <Ignore> *transport;
+@property(nonatomic, strong) NSMutableArray *events;
+@property(nonatomic) MXIClientTransport *transport;
 
 - (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage;
 

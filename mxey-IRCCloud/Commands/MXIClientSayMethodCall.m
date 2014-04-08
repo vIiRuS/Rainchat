@@ -7,14 +7,14 @@
 
 
 @implementation MXIClientSayMethodCall
-+ (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"_method" : @"methodName",
-        @"_reqid" : @"requestId",
-        @"cid" : @"connectionId",
-        @"to" : @"bufferName",
-        @"msg" : @"message",
-    }];
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"methodName" : @"_method",
+        @"requestId" : @"_reqid",
+        @"connectionId" : @"cid",
+        @"bufferName" : @"to",
+        @"message" : @"msg",
+    };
 }
 
 - (id)init {

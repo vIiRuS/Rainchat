@@ -10,15 +10,15 @@
 
 @implementation MXIClientBufferMessage
 
-+ (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"chan" : @"channel",
-        @"msg" : @"message",
-        @"from" : @"fromNick",
-        @"cid" : @"connectionId",
-        @"bid" : @"bufferId",
-        @"eid" : @"eventId",
-    }];
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"channel" : @"chan",
+        @"message" : @"msg",
+        @"fromNick" : @"from",
+        @"connectionId" : @"cid",
+        @"bufferId" : @"bid",
+        @"eventId" : @"eid",
+    };
 }
 
 - (NSDate *)timestamp {

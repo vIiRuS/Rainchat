@@ -4,10 +4,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSONModel.h"
+#import "MTLModel.h"
+#import "MTLJSONAdapter.h"
 
 
-@interface MXIClientMethodCall : JSONModel
+@interface MXIClientMethodCall : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSString *methodName;
 @property(nonatomic) NSNumber *requestId;
 @end

@@ -9,41 +9,36 @@
 #import "MXIClientBuffer.h"
 
 #import "MXIClientSayMethodCall.h"
-#import "MXIClient.h"
-#import "MXIClientBuffer.h"
+#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
 
 @implementation MXIClientBuffer
 
-+ (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"cid" : @"connectionId",
-        @"bid" : @"bufferId",
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"connectionId" : @"cid",
+        @"bufferId" : @"bid",
         @"name" : @"name",
-        @"archived" : @"isArchived",
-        @"buffer_type" : @"type",
-    }];
+        @"isArchived" : @"archived",
+        @"type" : @"buffer_type",
+    };
 }
 
-- (void)setTypeWithNSString:(NSString *)typeString __unused {
-    NSDictionary *bufferTypes = @{
++ (NSValueTransformer *)typeJSONTransformer {
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{
         @"console" : @(MXIClientBufferTypeServerConsole),
         @"channel" : @(MXIClientBufferTypeChannel),
         @"conversation" : @(MXIClientBufferTypeConversation),
-    };
-    self.type = (MXIClientBufferType) [bufferTypes[typeString] integerValue];
+    }];
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Woverriding-method-mismatch"
-- (instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError **)err {
-    self = [super initWithDictionary:dict error:err];
+- (instancetype)init {
+    self = [super init];
     if (self) {
         self.events = [NSMutableArray array];
     }
 
     return self;
 }
-#pragma clang diagnostic pop
 
 - (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     [self.events addObject:bufferMessage];

@@ -7,9 +7,9 @@
 
 
 @implementation MXIClientUserStats
-+ (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"highlights" : @"highlightStrings",
-    }];
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"highlightStrings" : @"highlights",
+    };
 }
 @end

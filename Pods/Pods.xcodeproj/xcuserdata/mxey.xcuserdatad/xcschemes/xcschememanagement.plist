@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-JSONModel.xcscheme</key>
+		<key>Pods-Mantle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -26,27 +26,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>258D5EE73D8349AD8FF42F62</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5CDFF9F4B0DC46DD885885A9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>958A4FF36604401DA49B8977</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CFF3B4B1C9F04C85BFA2400C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

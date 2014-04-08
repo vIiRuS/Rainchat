@@ -20,13 +20,13 @@
 }
 #pragma clang diagnostic pop
 
-+ (JSONKeyMapper *)keyMapper {
-    return [[JSONKeyMapper alloc] initWithDictionary:@{
-        @"cid" : @"connectionId",
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"connectionId" : @"cid",
         @"name" : @"name",
         @"nick" : @"nick",
         @"order" : @"order",
-    }];
+    };
 }
 
 - (void)addBuffer:(MXIClientBuffer *)buffer {

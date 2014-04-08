@@ -4,9 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSONModel.h"
+#import <Mantle/MTLModel.h>
+#import <Mantle/MTLJSONAdapter.h>
 
 
-@interface MXIClientUserStats : JSONModel
+@interface MXIClientUserStats : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSArray *highlightStrings;
 @end

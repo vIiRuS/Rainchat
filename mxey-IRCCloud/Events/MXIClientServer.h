@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel.h>
 #import "MXIClientBuffer.h"
 
-@interface MXIClientServer : JSONModel
+@interface MXIClientServer : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
-@property(nonatomic) NSMutableArray <Ignore> *buffers;
-@property(nonatomic) MXIClientBuffer <Ignore> *serverConsoleBuffer;
+@property(nonatomic) NSMutableArray *buffers;
+@property(nonatomic) MXIClientBuffer *serverConsoleBuffer;
 
 - (void)addBuffer:(MXIClientBuffer *)buffer;
 @end

@@ -4,7 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel.h>
 #import "MXIClientMethodCall.h"
 
 

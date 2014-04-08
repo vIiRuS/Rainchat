@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JSONModel.h>
+#import <Mantle/MTLModel.h>
+#import <Mantle/MTLJSONAdapter.h>
 
-@interface MXIClientBufferMessage : JSONModel
+@interface MXIClientBufferMessage : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *message;
 @property(nonatomic) NSNumber *eventId;
 @property(nonatomic) NSNumber *bufferId;
-@property(nonatomic) NSNumber <Ignore> *highlightsUser;
+@property(nonatomic) NSNumber *highlightsUser;
 
 - (NSDate *)timestamp;
 @end

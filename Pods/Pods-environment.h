@@ -1,4 +1,3 @@
-
 // To check if a library is compiled with CocoaPods you
 // can use the `COCOAPODS` macro definition which is
 // defined in the xcconfigs so it is available in
@@ -6,11 +5,17 @@
 // project.
 
 
-// JSONModel
-#define COCOAPODS_POD_AVAILABLE_JSONModel
-#define COCOAPODS_VERSION_MAJOR_JSONModel 0
-#define COCOAPODS_VERSION_MINOR_JSONModel 11
-#define COCOAPODS_VERSION_PATCH_JSONModel 0
+// Mantle
+#define COCOAPODS_POD_AVAILABLE_Mantle
+#define COCOAPODS_VERSION_MAJOR_Mantle 1
+#define COCOAPODS_VERSION_MINOR_Mantle 4
+#define COCOAPODS_VERSION_PATCH_Mantle 1
+
+// Mantle/extobjc
+#define COCOAPODS_POD_AVAILABLE_Mantle_extobjc
+#define COCOAPODS_VERSION_MAJOR_Mantle_extobjc 1
+#define COCOAPODS_VERSION_MINOR_Mantle_extobjc 4
+#define COCOAPODS_VERSION_PATCH_Mantle_extobjc 1
 
 // RFKeychain
 #define COCOAPODS_POD_AVAILABLE_RFKeychain
