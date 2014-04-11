@@ -13,7 +13,6 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
-        @"channel" : @"chan",
         @"body" : @"msg",
         @"fromNick" : @"from",
     }];

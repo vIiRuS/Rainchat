@@ -48,7 +48,7 @@
     MXIClientSayMethodCall *sayMethodCall = [[MXIClientSayMethodCall alloc] init];
     sayMethodCall.connectionId = self.connectionId;
     sayMethodCall.bufferName = self.name;
-    sayMethodCall.message = string;
+    sayMethodCall.body = string;
     [self.transport callMethod:sayMethodCall];
 }
 

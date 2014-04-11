@@ -10,5 +10,5 @@
 @interface MXIClientSayMethodCall : MXIClientMethodCall
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *bufferName;
-@property(nonatomic) NSString *message;
+@property(nonatomic) NSString *body;
 @end
