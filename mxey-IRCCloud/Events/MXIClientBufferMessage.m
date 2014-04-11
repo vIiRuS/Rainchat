@@ -11,12 +11,6 @@
 
 @implementation MXIClientBufferMessage
 
-- (NSDate *)timestamp {
-    double messageTimestampInMicroseconds = [self.eventId doubleValue];
-    double messageTimestampInSeconds = messageTimestampInMicroseconds / 1000000;
-    return [NSDate dateWithTimeIntervalSince1970:messageTimestampInSeconds];
-}
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
         @"channel" : @"chan",

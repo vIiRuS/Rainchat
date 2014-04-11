@@ -4,6 +4,7 @@
 //
 
 #import "MXIClientBufferMessage.h"
+#import "MTLValueTransformer.h"
 
 
 @implementation MXIAbstractClientBufferEvent {
@@ -13,7 +14,15 @@
     return @{
         @"connectionId" : @"cid",
         @"bufferId" : @"bid",
-        @"eventId" : @"eid",
+        @"timestamp" : @"eid",
     };
+}
+
++ (NSValueTransformer *)timestampJSONTransformer __unused {
+    return [MTLValueTransformer transformerWithBlock:^id(id o) {
+        double messageTimestampInMicroseconds = [o doubleValue];
+        double messageTimestampInSeconds = messageTimestampInMicroseconds / 1000000;
+        return [NSDate dateWithTimeIntervalSince1970:messageTimestampInSeconds];
+    }];
 }
 @end

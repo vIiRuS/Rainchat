@@ -16,5 +16,4 @@
 @property(nonatomic) NSString *message;
 @property(nonatomic) NSNumber *highlightsUser;
 
-- (NSDate *)timestamp;
 @end
