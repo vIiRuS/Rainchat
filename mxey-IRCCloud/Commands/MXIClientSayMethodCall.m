@@ -11,7 +11,7 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
         @"bufferName" : @"to",
-        @"message" : @"msg",
+        @"body" : @"msg",
     }];
 }
 

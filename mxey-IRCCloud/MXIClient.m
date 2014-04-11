@@ -76,7 +76,7 @@
 - (void)checkMessageForHighlights:(MXIClientBufferMessage *)bufferMessage {
     bufferMessage.highlightsUser = @NO;
     for (NSString *highlightString in self.highlightStrings) {
-        if ([bufferMessage.message rangeOfString:highlightString].location != NSNotFound) {
+        if ([bufferMessage.body rangeOfString:highlightString].location != NSNotFound) {
             bufferMessage.highlightsUser = @YES;
             break;
         }

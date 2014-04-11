@@ -80,13 +80,13 @@
     MXIClientBuffer *buffer = self.client.buffers[bufferMsg.bufferId];
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = buffer.name;
-    notification.informativeText = [NSString stringWithFormat:@"<%@> %@", bufferMsg.fromNick, bufferMsg.message];
+    notification.informativeText = [NSString stringWithFormat:@"<%@> %@", bufferMsg.fromNick, bufferMsg.body];
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
 - (NSAttributedString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
     NSString *formattedTime = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle];
-    NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.message];
+    NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.body];
     NSMutableDictionary *attributes = [@{
         NSFontAttributeName : [NSFont systemFontOfSize:13]
     } mutableCopy];

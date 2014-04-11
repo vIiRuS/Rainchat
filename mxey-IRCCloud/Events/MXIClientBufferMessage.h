@@ -13,7 +13,7 @@
 
 @interface MXIClientBufferMessage : MXIAbstractClientBufferEvent
 @property(nonatomic) NSString *fromNick;
-@property(nonatomic) NSString *message;
+@property(nonatomic) NSString *body;
 @property(nonatomic) NSNumber *highlightsUser;
 
 @end
