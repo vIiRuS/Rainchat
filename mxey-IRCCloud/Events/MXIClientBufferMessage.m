@@ -7,23 +7,21 @@
 //
 
 #import "MXIClientBufferMessage.h"
+#import "NSDictionary+MTLManipulationAdditions.h"
 
 @implementation MXIClientBufferMessage
-
-+ (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{
-        @"channel" : @"chan",
-        @"message" : @"msg",
-        @"fromNick" : @"from",
-        @"connectionId" : @"cid",
-        @"bufferId" : @"bid",
-        @"eventId" : @"eid",
-    };
-}
 
 - (NSDate *)timestamp {
     double messageTimestampInMicroseconds = [self.eventId doubleValue];
     double messageTimestampInSeconds = messageTimestampInMicroseconds / 1000000;
     return [NSDate dateWithTimeIntervalSince1970:messageTimestampInSeconds];
+}
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
+        @"channel" : @"chan",
+        @"message" : @"msg",
+        @"fromNick" : @"from",
+    }];
 }
 @end

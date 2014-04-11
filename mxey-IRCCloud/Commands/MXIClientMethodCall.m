@@ -7,4 +7,11 @@
 
 
 @implementation MXIClientMethodCall
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{
+        @"methodName" : @"_method",
+        @"requestId" : @"_reqid",
+        @"connectionId" : @"cid",
+    };
+}
 @end

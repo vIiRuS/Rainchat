@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		335B918EE0F0002B7E4CF229 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
+		335B95A16D39B37452DAC357 /* MXIAbstractClientBufferEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */; };
 		335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */; };
 		335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
 		335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */; };
@@ -16,6 +17,7 @@
 		335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */; };
 		335B9D90E58EF0DC19ACFA43 /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */; };
 		335B9DB7ABFF000CB090A26E /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B935019C388A9957D78D5 /* MXIClientServer.m */; };
+		335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */; };
 		8AE2694F5A0147099679819F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F866E98F511A4C498E3456F5 /* libPods.a */; };
 		D74764FF18C74A72BA6E5B45 /* libPods-mxey-IRCCloudTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
@@ -38,8 +40,10 @@
 		335B903961229A4D7781E25D /* MXIClientMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientMethodCall.m; sourceTree = "<group>"; };
 		335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientSayMethodCall.m; sourceTree = "<group>"; };
 		335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientSayMethodCall.h; sourceTree = "<group>"; };
+		335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIAbstractClientBufferEvent.h; sourceTree = "<group>"; };
 		335B935019C388A9957D78D5 /* MXIClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientServer.m; sourceTree = "<group>"; };
 		335B93E9D656DF69C003DDC6 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
+		335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIAbstractClientBufferEvent.m; sourceTree = "<group>"; };
 		335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
 		335B95F0FD0D0E0C4B4494D3 /* MXIClientMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientMethodCall.h; sourceTree = "<group>"; };
 		335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientUserStats.m; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 				335B935019C388A9957D78D5 /* MXIClientServer.m */,
 				335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */,
 				335B9D0EABE271B4CD9EF937 /* MXIClientUserStats.h */,
+				335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */,
+				335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -397,6 +403,7 @@
 				335B918EE0F0002B7E4CF229 /* MXIClientBuffer.m in Sources */,
 				335B9D90E58EF0DC19ACFA43 /* MXIClientBufferMessage.m in Sources */,
 				335B9DB7ABFF000CB090A26E /* MXIClientServer.m in Sources */,
+				335B95A16D39B37452DAC357 /* MXIAbstractClientBufferEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +421,7 @@
 				335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */,
 				335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */,
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
+				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,17 +4,15 @@
 //
 
 #import "MXIClientSayMethodCall.h"
+#import "NSDictionary+MTLManipulationAdditions.h"
 
 
 @implementation MXIClientSayMethodCall
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
-    return @{
-        @"methodName" : @"_method",
-        @"requestId" : @"_reqid",
-        @"connectionId" : @"cid",
+    return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
         @"bufferName" : @"to",
         @"message" : @"msg",
-    };
+    }];
 }
 
 - (id)init {

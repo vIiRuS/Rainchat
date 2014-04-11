@@ -9,12 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <Mantle/MTLModel.h>
 #import <Mantle/MTLJSONAdapter.h>
+#import "MXIAbstractClientBufferEvent.h"
 
-@interface MXIClientBufferMessage : MTLModel <MTLJSONSerializing>
+@interface MXIClientBufferMessage : MXIAbstractClientBufferEvent
 @property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *message;
-@property(nonatomic) NSNumber *eventId;
-@property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSNumber *highlightsUser;
 
 - (NSDate *)timestamp;
