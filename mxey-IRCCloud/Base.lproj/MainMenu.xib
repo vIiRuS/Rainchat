@@ -734,13 +734,8 @@
                                                     <rect key="frame" x="1" y="17" width="177" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ovs-8O-YYM">
-                                                            <rect key="frame" x="3" y="0.0" width="17" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="YNo-NT-Ud9"/>
-                                                        </imageView>
                                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Vv-mq-ofQ">
-                                                            <rect key="frame" x="25" y="0.0" width="152" height="17"/>
+                                                            <rect key="frame" x="12" y="0.0" width="152" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="91g-2X-98i">
                                                                 <font key="font" metaFont="system"/>
@@ -750,7 +745,6 @@
                                                         </textField>
                                                     </subviews>
                                                     <connections>
-                                                        <outlet property="imageView" destination="Ovs-8O-YYM" id="mhj-c4-87E"/>
                                                         <outlet property="textField" destination="8Vv-mq-ofQ" id="TPc-ji-ZGQ"/>
                                                     </connections>
                                                 </tableCellView>
@@ -818,7 +812,4 @@
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
     </objects>
-    <resources>
-        <image name="NSActionTemplate" width="14" height="14"/>
-    </resources>
 </document>
