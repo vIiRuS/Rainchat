@@ -13,6 +13,7 @@
 #import "MXIClientSayMethodCall.h"
 #import "MXIClientUserStats.h"
 #import "MXIClientBufferAction.h"
+#import "MXIClientBufferNotice.h"
 
 
 @interface MXIClientTransport ()
@@ -146,6 +147,7 @@
     NSDictionary *messageModelClasses = @{
         @"buffer_msg" : [MXIClientBufferMessage class],
         @"buffer_me_msg" : [MXIClientBufferAction class],
+        @"notice" : [MXIClientBufferNotice class],
         @"makeserver" : [MXIClientServer class],
         @"makebuffer" : [MXIClientBuffer class],
         @"stat_user" : [MXIClientUserStats class],

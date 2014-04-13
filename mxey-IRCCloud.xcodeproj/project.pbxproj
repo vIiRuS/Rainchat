@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		335B918EE0F0002B7E4CF229 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
 		335B95A16D39B37452DAC357 /* MXIAbstractClientBufferEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */; };
+		335B9697516EE43C6E61B008 /* MXIClientBufferNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */; };
 		335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */; };
 		335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
 		335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */; };
@@ -40,9 +41,11 @@
 		335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferMessage.h; sourceTree = "<group>"; };
 		335B903961229A4D7781E25D /* MXIClientMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientMethodCall.m; sourceTree = "<group>"; };
 		335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientSayMethodCall.m; sourceTree = "<group>"; };
+		335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferNotice.m; sourceTree = "<group>"; };
 		335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientSayMethodCall.h; sourceTree = "<group>"; };
 		335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIAbstractClientBufferEvent.h; sourceTree = "<group>"; };
 		335B935019C388A9957D78D5 /* MXIClientServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientServer.m; sourceTree = "<group>"; };
+		335B937021E2831E3325D3F1 /* MXIClientBufferNotice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferNotice.h; sourceTree = "<group>"; };
 		335B93E9D656DF69C003DDC6 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
 		335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIAbstractClientBufferEvent.m; sourceTree = "<group>"; };
 		335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
@@ -132,6 +135,8 @@
 				335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */,
 				335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */,
 				335B98CFCCE99EE651FE9E17 /* MXIClientBufferAction.h */,
+				335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */,
+				335B937021E2831E3325D3F1 /* MXIClientBufferNotice.h */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
+				335B9697516EE43C6E61B008 /* MXIClientBufferNotice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

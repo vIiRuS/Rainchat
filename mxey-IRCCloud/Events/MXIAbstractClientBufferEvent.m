@@ -33,7 +33,7 @@
 
 - (NSMutableDictionary *)stringAttributes {
     NSMutableDictionary *stringAttributes = [@{
-        NSFontAttributeName : [NSFont systemFontOfSize:13],
+        NSFontAttributeName : [NSFont fontWithName:@"Helvetica" size:14],
         NSForegroundColorAttributeName : [NSColor blackColor],
     } mutableCopy];
     if (self.highlightsUser.boolValue) {

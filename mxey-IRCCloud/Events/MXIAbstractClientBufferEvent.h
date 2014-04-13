@@ -13,6 +13,8 @@
 @property(nonatomic) NSDate *timestamp;
 @property(nonatomic) NSNumber *highlightsUser;
 
+- (NSMutableDictionary *)stringAttributes;
+
 - (NSAttributedString *)renderToAttributedString;
 
 - (void)checkForHighlights:(NSArray *)highlightStrings;
