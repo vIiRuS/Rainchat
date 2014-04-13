@@ -86,6 +86,7 @@
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
     [self.buffersOutlineView reloadData];
+    [self.buffersOutlineView expandItem:nil expandChildren:YES];
     self.backlogFinished = YES;
 }
 
