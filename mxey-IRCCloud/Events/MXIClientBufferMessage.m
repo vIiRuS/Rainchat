@@ -18,16 +18,18 @@
     }];
 }
 
-- (NSMutableDictionary *)stringAttributes {
-    NSMutableDictionary *attributes = [super stringAttributes];
-    if (self.highlightsUser.boolValue) {
-        attributes[NSForegroundColorAttributeName] = [NSColor redColor];
-    }
-    return attributes;
-}
-
 - (NSString *)string {
     return [NSString stringWithFormat:@"<%@> %@", self.fromNick, self.body];
 }
 
+- (void)checkForHighlights:(NSArray *)highlightStrings {
+    [super checkForHighlights:highlightStrings];
+    self.highlightsUser = @NO;
+    for (NSString *highlightString in highlightStrings) {
+        if ([self.body rangeOfString:highlightString].location != NSNotFound) {
+            self.highlightsUser = @YES;
+            break;
+        }
+    }
+}
 @end

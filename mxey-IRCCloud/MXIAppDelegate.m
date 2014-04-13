@@ -66,21 +66,21 @@
 }
 
 
-- (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
-    if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
-        [self.bufferTextView.textStorage appendAttributedString:[bufferMsg renderToAttributedString]];
+- (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
+    if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
+        [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
     }
-    if (self.backlogFinished && bufferMsg.highlightsUser.boolValue) {
-        [self displayUserNotificationForMessage:bufferMsg];
+    if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
+        [self displayUserNotificationForEvent:bufferEvent];
     }
 }
 
-- (void)displayUserNotificationForMessage:(MXIClientBufferMessage *)bufferMsg {
-    MXIClientBuffer *buffer = self.client.buffers[bufferMsg.bufferId];
+- (void)displayUserNotificationForEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
+    MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = buffer.name;
-    notification.informativeText = [NSString stringWithFormat:@"<%@> %@", bufferMsg.fromNick, bufferMsg.body];
+    notification.informativeText = bufferEvent.string;
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 

@@ -11,8 +11,11 @@
 @interface MXIAbstractClientBufferEvent : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSDate *timestamp;
-
-- (NSMutableDictionary *)stringAttributes;
+@property(nonatomic) NSNumber *highlightsUser;
 
 - (NSAttributedString *)renderToAttributedString;
+
+- (void)checkForHighlights:(NSArray *)highlightStrings;
+
+- (NSString *)string;
 @end

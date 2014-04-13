@@ -10,7 +10,6 @@
 @interface MXIAbstractClientBufferEvent ()
 - (NSString *)formattedTimestamp;
 
-- (NSString *)string;
 @end
 
 @implementation MXIAbstractClientBufferEvent {
@@ -33,10 +32,14 @@
 }
 
 - (NSMutableDictionary *)stringAttributes {
-    return [@{
+    NSMutableDictionary *stringAttributes = [@{
         NSFontAttributeName : [NSFont systemFontOfSize:13],
         NSForegroundColorAttributeName : [NSColor blackColor],
     } mutableCopy];
+    if (self.highlightsUser.boolValue) {
+        stringAttributes[NSForegroundColorAttributeName] = [NSColor redColor];
+    }
+    return stringAttributes;
 }
 
 - (NSString *)formattedTimestamp {
@@ -47,6 +50,11 @@
     NSString *stringWithTimestamp = [NSString stringWithFormat:@"%@ %@\n", self.formattedTimestamp, self.string];
     return [[NSAttributedString alloc] initWithString:stringWithTimestamp attributes:self.stringAttributes];
 }
+
+- (void)checkForHighlights:(NSArray *)highlightStrings {
+    self.highlightsUser = @NO;
+}
+
 
 - (NSString *)string {
     return @"MXIAbstractClientBufferEvent: string method needs to be overriden";

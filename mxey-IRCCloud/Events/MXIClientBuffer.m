@@ -40,8 +40,8 @@
     return self;
 }
 
-- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage {
-    [self.events addObject:bufferMessage];
+- (void)didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
+    [self.events addObject:bufferEvent];
 }
 
 - (void)sendMessageWithString:(NSString *)string {

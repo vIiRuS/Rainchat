@@ -12,7 +12,7 @@
 @class MXIClient;
 
 @protocol MXIClientDelegate <NSObject>
-- (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg;
+- (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferMsg;
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client;
 @end

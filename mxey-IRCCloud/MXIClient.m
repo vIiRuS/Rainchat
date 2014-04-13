@@ -41,17 +41,17 @@
 }
 
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog {
-    if ([message isKindOfClass:[MXIClientBufferMessage class]]) {
-        MXIClientBufferMessage *bufferMessage = (MXIClientBufferMessage *) message;
-        MXIClientBuffer *buffer = self.buffers[bufferMessage.bufferId];
+    if ([message isKindOfClass:[MXIAbstractClientBufferEvent class]]) {
+        MXIAbstractClientBufferEvent *bufferEvent = (MXIAbstractClientBufferEvent *) message;
+        MXIClientBuffer *buffer = self.buffers[bufferEvent.bufferId];
         if (!buffer) {
-            NSLog(@"Received buffer message for non-existent buffer: %@", bufferMessage.bufferId);
+            NSLog(@"Received buffer event for non-existent buffer: %@", bufferEvent.bufferId);
             return;
         }
-        [self checkMessageForHighlights:bufferMessage];
+        [bufferEvent checkForHighlights:self.highlightStrings];
 
-        [self.delegate client:self didReceiveBufferMsg:bufferMessage];
-        [buffer didReceiveBufferMessage:bufferMessage];
+        [self.delegate client:self didReceiveBufferEvent:bufferEvent];
+        [buffer didReceiveBufferEvent:bufferEvent];
     }
     else if ([message isKindOfClass:[MXIClientServer class]]) {
         MXIClientServer *server = (MXIClientServer *) message;
@@ -73,14 +73,5 @@
 
 }
 
-- (void)checkMessageForHighlights:(MXIClientBufferMessage *)bufferMessage {
-    bufferMessage.highlightsUser = @NO;
-    for (NSString *highlightString in self.highlightStrings) {
-        if ([bufferMessage.body rangeOfString:highlightString].location != NSNotFound) {
-            bufferMessage.highlightsUser = @YES;
-            break;
-        }
-    }
-}
 
 @end

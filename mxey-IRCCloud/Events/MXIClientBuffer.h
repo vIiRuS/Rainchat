@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 @property(nonatomic, strong) NSMutableArray *events;
 @property(nonatomic) MXIClientTransport *transport;
 
-- (void)didReceiveBufferMessage:(MXIClientBufferMessage *)bufferMessage;
+- (void)didReceiveBufferEvent:(MXIClientBufferMessage *)bufferEvent;
 
 - (void)sendMessageWithString:(NSString *)string;
 @end

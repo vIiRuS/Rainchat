@@ -12,6 +12,7 @@
 #import "Events/MXIClientServer.h"
 #import "MXIClientSayMethodCall.h"
 #import "MXIClientUserStats.h"
+#import "MXIClientBufferAction.h"
 
 
 @interface MXIClientTransport ()
@@ -144,6 +145,7 @@
 - (void)createMessageModelObjectWithAttributes:(NSDictionary *)messageAttributes fromBacklog:(BOOL)fromBacklog {
     NSDictionary *messageModelClasses = @{
         @"buffer_msg" : [MXIClientBufferMessage class],
+        @"buffer_me_msg" : [MXIClientBufferAction class],
         @"makeserver" : [MXIClientServer class],
         @"makebuffer" : [MXIClientBuffer class],
         @"stat_user" : [MXIClientUserStats class],
