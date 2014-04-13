@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
-#import "MXIClientBufferMessage.h"
+#import "MXIAppDelegate.h"
 #import "NSDictionary+MTLManipulationAdditions.h"
 
 @implementation MXIClientBufferMessage
@@ -17,4 +17,17 @@
         @"fromNick" : @"from",
     }];
 }
+
+- (NSMutableDictionary *)stringAttributes {
+    NSMutableDictionary *attributes = [super stringAttributes];
+    if (self.highlightsUser.boolValue) {
+        attributes[NSForegroundColorAttributeName] = [NSColor redColor];
+    }
+    return attributes;
+}
+
+- (NSString *)string {
+    return [NSString stringWithFormat:@"<%@> %@", self.fromNick, self.body];
+}
+
 @end

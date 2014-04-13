@@ -68,7 +68,7 @@
 
 - (void)client:(MXIClient *)client didReceiveBufferMsg:(MXIClientBufferMessage *)bufferMsg {
     if ([self getSelectedBuffer].bufferId == bufferMsg.bufferId) {
-        [self.bufferTextView.textStorage appendAttributedString:[self formatBufferMessage:bufferMsg]];
+        [self.bufferTextView.textStorage appendAttributedString:[bufferMsg renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
     }
     if (self.backlogFinished && bufferMsg.highlightsUser.boolValue) {
@@ -84,21 +84,6 @@
     [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 }
 
-- (NSAttributedString *)formatBufferMessage:(MXIClientBufferMessage *)bufferMessage {
-    NSString *formattedTime = [NSDateFormatter localizedStringFromDate:bufferMessage.timestamp dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterMediumStyle];
-    NSString *output = [NSString stringWithFormat:@"%@ <%@> %@\n", formattedTime, bufferMessage.fromNick, bufferMessage.body];
-    NSMutableDictionary *attributes = [@{
-        NSFontAttributeName : [NSFont systemFontOfSize:13]
-    } mutableCopy];
-    if (bufferMessage.highlightsUser.boolValue) {
-        attributes[NSForegroundColorAttributeName] = [NSColor redColor];
-    } else {
-        attributes[NSForegroundColorAttributeName] = [NSColor blackColor];
-    }
-    NSAttributedString *attributedOutput = [[NSAttributedString alloc] initWithString:output attributes:attributes];
-    return attributedOutput;
-}
-
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
     [self.buffersOutlineView reloadData];
     self.backlogFinished = YES;
@@ -110,7 +95,7 @@
     if (selectedBuffer) {
         NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
-            [bufferText appendAttributedString:[self formatBufferMessage:bufferMessage]];
+            [bufferText appendAttributedString:[bufferMessage renderToAttributedString]];
         }
         self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];

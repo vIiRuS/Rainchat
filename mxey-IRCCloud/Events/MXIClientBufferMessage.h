@@ -16,4 +16,7 @@
 @property(nonatomic) NSString *body;
 @property(nonatomic) NSNumber *highlightsUser;
 
+- (NSMutableDictionary *)stringAttributes;
+
+- (NSString *)string;
 @end
