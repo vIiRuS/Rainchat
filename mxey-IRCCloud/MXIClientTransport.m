@@ -241,7 +241,7 @@
 - (NSNumber *)incrementAndReturnRequestId {
     NSUInteger methodCallRequestId = self.nextMethodCallRequestId;
     self.nextMethodCallRequestId++;
-    return [NSNumber numberWithUnsignedInteger:methodCallRequestId];
+    return @(methodCallRequestId);
 }
 @end
 
