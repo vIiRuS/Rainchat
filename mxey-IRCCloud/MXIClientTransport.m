@@ -43,17 +43,29 @@
     return self;
 }
 
-- (NSURLRequest *)makeLoginRequestWithEmail:(NSString *)email andPassword:(NSString *)password {
-    NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"login"]];
-    NSData *loginPostBody = [[NSString stringWithFormat:@"email=%@&password=%@", [self URLEncodeString:email], [self URLEncodeString:password]] dataUsingEncoding:NSUTF8StringEncoding];
-    loginRequest.HTTPBody = loginPostBody;
-    loginRequest.HTTPMethod = @"POST";
-    loginRequest.HTTPShouldHandleCookies = false;
-    return loginRequest;
+- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password {
+    NSMutableURLRequest *formTokenRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"auth-formtoken"]];
+    formTokenRequest.HTTPMethod = @"POST";
+
+    [NSURLConnection sendAsynchronousRequest:formTokenRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+
+        if ([decodedResponse[@"success"] isEqual:@YES]) {
+            [self performLoginWithEmail:email password:password token:decodedResponse[@"token"]];
+        } else {
+            NSLog(@"failed to get auth token: %@", decodedResponse[@"message"]);
+        }
+    }];
 }
 
-- (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password {
-    NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
+- (void)performLoginWithEmail:(NSString *)email password:(NSString *)password token:(id)token {
+    NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:[self.IRCCloudURL URLByAppendingPathComponent:@"login"]];
+    NSData *loginPostBody = [[NSString stringWithFormat:@"email=%@&password=%@&token=%@", [self URLEncodeString:email], [self URLEncodeString:password], [self URLEncodeString:token]] dataUsingEncoding:NSUTF8StringEncoding];
+    loginRequest.HTTPBody = loginPostBody;
+    [loginRequest addValue:token forHTTPHeaderField:@"x-auth-formtoken"];
+    loginRequest.HTTPMethod = @"POST";
+    loginRequest.HTTPShouldHandleCookies = false;
+
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
         if ([decodedResponse[@"success"] isEqual:@YES]) {
@@ -61,10 +73,11 @@
             self.cookie = [NSString stringWithFormat:@"%@=%@", @"session", decodedResponse[@"session"]];
             [self openWebSocket];
         } else {
-            NSLog(@"Failed to log in.");
+            NSLog(@"failed to log in: %@", decodedResponse[@"message"]);
         }
     }];
 }
+
 
 // From http://stackoverflow.com/questions/3423545/objective-c-iphone-percent-encode-a-string/3426140#3426140
 - URLEncodeString:(NSString *)string {
@@ -231,3 +244,4 @@
     return [NSNumber numberWithUnsignedInteger:methodCallRequestId];
 }
 @end
+
