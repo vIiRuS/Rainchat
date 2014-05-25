@@ -56,7 +56,7 @@
     NSURLRequest *loginRequest = [self makeLoginRequestWithEmail:email andPassword:password];
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if (decodedResponse[@"success"]) {
+        if ([decodedResponse[@"success"] isEqual:@YES]) {
             // Set cookie manually from session ID, instead of copying it from HTTP response, because IRCCloud's WebSocket will not accept their own cookie flags
             self.cookie = [NSString stringWithFormat:@"%@=%@", @"session", decodedResponse[@"session"]];
             [self openWebSocket];
