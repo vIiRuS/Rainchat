@@ -9,20 +9,55 @@
 #import "MXIAppDelegate.h"
 #import "RFKeychain.h"
 #import "MXIClientServer.h"
+#import "MXILoginSheetController.h"
 
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
+@property(nonatomic, strong) MXILoginSheetController *sheetController;
 @end
 
 @implementation MXIAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSString *account = @"mxey@mxey.net";
-    NSString *password = [RFKeychain passwordForAccount:account service:@"IRCCloud"];
+    if (self.userAccount && self.userPassword) {
+        [self login];
+    } else {
+        [self presentLoginSheet];
+    }
+}
+
+- (void)login {
+    NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
-    [self.client loginWithEmail:account andPassword:password];
+    [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
+}
+
+- (NSString *)userAccount {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"userAccount"];
+}
+
+- (void)setUserAccount:(NSString *)userAccount {
+    [[NSUserDefaults standardUserDefaults] setObject:userAccount forKey:@"userAccount"];
+}
+
+- (NSString *)userPassword {
+    return [RFKeychain passwordForAccount:[self userAccount] service:@"IRCCloud"];
+}
+
+- (void)setUserPassword:(NSString *)userPassword {
+    [RFKeychain setPassword:userPassword account:self.userAccount service:@"IRCCloud"];
+}
+
+- (void)presentLoginSheet {
+    NSLog(@"Present login");
+    self.sheetController = [[MXILoginSheetController alloc] init];
+    [self.window beginSheet:self.sheetController.window completionHandler:^(NSModalResponse returnCode) {
+        self.userAccount = self.sheetController.account;
+        self.userPassword = self.sheetController.password;
+        [self login];
+    }];
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {

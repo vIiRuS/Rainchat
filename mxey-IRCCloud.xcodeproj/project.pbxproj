@@ -16,6 +16,7 @@
 		335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B903961229A4D7781E25D /* MXIClientMethodCall.m */; };
 		335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */; };
 		335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B935019C388A9957D78D5 /* MXIClientServer.m */; };
+		335B9C71619BFD4E7FA59D10 /* MXILoginSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B95E4544E03654981B73B /* MXILoginSheetController.m */; };
 		335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */; };
 		335B9D90E58EF0DC19ACFA43 /* MXIClientBufferMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */; };
 		335B9DB7ABFF000CB090A26E /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B935019C388A9957D78D5 /* MXIClientServer.m */; };
@@ -34,6 +35,7 @@
 		F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2F7702517D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
 		F2F7702617D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
+		F2FDC80119393D2C0062E6AF /* LoginSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FDC7FF19393D2C0062E6AF /* LoginSheet.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,7 @@
 		335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferMessage.h; sourceTree = "<group>"; };
 		335B903961229A4D7781E25D /* MXIClientMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientMethodCall.m; sourceTree = "<group>"; };
 		335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientSayMethodCall.m; sourceTree = "<group>"; };
+		335B90DDEB9FCA036253B337 /* MXILoginSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXILoginSheetController.h; sourceTree = "<group>"; };
 		335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferNotice.m; sourceTree = "<group>"; };
 		335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientSayMethodCall.h; sourceTree = "<group>"; };
 		335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIAbstractClientBufferEvent.h; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		335B93E9D656DF69C003DDC6 /* MXIClientBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBuffer.h; sourceTree = "<group>"; };
 		335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIAbstractClientBufferEvent.m; sourceTree = "<group>"; };
 		335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBuffer.m; sourceTree = "<group>"; };
+		335B95E4544E03654981B73B /* MXILoginSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXILoginSheetController.m; sourceTree = "<group>"; };
 		335B95F0FD0D0E0C4B4494D3 /* MXIClientMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientMethodCall.h; sourceTree = "<group>"; };
 		335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferAction.m; sourceTree = "<group>"; };
 		335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientUserStats.m; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 		F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
 		F2F7702317D7FA860017F91D /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClient.h; sourceTree = "<group>"; };
 		F2F7702417D7FA860017F91D /* MXIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClient.m; sourceTree = "<group>"; };
+		F2FDC80019393D2C0062E6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginSheet.xib; sourceTree = "<group>"; };
 		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA753E9D36254A44B872A17C /* Pods-mxey-IRCCloudTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mxey-IRCCloudTests.xcconfig"; path = "Pods/Pods-mxey-IRCCloudTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -187,6 +192,7 @@
 		F288A9C717D35D1D00D4AF6A /* mxey-IRCCloud */ = {
 			isa = PBXGroup;
 			children = (
+				F2FDC7FF19393D2C0062E6AF /* LoginSheet.xib */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
 				F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */,
@@ -202,6 +208,8 @@
 				335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */,
 				335B91E4A425A5FB80D58209 /* Events */,
 				335B908CC3894D2946017389 /* Commands */,
+				335B90DDEB9FCA036253B337 /* MXILoginSheetController.h */,
+				335B95E4544E03654981B73B /* MXILoginSheetController.m */,
 			);
 			path = "mxey-IRCCloud";
 			sourceTree = "<group>";
@@ -319,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */,
+				F2FDC80119393D2C0062E6AF /* LoginSheet.xib in Resources */,
 				F288A9DA17D35D1D00D4AF6A /* Images.xcassets in Resources */,
 				F288A9D217D35D1D00D4AF6A /* Credits.rtf in Resources */,
 				F288A9D817D35D1D00D4AF6A /* MainMenu.xib in Resources */,
@@ -434,6 +443,7 @@
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
 				335B9697516EE43C6E61B008 /* MXIClientBufferNotice.m in Sources */,
+				335B9C71619BFD4E7FA59D10 /* MXILoginSheetController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +480,14 @@
 				F288A9E917D35D1D00D4AF6A /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F2FDC7FF19393D2C0062E6AF /* LoginSheet.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2FDC80019393D2C0062E6AF /* Base */,
+			);
+			name = LoginSheet.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -582,6 +600,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mxey-IRCCloud/mxey-IRCCloud-Prefix.pch";
 				INFOPLIST_FILE = "mxey-IRCCloud/mxey-IRCCloud-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -597,6 +616,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mxey-IRCCloud/mxey-IRCCloud-Prefix.pch";
 				INFOPLIST_FILE = "mxey-IRCCloud/mxey-IRCCloud-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
