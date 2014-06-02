@@ -48,7 +48,11 @@
             NSLog(@"Received buffer event for non-existent buffer: %@", bufferEvent.bufferId);
             return;
         }
-        [bufferEvent checkForHighlights:self.highlightStrings];
+        MXIClientServer *server = self.servers[buffer.connectionId];
+
+        NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:self.highlightStrings];
+        [highlightStrings addObject:server.nick];
+        [bufferEvent checkForHighlights:highlightStrings];
 
         [self.delegate client:self didReceiveBufferEvent:bufferEvent];
         [buffer didReceiveBufferEvent:bufferEvent];
