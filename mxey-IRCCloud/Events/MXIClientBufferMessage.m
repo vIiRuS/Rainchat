@@ -25,8 +25,12 @@
 - (void)checkForHighlights:(NSArray *)highlightStrings {
     [super checkForHighlights:highlightStrings];
     self.highlightsUser = @NO;
+    NSError *error;
     for (NSString *highlightString in highlightStrings) {
-        if ([self.body rangeOfString:highlightString].location != NSNotFound) {
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:[NSString stringWithFormat:@"\\b%@\\b", highlightString]
+                                                                  options:NSRegularExpressionCaseInsensitive
+                                                                  error:&error];
+        if ([regex numberOfMatchesInString:self.body options:0 range:NSMakeRange(0, [self.body length])] > 0) {
             self.highlightsUser = @YES;
             break;
         }
