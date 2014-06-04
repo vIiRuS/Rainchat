@@ -12,6 +12,7 @@
 @interface MXIClientServer : MTLModel <MTLJSONSerializing>
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
+@property(nonatomic) NSString *nick;
 @property(nonatomic) NSMutableArray *buffers;
 @property(nonatomic) MXIClientBuffer *serverConsoleBuffer;
 
