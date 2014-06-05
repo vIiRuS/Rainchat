@@ -38,4 +38,18 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MXIClientUser class]];
 }
 
+-(void)removeUserWithNick:(NSString *)nick {
+    for (MXIClientUser *user in self.members) {
+        if ([user.nick isEqualToString:nick]) {
+            [self.members removeObject:user];
+            break;
+        }
+    }
+}
+
+-(void)insertUserWithNick:(NSString *)nick {
+    MXIClientUser *user = [MXIClientUser newUserWithNick:nick];
+    [self.members addObject:user];
+}
+
 @end

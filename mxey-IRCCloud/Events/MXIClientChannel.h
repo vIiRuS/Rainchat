@@ -18,5 +18,9 @@
 @property(nonatomic) NSString *topicText;
 @property(nonatomic) NSDate *topicChanged;
 @property(nonatomic) NSString *topicNick;
-@property(nonatomic) NSArray *members;
+@property(nonatomic) NSMutableArray *members;
+
+-(void)removeUserWithNick:(NSString*)nick;
+-(void)insertUserWithNick:(NSString*)nick;
+
 @end

@@ -29,4 +29,10 @@
     }];
 }
 
++(id)newUserWithNick:(NSString *)nick {
+    MXIClientUser *newUser = [[MXIClientUser alloc] init];
+    newUser.nick = nick;
+    return newUser;
+}
+
 @end

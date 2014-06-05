@@ -17,4 +17,6 @@
 @property(nonatomic) NSString *mode;
 @property(nonatomic) NSNumber *away;
 
++(id)newUserWithNick:(NSString*)nick;
+
 @end

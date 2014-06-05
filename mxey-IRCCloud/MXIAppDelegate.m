@@ -11,6 +11,8 @@
 #import "MXIClientServer.h"
 #import "MXILoginSheetController.h"
 #import "MXIClientUser.h"
+#import "MXIClientBufferJoin.h"
+#import "MXIClientBufferLeave.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -121,6 +123,11 @@
     if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
+        
+        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]]) {
+            [self.nicklistTableView reloadData];
+        }
+        
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];

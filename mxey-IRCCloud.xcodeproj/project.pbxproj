@@ -25,6 +25,8 @@
 		D74764FF18C74A72BA6E5B45 /* libPods-mxey-IRCCloudTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */; };
 		D93D89CE193F8AAD00BDD6D0 /* MXIClientChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */; };
 		D93EF77F193F8EB0003699B3 /* MXIClientUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EF77E193F8EB0003699B3 /* MXIClientUser.m */; };
+		D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */; };
+		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */; };
@@ -68,6 +70,10 @@
 		D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientChannel.m; sourceTree = "<group>"; };
 		D93EF77D193F8EB0003699B3 /* MXIClientUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientUser.h; sourceTree = "<group>"; };
 		D93EF77E193F8EB0003699B3 /* MXIClientUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientUser.m; sourceTree = "<group>"; };
+		D9B42C2A1940EEA700C7EFB4 /* MXIClientBufferJoin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferJoin.h; sourceTree = "<group>"; };
+		D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferJoin.m; sourceTree = "<group>"; };
+		D9B42C2D1940EF1200C7EFB4 /* MXIClientBufferLeave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferLeave.h; sourceTree = "<group>"; };
+		D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferLeave.m; sourceTree = "<group>"; };
 		F28399A617D659A800CF291D /* mxey-IRCCloudTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mxey-IRCCloudTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9BE17D35D1D00D4AF6A /* mxey-IRCCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mxey-IRCCloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9C117D35D1D00D4AF6A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -138,6 +144,10 @@
 				335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */,
 				335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */,
 				335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */,
+				D9B42C2A1940EEA700C7EFB4 /* MXIClientBufferJoin.h */,
+				D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */,
+				D9B42C2D1940EF1200C7EFB4 /* MXIClientBufferLeave.h */,
+				D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */,
 				D93D89CC193F8AAD00BDD6D0 /* MXIClientChannel.h */,
 				D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */,
 				D93EF77D193F8EB0003699B3 /* MXIClientUser.h */,
@@ -451,6 +461,8 @@
 				335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */,
 				335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */,
 				335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */,
+				D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */,
+				D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */,
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
