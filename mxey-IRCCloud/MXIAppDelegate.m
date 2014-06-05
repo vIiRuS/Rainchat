@@ -10,7 +10,9 @@
 #import "RFKeychain.h"
 #import "MXIClientServer.h"
 #import "MXILoginSheetController.h"
-
+#import "MXIClientUser.h"
+#import "MXIClientBufferJoin.h"
+#import "MXIClientBufferLeave.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -31,6 +33,7 @@
     NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
+    self.messageTextField.delegate = self;
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 
@@ -101,10 +104,30 @@
 }
 
 
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [self.getSelectedBuffer.channel.members count];
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
+    
+    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
+    cell.textField.stringValue = user.nick;
+    //Set image to nil, until we have proper images for OP, voice, etc.
+    cell.imageView.image = nil;
+    return cell;
+}
+
+
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
     if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
+        
+        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]]) {
+            [self.nicklistTableView reloadData];
+        }
+        
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];
@@ -136,6 +159,7 @@
         self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
+        [self.nicklistTableView reloadData];
     }
 }
 
@@ -164,5 +188,45 @@
 - (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
+}
+
+
+
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
+    if (commandSelector == @selector(insertTab:)) {
+        NSRange range = [textView selectedRange];
+        if (range.location == textView.string.length) {
+            __block NSString *completionWord = nil;
+            __block NSRange completionRange;
+            [textView.string enumerateSubstringsInRange:NSMakeRange(0, [textView.string length]) options:NSStringEnumerationByWords | NSStringEnumerationReverse usingBlock:^(NSString *substring, NSRange subrange, NSRange enclosingRange, BOOL *stop) {
+                completionWord = substring;
+                completionRange = enclosingRange;
+                *stop = YES;
+            }];
+            NSString *foundNick;
+            NSUInteger foundNickCount = 0;
+            for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
+                if (completionWord.length < user.nick.length) {
+                    NSString *comparestring = [user.nick substringToIndex:completionWord.length];
+                    if ([comparestring isEqualToString:completionWord]) {
+                        foundNick = user.nick;
+                        foundNickCount++;
+                    }
+                }
+            }
+            if (foundNickCount == 1) {
+                NSMutableString *mutableString = [textView.string mutableCopy];
+                [mutableString deleteCharactersInRange:completionRange];
+                if (completionRange.location == 0) {
+                    [mutableString insertString:[foundNick stringByAppendingString:@": "] atIndex:completionRange.location];
+                } else {
+                    [mutableString insertString:foundNick atIndex:completionRange.location];
+                }
+                textView.string = mutableString;
+            }
+        }
+        return YES;
+    }
+    return NO;
 }
 @end

@@ -10,6 +10,9 @@
 #import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
 #import "MXIClientUserStats.h"
+#import "MXIClientChannel.h"
+#import "MXIClientBufferJoin.h"
+#import "MXIClientBufferLeave.h"
 
 @interface MXIClient ()
 @property(nonatomic) MXIClientTransport *transport;
@@ -48,12 +51,20 @@
             NSLog(@"Received buffer event for non-existent buffer: %@", bufferEvent.bufferId);
             return;
         }
-        MXIClientServer *server = self.servers[buffer.connectionId];
+        
+        if ([message isKindOfClass:[MXIClientBufferJoin class]]) {
+            MXIClientBufferJoin *join = (MXIClientBufferJoin*) message;
+            [buffer.channel insertUserWithNick:join.fromNick];
+        } else if ([message isKindOfClass:[MXIClientBufferLeave class]]) {
+            MXIClientBufferLeave *leave = (MXIClientBufferLeave*)message;
+            [buffer.channel removeUserWithNick:leave.fromNick];
+        } else {
+            MXIClientServer *server = self.servers[buffer.connectionId];
 
-        NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:self.highlightStrings];
-        [highlightStrings addObject:server.nick];
-        [bufferEvent checkForHighlights:highlightStrings];
-
+            NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:self.highlightStrings];
+            [highlightStrings addObject:server.nick];
+            [bufferEvent checkForHighlights:highlightStrings];
+        }
         [self.delegate client:self didReceiveBufferEvent:bufferEvent];
         [buffer didReceiveBufferEvent:bufferEvent];
     }
@@ -73,6 +84,14 @@
     else if ([message isKindOfClass:[MXIClientUserStats class]]) {
         MXIClientUserStats *userStats = message;
         self.highlightStrings = userStats.highlightStrings;
+    } else if ([message isKindOfClass:[MXIClientChannel class]]) {
+        MXIClientChannel *channel = (MXIClientChannel*) message;
+        MXIClientBuffer *buffer = self.buffers[channel.bufferId];
+        if (!buffer) {
+            NSLog(@"Received buffer event for non-existent buffer: %@", channel.bufferId);
+            return;
+        }
+        buffer.channel = channel;
     }
 
 }

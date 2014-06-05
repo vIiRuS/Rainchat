@@ -10,7 +10,7 @@
 #import "MXIClient.h"
 #import "MXIClientDelegate.h"
 
-@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate>
+@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property(unsafe_unretained) IBOutlet NSTextView *bufferTextView;
@@ -19,5 +19,6 @@
 @property(weak) IBOutlet NSTextField *messageTextField;
 
 - (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender;
+@property (weak) IBOutlet NSTableView *nicklistTableView;
 
 @end
