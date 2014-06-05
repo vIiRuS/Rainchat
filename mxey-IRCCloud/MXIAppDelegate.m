@@ -13,6 +13,7 @@
 #import "MXIClientUser.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
+#import "MXIClientHeartbeatMethodCall.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -128,6 +129,16 @@
             [self.nicklistTableView reloadData];
         }
         
+        if ([bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
+            double timestampInSeconds = [bufferEvent.timestamp timeIntervalSince1970];
+            self.getSelectedBuffer.lastSeenEid = [NSNumber numberWithDouble:(timestampInSeconds*1000000)];
+            MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+            heartbeatMethodCall.selectedBuffer = self.getSelectedBuffer.bufferId;
+            [heartbeatMethodCall setLastSeenEids:@{[self.getSelectedBuffer.connectionId stringValue ]:
+                                                 @{[self.getSelectedBuffer.bufferId stringValue]: self.getSelectedBuffer.lastSeenEid}
+                                             }];
+            [self.client.transport callMethod:heartbeatMethodCall];
+        }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];
