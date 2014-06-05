@@ -11,6 +11,7 @@
 #import <Mantle/MTLJSONAdapter.h>
 #import "MXIClient.h"
 #import "MXIClientBufferMessage.h"
+#import "MXIClientChannel.h"
 
 typedef NS_ENUM(NSInteger, MXIClientBufferType) {
     MXIClientBufferTypeServerConsole,
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 @property(nonatomic) MXIClientBufferType type;
 @property(nonatomic, strong) NSMutableArray *events;
 @property(nonatomic) MXIClientTransport *transport;
+@property(nonatomic) MXIClientChannel *channel;
 
 - (void)didReceiveBufferEvent:(MXIClientBufferMessage *)bufferEvent;
 

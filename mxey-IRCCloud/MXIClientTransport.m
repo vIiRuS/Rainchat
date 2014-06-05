@@ -14,7 +14,7 @@
 #import "MXIClientUserStats.h"
 #import "MXIClientBufferAction.h"
 #import "MXIClientBufferNotice.h"
-
+#import "MXIClientChannel.h"
 
 @interface MXIClientTransport ()
 @property(nonatomic) SRWebSocket *webSocket;
@@ -164,6 +164,7 @@
         @"makeserver" : [MXIClientServer class],
         @"makebuffer" : [MXIClientBuffer class],
         @"stat_user" : [MXIClientUserStats class],
+        @"channel_init" : [MXIClientChannel class],
     };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];

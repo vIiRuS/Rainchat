@@ -10,6 +10,7 @@
 #import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
 #import "MXIClientUserStats.h"
+#import "MXIClientChannel.h"
 
 @interface MXIClient ()
 @property(nonatomic) MXIClientTransport *transport;
@@ -73,6 +74,14 @@
     else if ([message isKindOfClass:[MXIClientUserStats class]]) {
         MXIClientUserStats *userStats = message;
         self.highlightStrings = userStats.highlightStrings;
+    } else if ([message isKindOfClass:[MXIClientChannel class]]) {
+        MXIClientChannel *channel = (MXIClientChannel*) message;
+        MXIClientBuffer *buffer = self.buffers[channel.bufferId];
+        if (!buffer) {
+            NSLog(@"Received buffer event for non-existent buffer: %@", channel.bufferId);
+            return;
+        }
+        buffer.channel = channel;
     }
 
 }
