@@ -182,4 +182,44 @@
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }
+
+
+
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
+    if (commandSelector == @selector(insertTab:)) {
+        NSRange range = [textView selectedRange];
+        if (range.location == textView.string.length) {
+            __block NSString *completionWord = nil;
+            __block NSRange completionRange;
+            [textView.string enumerateSubstringsInRange:NSMakeRange(0, [textView.string length]) options:NSStringEnumerationByWords | NSStringEnumerationReverse usingBlock:^(NSString *substring, NSRange subrange, NSRange enclosingRange, BOOL *stop) {
+                completionWord = substring;
+                completionRange = enclosingRange;
+                *stop = YES;
+            }];
+            NSString *foundNick;
+            NSUInteger foundNickCount = 0;
+            for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
+                if (completionWord.length < user.nick.length) {
+                    NSString *comparestring = [user.nick substringToIndex:completionWord.length];
+                    if ([comparestring isEqualToString:completionWord]) {
+                        foundNick = user.nick;
+                        foundNickCount++;
+                    }
+                }
+            }
+            if (foundNickCount == 1) {
+                NSMutableString *mutableString = [textView.string mutableCopy];
+                [mutableString deleteCharactersInRange:completionRange];
+                if (completionRange.location == 0) {
+                    [mutableString insertString:[foundNick stringByAppendingString:@": "] atIndex:completionRange.location];
+                } else {
+                    [mutableString insertString:foundNick atIndex:completionRange.location];
+                }
+                textView.string = mutableString;
+            }
+        }
+        return YES;
+    }
+    return NO;
+}
 @end
