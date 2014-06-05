@@ -14,6 +14,7 @@
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
 #import "MXIClientHeartbeatMethodCall.h"
+#import "MXIAbstractClientBufferEvent.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -130,14 +131,7 @@
         }
         
         if ([bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            double timestampInSeconds = [bufferEvent.timestamp timeIntervalSince1970];
-            self.getSelectedBuffer.lastSeenEid = [NSNumber numberWithDouble:(timestampInSeconds*1000000)];
-            MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
-            heartbeatMethodCall.selectedBuffer = self.getSelectedBuffer.bufferId;
-            [heartbeatMethodCall setLastSeenEids:@{[self.getSelectedBuffer.connectionId stringValue ]:
-                                                 @{[self.getSelectedBuffer.bufferId stringValue]: self.getSelectedBuffer.lastSeenEid}
-                                             }];
-            [self.client.transport callMethod:heartbeatMethodCall];
+            [self sendHeartbeat];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -171,6 +165,12 @@
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
+        MXIAbstractClientBufferEvent *lastEvent = [selectedBuffer.events lastObject];
+        double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
+        double timeStampInMiliseconds = timestampInSeconds * 1000000;
+        if ([selectedBuffer.lastSeenEid doubleValue] != timeStampInMiliseconds) {
+            [self sendHeartbeat];
+        }
     }
 }
 
@@ -200,7 +200,6 @@
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }
-
 
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
@@ -239,5 +238,18 @@
         return YES;
     }
     return NO;
+}
+
+    - (void)sendHeartbeat {
+    MXIClientBuffer *buffer = [self getSelectedBuffer];
+    MXIAbstractClientBufferEvent *lastEvent = [buffer.events lastObject];
+    double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
+    buffer.lastSeenEid = [NSNumber numberWithDouble:(timestampInSeconds*1000000)];
+    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
+    [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
+                                               @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
+                                           }];
+    [self.client.transport callMethod:heartbeatMethodCall];
 }
 @end
