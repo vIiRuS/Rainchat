@@ -15,7 +15,6 @@
 #import "MXIClientBufferLeave.h"
 
 @interface MXIClient ()
-@property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic, strong) NSArray *highlightStrings;
 @end
 

@@ -27,6 +27,7 @@
 		D93EF77F193F8EB0003699B3 /* MXIClientUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EF77E193F8EB0003699B3 /* MXIClientUser.m */; };
 		D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */; };
 		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
+		D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */; };
@@ -74,6 +75,8 @@
 		D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferJoin.m; sourceTree = "<group>"; };
 		D9B42C2D1940EF1200C7EFB4 /* MXIClientBufferLeave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientBufferLeave.h; sourceTree = "<group>"; };
 		D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientBufferLeave.m; sourceTree = "<group>"; };
+		D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientHeartbeatMethodCall.h; sourceTree = "<group>"; };
+		D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientHeartbeatMethodCall.m; sourceTree = "<group>"; };
 		F28399A617D659A800CF291D /* mxey-IRCCloudTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mxey-IRCCloudTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9BE17D35D1D00D4AF6A /* mxey-IRCCloud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mxey-IRCCloud.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9C117D35D1D00D4AF6A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -129,6 +132,8 @@
 		335B908CC3894D2946017389 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */,
+				D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */,
 				335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */,
 				335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */,
 				335B903961229A4D7781E25D /* MXIClientMethodCall.m */,
@@ -459,6 +464,7 @@
 				D93EF77F193F8EB0003699B3 /* MXIClientUser.m in Sources */,
 				335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */,
 				335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */,
+				D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */,
 				335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */,
 				335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */,
 				D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */,

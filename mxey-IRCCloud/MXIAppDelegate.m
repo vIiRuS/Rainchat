@@ -13,6 +13,8 @@
 #import "MXIClientUser.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
+#import "MXIClientHeartbeatMethodCall.h"
+#import "MXIAbstractClientBufferEvent.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -128,6 +130,9 @@
             [self.nicklistTableView reloadData];
         }
         
+        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
+            [self sendHeartbeat:bufferEvent];
+        }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];
@@ -160,6 +165,7 @@
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
+        [self sendHeartbeat:nil];
     }
 }
 
@@ -189,7 +195,6 @@
     [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }
-
 
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
@@ -228,5 +233,23 @@
         return YES;
     }
     return NO;
+}
+
+- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
+    MXIClientBuffer *buffer = [self getSelectedBuffer];
+    if (!lastEvent) {
+        lastEvent = [buffer.events lastObject];
+    }
+    double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
+    double timestampInMiliSeconds = timestampInSeconds*1000000;
+    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
+    if ([buffer.lastSeenEid doubleValue] != timestampInMiliSeconds) {
+        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMiliSeconds];
+        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
+                                               @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
+                                           }];
+    }
+    [self.client.transport callMethod:heartbeatMethodCall];
 }
 @end

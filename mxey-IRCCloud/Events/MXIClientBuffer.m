@@ -20,6 +20,7 @@
         @"name" : @"name",
         @"isArchived" : @"archived",
         @"type" : @"buffer_type",
+        @"lastSeenEid" : @"last_seen_eid"
     };
 }
 
