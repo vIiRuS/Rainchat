@@ -130,8 +130,8 @@
             [self.nicklistTableView reloadData];
         }
         
-        if ([bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [self sendHeartbeat];
+        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
+            [self sendHeartbeat:bufferEvent];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -165,12 +165,7 @@
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
-        MXIAbstractClientBufferEvent *lastEvent = [selectedBuffer.events lastObject];
-        double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
-        double timeStampInMiliseconds = timestampInSeconds * 1000000;
-        if ([selectedBuffer.lastSeenEid doubleValue] != timeStampInMiliseconds) {
-            [self sendHeartbeat];
-        }
+        [self sendHeartbeat:nil];
     }
 }
 
@@ -240,16 +235,21 @@
     return NO;
 }
 
-    - (void)sendHeartbeat {
+- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
     MXIClientBuffer *buffer = [self getSelectedBuffer];
-    MXIAbstractClientBufferEvent *lastEvent = [buffer.events lastObject];
+    if (!lastEvent) {
+        lastEvent = [buffer.events lastObject];
+    }
     double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
-    buffer.lastSeenEid = [NSNumber numberWithDouble:(timestampInSeconds*1000000)];
+    double timestampInMiliSeconds = timestampInSeconds*1000000;
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
+    if ([buffer.lastSeenEid doubleValue] != timestampInMiliSeconds) {
+        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMiliSeconds];
+        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
                                                @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
                                            }];
+    }
     [self.client.transport callMethod:heartbeatMethodCall];
 }
 @end
