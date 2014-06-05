@@ -10,7 +10,7 @@
 #import "RFKeychain.h"
 #import "MXIClientServer.h"
 #import "MXILoginSheetController.h"
-
+#import "MXIClientUser.h"
 
 @interface MXIAppDelegate ()
 @property(nonatomic) BOOL backlogFinished;
@@ -31,6 +31,7 @@
     NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
+    self.messageTextField.delegate = self;
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 
@@ -101,6 +102,21 @@
 }
 
 
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [self.getSelectedBuffer.channel.members count];
+}
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
+    
+    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
+    cell.textField.stringValue = user.nick;
+    //Set image to nil, until we have proper images for OP, voice, etc.
+    cell.imageView.image = nil;
+    return cell;
+}
+
+
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
     if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
@@ -136,6 +152,7 @@
         self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
+        [self.nicklistTableView reloadData];
     }
 }
 

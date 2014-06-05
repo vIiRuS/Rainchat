@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>3E58D61F-6F82-4763-A25F-0D9860785016</string>
+	<string>F8C7045C-1965-4305-91DD-4BBCD1D030C1</string>
 	<key>IDESourceControlProjectName</key>
 	<string>mxey-IRCCloud</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>741908F5-23FA-4089-A6F0-82E0F8DA1562</key>
-		<string>ssh://github.com/mxey/yolo-dubstep.git</string>
+		<key>895847DA-381D-471B-8877-2DF5CF29AEEA</key>
+		<string>https://github.com/vIiRuS/Rainchat.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>mxey-IRCCloud.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>741908F5-23FA-4089-A6F0-82E0F8DA1562</key>
+		<key>895847DA-381D-471B-8877-2DF5CF29AEEA</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/mxey/yolo-dubstep.git</string>
+	<string>https://github.com/vIiRuS/Rainchat.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>741908F5-23FA-4089-A6F0-82E0F8DA1562</string>
+	<string>895847DA-381D-471B-8877-2DF5CF29AEEA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>741908F5-23FA-4089-A6F0-82E0F8DA1562</string>
+			<string>895847DA-381D-471B-8877-2DF5CF29AEEA</string>
 			<key>IDESourceControlWCCName</key>
-			<string>mxey-IRCCloud</string>
+			<string>Rainchat</string>
 		</dict>
 	</array>
 </dict>
