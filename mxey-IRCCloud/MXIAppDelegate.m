@@ -23,12 +23,32 @@
 
 @implementation MXIAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    if (self.userAccount && self.userPassword) {
-        [self login];
-    } else {
-        [self presentLoginSheet];
+#pragma mark - MXIAppDelegate
+
+- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
+    [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
+    sender.stringValue = @"";
+}
+
+#pragma mark - MXIClientDelegate
+
+- (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
+    if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
+        [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
+        [self.bufferTextView scrollToEndOfDocument:self];
+        
+        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]]) {
+            [self.nicklistTableView reloadData];
+        }
+        
+        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
+            [self sendHeartbeat:bufferEvent];
+        }
     }
+    if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
+        [self displayUserNotificationForEvent:bufferEvent];
+    }
+    
 }
 
 - (void)login {
@@ -65,6 +85,71 @@
     }];
 }
 
+- (void)displayUserNotificationForEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
+    MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = buffer.name;
+    notification.informativeText = bufferEvent.string;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+}
+
+- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
+    MXIClientBuffer *buffer = [self getSelectedBuffer];
+    if (!lastEvent) {
+        lastEvent = [buffer.events lastObject];
+    }
+    double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
+    double timestampInMiliSeconds = timestampInSeconds*1000000;
+    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
+    if ([buffer.lastSeenEid doubleValue] != timestampInMiliSeconds) {
+        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMiliSeconds];
+        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
+                                                   @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
+                                               }];
+    }
+    [self.client.transport callMethod:heartbeatMethodCall];
+}
+
+- (void)focusMessageTextField {
+    [self.window makeFirstResponder:self.messageTextField];
+    self.messageTextField.currentEditor.selectedRange = NSMakeRange(self.messageTextField.stringValue.length, 0);
+}
+
+- (MXIClientBuffer *)getSelectedBuffer {
+    if (self.buffersOutlineView.selectedRow == -1) {
+        return nil;
+    }
+    
+    NSObject *item = [self.buffersOutlineView itemAtRow:self.buffersOutlineView.selectedRow];
+    MXIClientBuffer *selectedBuffer;
+    if ([item isKindOfClass:[MXIClientServer class]]) {
+        MXIClientServer *server = (MXIClientServer *) item;
+        selectedBuffer = server.serverConsoleBuffer;
+    } else {
+        selectedBuffer = (MXIClientBuffer *) item;
+    }
+    return selectedBuffer;
+}
+
+#pragma mark - NSApplicationDelegate
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    if (self.userAccount && self.userPassword) {
+        [self login];
+    } else {
+        [self presentLoginSheet];
+    }
+}
+
+- (void)clientDidFinishInitialBacklog:(MXIClient *)client {
+    [self.buffersOutlineView reloadData];
+    [self.buffersOutlineView expandItem:nil expandChildren:YES];
+    self.backlogFinished = YES;
+}
+
+#pragma mark - NSOutlineViewDataSource
+
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     if (item) {
         MXIClientServer *server = item;
@@ -76,20 +161,6 @@
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
     return [self.client.serverOrder containsObject:item];
-}
-
-- (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-    if ([self.client.serverOrder containsObject:item]) {
-        NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
-        MXIClientServer *server = item;
-        serverCellView.textField.stringValue = [server.name uppercaseString];
-        return serverCellView;
-    } else {
-        NSTableCellView *bufferCellView = [outlineView makeViewWithIdentifier:@"DataCell" owner:self];
-        MXIClientBuffer *buffer = item;
-        bufferCellView.textField.stringValue = buffer.name;
-        return bufferCellView;
-    }
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index1 ofItem:(id)item {
@@ -105,54 +176,21 @@
     return nil;
 }
 
+#pragma mark - NSOutlineViewDelegate
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return [self.getSelectedBuffer.channel.members count];
-}
-
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
-    
-    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
-    cell.textField.stringValue = user.nick;
-    //Set image to nil, until we have proper images for OP, voice, etc.
-    cell.imageView.image = nil;
-    return cell;
-}
-
-
-- (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
-    if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
-        [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
-        [self.bufferTextView scrollToEndOfDocument:self];
-        
-        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]]) {
-            [self.nicklistTableView reloadData];
-        }
-        
-        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [self sendHeartbeat:bufferEvent];
-        }
-    }
-    if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
-        [self displayUserNotificationForEvent:bufferEvent];
+- (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    if ([self.client.serverOrder containsObject:item]) {
+        NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+        MXIClientServer *server = item;
+        serverCellView.textField.stringValue = [server.name uppercaseString];
+        return serverCellView;
+    } else {
+        NSTableCellView *bufferCellView = [outlineView makeViewWithIdentifier:@"DataCell" owner:self];
+        MXIClientBuffer *buffer = item;
+        bufferCellView.textField.stringValue = buffer.name;
+        return bufferCellView;
     }
 }
-
-- (void)displayUserNotificationForEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
-    MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = buffer.name;
-    notification.informativeText = bufferEvent.string;
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-}
-
-- (void)clientDidFinishInitialBacklog:(MXIClient *)client {
-    [self.buffersOutlineView reloadData];
-    [self.buffersOutlineView expandItem:nil expandChildren:YES];
-    self.backlogFinished = YES;
-}
-
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     MXIClientBuffer *selectedBuffer = [self getSelectedBuffer];
@@ -169,33 +207,25 @@
     }
 }
 
-- (void)focusMessageTextField {
-    [self.window makeFirstResponder:self.messageTextField];
-    self.messageTextField.currentEditor.selectedRange = NSMakeRange(self.messageTextField.stringValue.length, 0);
+#pragma mark - NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    return [self.getSelectedBuffer.channel.members count];
 }
 
-- (MXIClientBuffer *)getSelectedBuffer {
-    if (self.buffersOutlineView.selectedRow == -1) {
-        return nil;
-    }
+#pragma mark - NSTableViewDelegate
 
-    NSObject *item = [self.buffersOutlineView itemAtRow:self.buffersOutlineView.selectedRow];
-    MXIClientBuffer *selectedBuffer;
-    if ([item isKindOfClass:[MXIClientServer class]]) {
-        MXIClientServer *server = (MXIClientServer *) item;
-        selectedBuffer = server.serverConsoleBuffer;
-    } else {
-        selectedBuffer = (MXIClientBuffer *) item;
-    }
-    return selectedBuffer;
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
+    
+    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
+    cell.textField.stringValue = user.nick;
+    //Set image to nil, until we have proper images for OP, voice, etc.
+    cell.imageView.image = nil;
+    return cell;
 }
 
-
-- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
-    [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
-    sender.stringValue = @"";
-}
-
+#pragma mark - NSControlTextEditingDelegate
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
     if (commandSelector == @selector(insertTab:)) {
@@ -235,21 +265,4 @@
     return NO;
 }
 
-- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
-    MXIClientBuffer *buffer = [self getSelectedBuffer];
-    if (!lastEvent) {
-        lastEvent = [buffer.events lastObject];
-    }
-    double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
-    double timestampInMiliSeconds = timestampInSeconds*1000000;
-    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
-    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    if ([buffer.lastSeenEid doubleValue] != timestampInMiliSeconds) {
-        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMiliSeconds];
-        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
-                                               @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
-                                           }];
-    }
-    [self.client.transport callMethod:heartbeatMethodCall];
-}
 @end
