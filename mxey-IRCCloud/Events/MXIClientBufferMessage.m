@@ -19,7 +19,12 @@
 }
 
 - (NSString *)string {
-    return [NSString stringWithFormat:@"<%@> %@", self.fromNick, self.body];
+    // Server messages have the nick set to null and we don't want to show "<null> servermessage"
+    if(self.fromNick) {
+        return [NSString stringWithFormat:@"<%@> %@", self.fromNick, self.body];
+    } else {
+        return [NSString stringWithFormat:@"%@", self.body];
+    }
 }
 
 - (void)checkForHighlights:(NSArray *)highlightStrings {

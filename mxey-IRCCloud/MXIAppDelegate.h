@@ -7,18 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MXIClient.h"
-#import "MXIClientDelegate.h"
+#import "MXIChatWindowController.h"
 
-@interface MXIAppDelegate : NSObject <NSApplicationDelegate, MXIClientDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
+@interface MXIAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property(unsafe_unretained) IBOutlet NSTextView *bufferTextView;
-@property (nonatomic) MXIClient *client;
-@property(weak) IBOutlet NSOutlineView *buffersOutlineView;
-@property(weak) IBOutlet NSTextField *messageTextField;
-
-- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender;
-@property (weak) IBOutlet NSTableView *nicklistTableView;
+@property (retain) MXIChatWindowController *chatWindowController;
 
 @end

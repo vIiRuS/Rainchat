@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 
 @property(nonatomic) NSNumber *lastSeenEid;
 
-- (void)didReceiveBufferEvent:(MXIClientBufferMessage *)bufferEvent;
-
+- (void)didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
 - (void)sendMessageWithString:(NSString *)string;
+
 @end

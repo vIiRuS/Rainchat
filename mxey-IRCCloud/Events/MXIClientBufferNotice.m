@@ -5,10 +5,9 @@
 
 #import "MXIClientBufferNotice.h"
 
-
 @implementation MXIClientBufferNotice {
-
 }
+
 - (NSMutableDictionary *)stringAttributes {
     NSMutableDictionary *stringAttributes = [super stringAttributes];
 
@@ -16,7 +15,7 @@
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont *italicFont = [fontManager fontWithFamily:normalFont.familyName
                                               traits:NSItalicFontMask
-                                              weight:0
+                                              weight:[fontManager weightOfFont:normalFont]
                                                 size:normalFont.pointSize];
 
     stringAttributes[NSFontAttributeName] = italicFont;
