@@ -103,11 +103,11 @@
         lastEvent = [buffer.events lastObject];
     }
     double timestampInSeconds = [lastEvent.timestamp timeIntervalSince1970];
-    double timestampInMiliSeconds = timestampInSeconds*1000000;
+    double timestampInMicroSeconds = timestampInSeconds*1000000;
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    if ([buffer.lastSeenEid doubleValue] != timestampInMiliSeconds) {
-        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMiliSeconds];
+    if ([buffer.lastSeenEid doubleValue] != timestampInMicroSeconds) {
+        buffer.lastSeenEid = [NSNumber numberWithDouble:timestampInMicroSeconds];
         [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
                                                    @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
                                                }];
