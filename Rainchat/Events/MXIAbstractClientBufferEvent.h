@@ -9,6 +9,7 @@
 
 
 @interface MXIAbstractClientBufferEvent : MTLModel <MTLJSONSerializing>
+@property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSNumber *eid;
 @property(nonatomic) NSDate *timestamp;

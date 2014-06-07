@@ -25,7 +25,6 @@
         @"connectionId" : @"cid",
         @"name" : @"name",
         @"nick" : @"nick",
-        @"order" : @"order",
     };
 }
 

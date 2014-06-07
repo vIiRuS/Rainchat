@@ -1,7 +1,7 @@
 PODS:
-  - Mantle (1.4.1):
+  - Mantle (1.5):
     - Mantle/extobjc
-  - Mantle/extobjc (1.4.1)
+  - Mantle/extobjc (1.5)
   - RFKeychain (0.1)
   - SocketRocket (0.3.1-beta2)
 
@@ -11,8 +11,8 @@ DEPENDENCIES:
   - SocketRocket
 
 SPEC CHECKSUMS:
-  Mantle: 1ca9c0fa84d3d3fc98524e7229f30489b6dd44e5
+  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
   RFKeychain: b86238477be053f540916c5e69da625a4adf6951
   SocketRocket: 79a68ae186063c65e1fe6f638b1ae2927aa5f304
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
