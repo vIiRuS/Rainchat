@@ -43,11 +43,7 @@
 }
 
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id<MXIClientEvent>)message fromBacklog:(BOOL)fromBacklog {
-    if ([message respondsToSelector:@selector(processWithClient:)]) {
-        [message processWithClient:self];
-    } else {
-        return;
-    }
+    [message processWithClient:self];
 }
 
 
