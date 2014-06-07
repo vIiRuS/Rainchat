@@ -19,6 +19,8 @@
     return @{
         @"connectionId" : @"cid",
         @"bufferId" : @"bid",
+        @"eid": @"eid",
+        // eid is converted into an NSDate in timestampJSONTransformer
         @"timestamp" : @"eid",
     };
 }
