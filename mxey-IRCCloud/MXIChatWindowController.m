@@ -15,6 +15,7 @@
 #import "MXIClientHeartbeatMethodCall.h"
 #import "MXIClientUser.h"
 #import "MXILoginSheetController.h"
+#import "MXIClientBufferQuit.h"
 
 @interface MXIChatWindowController ()
 @property(nonatomic) BOOL backlogFinished;
@@ -142,7 +143,7 @@
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
         
-        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]]) {
+        if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]] || [bufferEvent isKindOfClass:[MXIClientBufferQuit class]]) {
             [self.nicklistTableView reloadData];
         }
         

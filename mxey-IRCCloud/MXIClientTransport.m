@@ -17,6 +17,7 @@
 #import "MXIClientChannel.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
+#import "MXIClientBufferQuit.h"
 
 @interface MXIClientTransport ()
 @property(nonatomic) SRWebSocket *webSocket;
@@ -169,6 +170,7 @@
         @"channel_init" : [MXIClientChannel class],
         @"joined_channel" : [MXIClientBufferJoin class],
         @"parted_channel" : [MXIClientBufferLeave class],
+        @"quit" : [MXIClientBufferQuit class],
     };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];

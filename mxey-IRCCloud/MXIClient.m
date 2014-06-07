@@ -13,6 +13,7 @@
 #import "MXIClientChannel.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
+#import "MXIClientBufferQuit.h"
 
 @interface MXIClient ()
 @property(nonatomic, strong) NSArray *highlightStrings;
@@ -57,6 +58,9 @@
         } else if ([message isKindOfClass:[MXIClientBufferLeave class]]) {
             MXIClientBufferLeave *leave = (MXIClientBufferLeave*)message;
             [buffer.channel removeUserWithNick:leave.fromNick];
+        } else if ([message isKindOfClass:[MXIClientBufferQuit class]]) {
+            MXIClientBufferQuit *quit = (MXIClientBufferQuit *)message;
+            [buffer.channel removeUserWithNick:quit.fromNick];
         } else {
             MXIClientServer *server = self.servers[buffer.connectionId];
 
