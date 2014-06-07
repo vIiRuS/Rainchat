@@ -28,6 +28,7 @@
 		D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */; };
 		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
 		D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */; };
+		E91FB40D19438B87007408BF /* MXIMessageTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E91FB40C19438B87007408BF /* MXIMessageTextField.m */; };
 		E920A1F319427D78001C62AD /* MXIChatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920A1F119427D78001C62AD /* MXIChatWindowController.m */; };
 		E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E920A1F219427D78001C62AD /* MXIChatWindowController.xib */; };
 		F2261585194312CE002C78EF /* MXIClientBufferQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = F2261584194312CE002C78EF /* MXIClientBufferQuit.m */; };
@@ -80,6 +81,8 @@
 		D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferLeave.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientHeartbeatMethodCall.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientHeartbeatMethodCall.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		E91FB40B19438B87007408BF /* MXIMessageTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIMessageTextField.h; sourceTree = "<group>"; };
+		E91FB40C19438B87007408BF /* MXIMessageTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIMessageTextField.m; sourceTree = "<group>"; };
 		E920A1F019427D78001C62AD /* MXIChatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIChatWindowController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E920A1F119427D78001C62AD /* MXIChatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIChatWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E920A1F219427D78001C62AD /* MXIChatWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXIChatWindowController.xib; sourceTree = "<group>"; };
@@ -141,12 +144,12 @@
 		335B908CC3894D2946017389 /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				335B95F0FD0D0E0C4B4494D3 /* MXIClientMethodCall.h */,
+				335B903961229A4D7781E25D /* MXIClientMethodCall.m */,
 				D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */,
 				D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */,
-				335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */,
 				335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */,
-				335B903961229A4D7781E25D /* MXIClientMethodCall.m */,
-				335B95F0FD0D0E0C4B4494D3 /* MXIClientMethodCall.h */,
+				335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -154,31 +157,31 @@
 		335B91E4A425A5FB80D58209 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				F2261583194312CE002C78EF /* MXIClientBufferQuit.h */,
-				F2261584194312CE002C78EF /* MXIClientBufferQuit.m */,
+				335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */,
+				335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */,
 				335B93E9D656DF69C003DDC6 /* MXIClientBuffer.h */,
 				335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */,
-				335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */,
-				335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */,
+				335B98CFCCE99EE651FE9E17 /* MXIClientBufferAction.h */,
+				335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */,
 				D9B42C2A1940EEA700C7EFB4 /* MXIClientBufferJoin.h */,
 				D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */,
 				D9B42C2D1940EF1200C7EFB4 /* MXIClientBufferLeave.h */,
 				D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */,
+				335B901034F393F1496F64C0 /* MXIClientBufferMessage.h */,
+				335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */,
+				335B937021E2831E3325D3F1 /* MXIClientBufferNotice.h */,
+				335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */,
+				F2261583194312CE002C78EF /* MXIClientBufferQuit.h */,
+				F2261584194312CE002C78EF /* MXIClientBufferQuit.m */,
 				D93D89CC193F8AAD00BDD6D0 /* MXIClientChannel.h */,
 				D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */,
-				D93EF77D193F8EB0003699B3 /* MXIClientUser.h */,
-				D93EF77E193F8EB0003699B3 /* MXIClientUser.m */,
+				F21E0A8F19434FBB00064E1A /* MXIClientEvent.h */,
 				335B984AAA1E88A620B6F997 /* MXIClientServer.h */,
 				335B935019C388A9957D78D5 /* MXIClientServer.m */,
-				335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */,
+				D93EF77D193F8EB0003699B3 /* MXIClientUser.h */,
+				D93EF77E193F8EB0003699B3 /* MXIClientUser.m */,
 				335B9D0EABE271B4CD9EF937 /* MXIClientUserStats.h */,
-				335B946D55D66009621A955D /* MXIAbstractClientBufferEvent.m */,
-				335B9347D15F73C878494EF8 /* MXIAbstractClientBufferEvent.h */,
-				335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */,
-				335B98CFCCE99EE651FE9E17 /* MXIClientBufferAction.h */,
-				335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */,
-				335B937021E2831E3325D3F1 /* MXIClientBufferNotice.h */,
-				F21E0A8F19434FBB00064E1A /* MXIClientEvent.h */,
+				335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -242,22 +245,24 @@
 		F288A9C717D35D1D00D4AF6A /* Rainchat */ = {
 			isa = PBXGroup;
 			children = (
+				335B908CC3894D2946017389 /* Commands */,
+				335B91E4A425A5FB80D58209 /* Events */,
 				E920A1F519428AC0001C62AD /* View controllers */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
+				F2F7702317D7FA860017F91D /* MXIClient.h */,
+				F2F7702417D7FA860017F91D /* MXIClient.m */,
 				F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */,
 				F2ACECC817D3DF3100D3F5C1 /* MXIClientTransport.h */,
 				F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */,
-				F2F7702317D7FA860017F91D /* MXIClient.h */,
-				F2F7702417D7FA860017F91D /* MXIClient.m */,
+				335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */,
 				F29D69F817D3646200B44A15 /* Podfile */,
 				F288A9D617D35D1D00D4AF6A /* MainMenu.xib */,
 				F288A9D917D35D1D00D4AF6A /* Images.xcassets */,
 				F288A9C817D35D1D00D4AF6A /* Supporting Files */,
-				335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */,
-				335B91E4A425A5FB80D58209 /* Events */,
-				335B908CC3894D2946017389 /* Commands */,
 				F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */,
+				E91FB40B19438B87007408BF /* MXIMessageTextField.h */,
+				E91FB40C19438B87007408BF /* MXIMessageTextField.m */,
 			);
 			path = Rainchat;
 			sourceTree = "<group>";
@@ -495,6 +500,7 @@
 				335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */,
 				D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */,
 				D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */,
+				E91FB40D19438B87007408BF /* MXIMessageTextField.m in Sources */,
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
