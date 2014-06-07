@@ -243,34 +243,44 @@
 #pragma mark - NSControlTextEditingDelegate
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector {
+    // Tab has been pressed...
     if (commandSelector == @selector(insertTab:)) {
         NSRange range = [textView selectedRange];
+
+        // Test if the cursor is at the end of the textView. Elsewise we won't complete.
         if (range.location == textView.string.length) {
             __block NSString *completionWord = nil;
             __block NSRange completionRange;
+            
+            // Get the first word from the end of the textfield.
             [textView.string enumerateSubstringsInRange:NSMakeRange(0, [textView.string length]) options:NSStringEnumerationByWords | NSStringEnumerationReverse usingBlock:^(NSString *substring, NSRange subrange, NSRange enclosingRange, BOOL *stop) {
                 completionWord = substring;
                 completionRange = enclosingRange;
                 *stop = YES;
             }];
+            
+            completionWord = [completionWord lowercaseString];
             NSString *foundNick;
             NSUInteger foundNickCount = 0;
             for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
-                if (completionWord.length < user.nick.length) {
-                    NSString *comparestring = [user.nick substringToIndex:completionWord.length];
+                if (completionWord.length <= user.nick.length) {
+                    NSString *comparestring = [[user.nick lowercaseString] substringToIndex:completionWord.length];
                     if ([comparestring isEqualToString:completionWord]) {
                         foundNick = user.nick;
                         foundNickCount++;
                     }
                 }
             }
+
             if (foundNickCount == 1) {
                 NSMutableString *mutableString = [textView.string mutableCopy];
                 [mutableString deleteCharactersInRange:completionRange];
+
+                // If we're completing the first word of the message we add : at the end
                 if (completionRange.location == 0) {
                     [mutableString insertString:[foundNick stringByAppendingString:@": "] atIndex:completionRange.location];
                 } else {
-                    [mutableString insertString:foundNick atIndex:completionRange.location];
+                    [mutableString insertString:[foundNick stringByAppendingString:@" "] atIndex:completionRange.location];
                 }
                 textView.string = mutableString;
             }
