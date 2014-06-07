@@ -112,6 +112,7 @@
 		F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientTransport.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F2ACECCB17D3E07E00D3F5C1 /* MXIClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
+		F2B4BDFC1943B0230024A0DD /* Rainchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Rainchat.entitlements; sourceTree = "<group>"; };
 		F2F7702317D7FA860017F91D /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F2F7702417D7FA860017F91D /* MXIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F2FDC80019393D2C0062E6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginSheet.xib; sourceTree = "<group>"; };
@@ -245,6 +246,7 @@
 		F288A9C717D35D1D00D4AF6A /* Rainchat */ = {
 			isa = PBXGroup;
 			children = (
+				F2B4BDFC1943B0230024A0DD /* Rainchat.entitlements */,
 				335B908CC3894D2946017389 /* Commands */,
 				335B91E4A425A5FB80D58209 /* Events */,
 				E920A1F519428AC0001C62AD /* View controllers */,
@@ -347,6 +349,15 @@
 				CLASSPREFIX = MXI;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Maximilian Gaß";
+				TargetAttributes = {
+					F288A9BD17D35D1C00D4AF6A = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = F288A9B917D35D1C00D4AF6A /* Build configuration list for PBXProject "Rainchat" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -657,6 +668,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Rainchat/Rainchat.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -677,6 +690,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Rainchat/Rainchat.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
