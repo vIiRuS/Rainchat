@@ -106,8 +106,8 @@
     
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    if (![buffer.lastSeenEid isEqualToNumber:lastEvent.eid]) {
-        buffer.lastSeenEid = lastEvent.eid;
+    if (![buffer.lastSeenEid isEqualToNumber:lastEvent.eventId]) {
+        buffer.lastSeenEid = lastEvent.eventId;
         [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
                                                    @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
                                                }];
