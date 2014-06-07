@@ -11,7 +11,7 @@
 #import "MXIClient.h"
 #import "MXIClientDelegate.h"
 
-@interface MXIChatWindowController : NSWindowController <MXIClientDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, NSControlTextEditingDelegate>
+@interface MXIChatWindowController : NSWindowController <MXIClientDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, NSControlTextEditingDelegate, NSTextFieldDelegate>
 
 @property (nonatomic) MXIClient *client;
 
