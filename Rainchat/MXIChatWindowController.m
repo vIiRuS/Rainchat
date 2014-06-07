@@ -79,7 +79,6 @@
     NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
-    //self.messageTextField.delegate = self;
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 

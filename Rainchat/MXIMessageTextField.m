@@ -40,7 +40,7 @@
         return @[];
     }
 
-    return [self.delegate completionsForWord:currentWord isFirstWord:isFirstWord];
+    return completions;
 }
 
 @end
