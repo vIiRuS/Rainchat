@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Thomas Roth on 07/06/14.
-//  Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIMessageTextField.h"

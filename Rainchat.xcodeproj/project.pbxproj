@@ -44,6 +44,7 @@
 		F2F7701F17D7A2BC0017F91D /* MXIClientTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = F2ACECC917D3DF3100D3F5C1 /* MXIClientTransport.m */; };
 		F2F7702517D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
 		F2F7702617D7FA860017F91D /* MXIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F7702417D7FA860017F91D /* MXIClient.m */; };
+		F2FA40611943B15B00C79347 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2FA40601943B15B00C79347 /* LICENSE.txt */; };
 		F2FDC80119393D2C0062E6AF /* LoginSheet.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2FDC7FF19393D2C0062E6AF /* LoginSheet.xib */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +116,7 @@
 		F2B4BDFC1943B0230024A0DD /* Rainchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Rainchat.entitlements; sourceTree = "<group>"; };
 		F2F7702317D7FA860017F91D /* MXIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F2F7702417D7FA860017F91D /* MXIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F2FA40601943B15B00C79347 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		F2FDC80019393D2C0062E6AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LoginSheet.xib; sourceTree = "<group>"; };
 		F866E98F511A4C498E3456F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA753E9D36254A44B872A17C /* Pods-mxey-IRCCloudTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mxey-IRCCloudTests.xcconfig"; path = "Pods/Pods-mxey-IRCCloudTests.xcconfig"; sourceTree = SOURCE_ROOT; };
@@ -203,6 +205,7 @@
 		F288A9B517D35D1C00D4AF6A = {
 			isa = PBXGroup;
 			children = (
+				F2FA40601943B15B00C79347 /* LICENSE.txt */,
 				F288A9C717D35D1D00D4AF6A /* Rainchat */,
 				F288A9E517D35D1D00D4AF6A /* RainchatTests */,
 				F288A9C017D35D1D00D4AF6A /* Frameworks */,
@@ -348,7 +351,7 @@
 			attributes = {
 				CLASSPREFIX = MXI;
 				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = "Maximilian Gaß";
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					F288A9BD17D35D1C00D4AF6A = {
 						SystemCapabilities = {
@@ -396,6 +399,7 @@
 				F288A9D217D35D1D00D4AF6A /* Credits.rtf in Resources */,
 				E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */,
 				F288A9D817D35D1D00D4AF6A /* MainMenu.xib in Resources */,
+				F2FA40611943B15B00C79347 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

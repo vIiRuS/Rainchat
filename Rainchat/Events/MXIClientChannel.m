@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Phillip Thelen on 04/06/14.
-//  Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIClientChannel.h"
