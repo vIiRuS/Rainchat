@@ -10,8 +10,10 @@
 #import <Mantle/MTLModel.h>
 #import <Mantle/MTLJSONAdapter.h>
 #import "MXIClient.h"
-#import "MXIClientBufferMessage.h"
 #import "MXIClientChannel.h"
+#import "MXIClientTransport.h"
+#import "MXIClientEvent.h"
+@class MXIAbstractClientBufferEvent;
 
 typedef NS_ENUM(NSInteger, MXIClientBufferType) {
     MXIClientBufferTypeServerConsole,
@@ -20,7 +22,7 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 };
 
 
-@interface MXIClientBuffer : MTLModel <MTLJSONSerializing>
+@interface MXIClientBuffer : MTLModel <MTLJSONSerializing, MXIClientEvent>
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSString *name;

@@ -14,10 +14,9 @@
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
 #import "MXIClientBufferQuit.h"
+#import "Events/MXIClientEvent.h"
 
-@interface MXIClient ()
-@property(nonatomic, strong) NSArray *highlightStrings;
-@end
+
 
 @implementation MXIClient
 
@@ -43,61 +42,14 @@
     [self.delegate clientDidFinishInitialBacklog:self];
 }
 
-- (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog {
-    if ([message isKindOfClass:[MXIAbstractClientBufferEvent class]]) {
-        MXIAbstractClientBufferEvent *bufferEvent = (MXIAbstractClientBufferEvent *) message;
-        MXIClientBuffer *buffer = self.buffers[bufferEvent.bufferId];
-        if (!buffer) {
-            NSLog(@"Received buffer event for non-existent buffer: %@", bufferEvent.bufferId);
-            return;
-        }
-        
-        if ([message isKindOfClass:[MXIClientBufferJoin class]]) {
-            MXIClientBufferJoin *join = (MXIClientBufferJoin*) message;
-            [buffer.channel insertUserWithNick:join.fromNick];
-        } else if ([message isKindOfClass:[MXIClientBufferLeave class]]) {
-            MXIClientBufferLeave *leave = (MXIClientBufferLeave*)message;
-            [buffer.channel removeUserWithNick:leave.fromNick];
-        } else if ([message isKindOfClass:[MXIClientBufferQuit class]]) {
-            MXIClientBufferQuit *quit = (MXIClientBufferQuit *)message;
-            [buffer.channel removeUserWithNick:quit.fromNick];
-        } else {
-            MXIClientServer *server = self.servers[buffer.connectionId];
-
-            NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:self.highlightStrings];
-            [highlightStrings addObject:server.nick];
-            [bufferEvent checkForHighlights:highlightStrings];
-        }
-        [self.delegate client:self didReceiveBufferEvent:bufferEvent];
-        [buffer didReceiveBufferEvent:bufferEvent];
+- (void)transport:(MXIClientTransport *)transport receivedMessage:(id<MXIClientEvent>)message fromBacklog:(BOOL)fromBacklog {
+    if ([message respondsToSelector:@selector(processWithClient:)]) {
+        [message processWithClient:self];
+    } else {
+        return;
     }
-    else if ([message isKindOfClass:[MXIClientServer class]]) {
-        MXIClientServer *server = (MXIClientServer *) message;
-        self.servers[server.connectionId] = server;
-        [self.serverOrder addObject:server];
-    }
-    else if ([message isKindOfClass:[MXIClientBuffer class]]) {
-        MXIClientBuffer *buffer = (MXIClientBuffer *) message;
-        MXIClientServer *server = self.servers[buffer.connectionId];
-        if (server && !buffer.isArchived) {
-            [server addBuffer:buffer];
-        }
-        self.buffers[buffer.bufferId] = buffer;
-    }
-    else if ([message isKindOfClass:[MXIClientUserStats class]]) {
-        MXIClientUserStats *userStats = message;
-        self.highlightStrings = userStats.highlightStrings;
-    } else if ([message isKindOfClass:[MXIClientChannel class]]) {
-        MXIClientChannel *channel = (MXIClientChannel*) message;
-        MXIClientBuffer *buffer = self.buffers[channel.bufferId];
-        if (!buffer) {
-            NSLog(@"Received buffer event for non-existent buffer: %@", channel.bufferId);
-            return;
-        }
-        buffer.channel = channel;
-    }
-
 }
+
 
 
 @end

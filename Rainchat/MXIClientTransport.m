@@ -198,7 +198,8 @@
 
     NSLog(@"Handling messages received during backlog replay");
     for (id backlogMessage in self.messageBufferDuringBacklog) {
-        [self.delegate transport:self receivedMessage:backlogMessage fromBacklog:NO];
+        [self processMessage:backlogMessage fromBacklog:NO];
+//        [self.delegate transport:self receivedMessage:backlogMessage fromBacklog:NO];
     }
     self.messageBufferDuringBacklog = nil;
     [self.delegate transportDidFinishInitialBacklog:self];

@@ -6,8 +6,9 @@
 #import <Foundation/Foundation.h>
 #import <Mantle/MTLModel.h>
 #import <Mantle/MTLJSONAdapter.h>
+#import "MXIClientEvent.h"
 
 
-@interface MXIClientUserStats : MTLModel <MTLJSONSerializing>
+@interface MXIClientUserStats : MTLModel <MTLJSONSerializing, MXIClientEvent>
 @property(nonatomic) NSArray *highlightStrings;
 @end

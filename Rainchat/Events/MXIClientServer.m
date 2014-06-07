@@ -36,4 +36,8 @@
     }
 }
 
+- (void)processWithClient:(MXIClient *)client {
+    client.servers[self.connectionId] = self;
+    [client.serverOrder addObject:self];
+}
 @end

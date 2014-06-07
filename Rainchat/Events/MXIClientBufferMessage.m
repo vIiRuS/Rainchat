@@ -8,6 +8,7 @@
 
 #import "MXIAppDelegate.h"
 #import "NSDictionary+MTLManipulationAdditions.h"
+#import "MXIClientBufferMessage.h"
 
 @implementation MXIClientBufferMessage
 

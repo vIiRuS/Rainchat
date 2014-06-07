@@ -22,4 +22,7 @@
     return [NSString stringWithFormat:@">>> %@ joined %@", self.fromNick, self.channelName];
 }
 
+- (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer {
+    [buffer.channel insertUserWithNick:self.fromNick];
+}
 @end

@@ -11,6 +11,7 @@
 #import "MXIClientBuffer.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
+#import "MXIClientBufferMessage.h"
 #import "MXIClientServer.h"
 #import "MXIClientHeartbeatMethodCall.h"
 #import "MXIClientUser.h"

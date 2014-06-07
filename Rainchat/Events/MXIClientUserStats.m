@@ -3,6 +3,7 @@
 // Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
+#import "MXIClient.h"
 #import "MXIClientUserStats.h"
 
 
@@ -11,5 +12,9 @@
     return @{
         @"highlightStrings" : @"highlights",
     };
+}
+
+- (void)processWithClient:(MXIClient *)client {
+    client.highlightStrings = self.highlightStrings;
 }
 @end

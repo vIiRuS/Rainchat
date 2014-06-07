@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MXIClientBuffer.h"
+#import "MXIClientEvent.h"
 
-@interface MXIClientServer : MTLModel <MTLJSONSerializing>
+@interface MXIClientServer : MTLModel <MTLJSONSerializing, MXIClientEvent>
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSString *nick;

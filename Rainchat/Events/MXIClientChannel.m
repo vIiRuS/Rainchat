@@ -9,6 +9,7 @@
 #import "MXIClientChannel.h"
 #import "MTLValueTransformer.h"
 #import <Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h>
+#import "MXIClientBuffer.h"
 #import "MXIClientUser.h"
 
 @implementation MXIClientChannel
@@ -52,4 +53,12 @@
     [self.members addObject:user];
 }
 
+- (void)processWithClient:(MXIClient *)client {
+    MXIClientBuffer *buffer = client.buffers[self.bufferId];
+    if (!buffer) {
+        NSLog(@"Received buffer event for non-existent buffer: %@", self.bufferId);
+        return;
+    }
+    buffer.channel = self;
+}
 @end

@@ -21,5 +21,6 @@
 @property(nonatomic) id <MXIClientDelegate> delegate;
 @property(nonatomic, strong) NSMutableDictionary *buffers;
 @property(nonatomic) MXIClientTransport *transport;
+@property(nonatomic, strong) NSArray *highlightStrings;
 
 @end

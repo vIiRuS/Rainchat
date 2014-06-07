@@ -21,4 +21,8 @@
 - (NSString *)string {
     return [NSString stringWithFormat:@"<<< %@ quit (%@)", self.fromNick, self.message];
 }
+
+- (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer {
+    [buffer.channel removeUserWithNick:self.fromNick];
+}
 @end

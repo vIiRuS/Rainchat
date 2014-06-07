@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXIClientBufferMessage.h"
 
+@class MXIAbstractClientBufferEvent;
 @class MXIClient;
 
 @protocol MXIClientDelegate <NSObject>

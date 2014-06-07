@@ -8,8 +8,9 @@
 
 #import "MTLModel.h"
 #import <Mantle/MTLJSONAdapter.h>
+#import "MXIClientEvent.h"
 
-@interface MXIClientChannel : MTLModel <MTLJSONSerializing>
+@interface MXIClientChannel : MTLModel <MTLJSONSerializing, MXIClientEvent>
 
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSNumber *bufferId;

@@ -10,6 +10,7 @@
 
 #import "MXIClientSayMethodCall.h"
 #import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import "MXIClientServer.h"
 
 @implementation MXIClientBuffer
 
@@ -53,4 +54,11 @@
     [self.transport callMethod:sayMethodCall];
 }
 
+- (void)processWithClient:(MXIClient *)client {
+    MXIClientServer *server = client.servers[self.connectionId];
+    if (server && !self.isArchived) {
+        [server addBuffer:self];
+    }
+    client.buffers[self.bufferId] = self;
+}
 @end

@@ -3,9 +3,11 @@
 // Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
+#import "MXIAbstractClientBufferEvent.h"
 #import "MXIAppDelegate.h"
 #import "MTLValueTransformer.h"
-
+#import "MXIClientBuffer.h"
+#import "MXIClientServer.h"
 
 @interface MXIAbstractClientBufferEvent ()
 - (NSString *)formattedTimestamp;
@@ -62,4 +64,23 @@
     return @"MXIAbstractClientBufferEvent: string method needs to be overriden";
 }
 
+- (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer {
+    MXIClientServer *server = client.servers[buffer.connectionId];
+    
+    NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:client.highlightStrings];
+    [highlightStrings addObject:server.nick];
+    [self checkForHighlights:highlightStrings];
+}
+
+- (void)processWithClient:(MXIClient *)client {
+    MXIClientBuffer *buffer = client.buffers[self.bufferId];
+    if (!buffer) {
+        NSLog(@"Received buffer event for non-existent buffer: %@", self.bufferId);
+        return;
+    }
+    
+    [self processWithClient:client buffer:buffer];
+    [buffer didReceiveBufferEvent:self];
+    [client.delegate client:client didReceiveBufferEvent:self];
+}
 @end

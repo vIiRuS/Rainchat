@@ -83,6 +83,7 @@
 		E920A1F019427D78001C62AD /* MXIChatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIChatWindowController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E920A1F119427D78001C62AD /* MXIChatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIChatWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E920A1F219427D78001C62AD /* MXIChatWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXIChatWindowController.xib; sourceTree = "<group>"; };
+		F21E0A8F19434FBB00064E1A /* MXIClientEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientEvent.h; sourceTree = "<group>"; };
 		F2261583194312CE002C78EF /* MXIClientBufferQuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientBufferQuit.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F2261584194312CE002C78EF /* MXIClientBufferQuit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferQuit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		F28399A617D659A800CF291D /* RainchatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RainchatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,6 +178,7 @@
 				335B98CFCCE99EE651FE9E17 /* MXIClientBufferAction.h */,
 				335B9157E58B3A5FBAD4F398 /* MXIClientBufferNotice.m */,
 				335B937021E2831E3325D3F1 /* MXIClientBufferNotice.h */,
+				F21E0A8F19434FBB00064E1A /* MXIClientEvent.h */,
 			);
 			path = Events;
 			sourceTree = "<group>";
