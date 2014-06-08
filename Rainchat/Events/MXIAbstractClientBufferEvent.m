@@ -35,9 +35,12 @@
 }
 
 - (NSMutableDictionary *)stringAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 2;
     NSMutableDictionary *stringAttributes = [@{
         NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
         NSForegroundColorAttributeName : [NSColor blackColor],
+        NSParagraphStyleAttributeName: paragraphStyle,
     } mutableCopy];
     if (self.highlightsUser.boolValue) {
         stringAttributes[NSForegroundColorAttributeName] = [NSColor redColor];
