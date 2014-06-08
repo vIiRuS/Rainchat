@@ -14,7 +14,7 @@
 
 @end
 
-@interface MXIMessageTextView : NSTextView <NSTextViewDelegate>
+@interface MXIMessageTextView : NSTextView
 
 @property(nonatomic) id <MXIMessageTextViewDelegate> delegate;
 
