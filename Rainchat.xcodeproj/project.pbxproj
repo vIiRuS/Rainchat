@@ -28,7 +28,7 @@
 		D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */; };
 		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
 		D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */; };
-		E91FB40D19438B87007408BF /* MXIMessageTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E91FB40C19438B87007408BF /* MXIMessageTextField.m */; };
+		E91FB40D19438B87007408BF /* MXIMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91FB40C19438B87007408BF /* MXIMessageTextView.m */; };
 		E920A1F319427D78001C62AD /* MXIChatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920A1F119427D78001C62AD /* MXIChatWindowController.m */; };
 		E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E920A1F219427D78001C62AD /* MXIChatWindowController.xib */; };
 		F2261585194312CE002C78EF /* MXIClientBufferQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = F2261584194312CE002C78EF /* MXIClientBufferQuit.m */; };
@@ -83,8 +83,8 @@
 		D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferLeave.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientHeartbeatMethodCall.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientHeartbeatMethodCall.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		E91FB40B19438B87007408BF /* MXIMessageTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIMessageTextField.h; sourceTree = "<group>"; };
-		E91FB40C19438B87007408BF /* MXIMessageTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIMessageTextField.m; sourceTree = "<group>"; };
+		E91FB40B19438B87007408BF /* MXIMessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIMessageTextView.h; sourceTree = "<group>"; };
+		E91FB40C19438B87007408BF /* MXIMessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIMessageTextView.m; sourceTree = "<group>"; };
 		E920A1F019427D78001C62AD /* MXIChatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIChatWindowController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E920A1F119427D78001C62AD /* MXIChatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIChatWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E920A1F219427D78001C62AD /* MXIChatWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXIChatWindowController.xib; sourceTree = "<group>"; };
@@ -194,6 +194,15 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		E91FB40E19439A10007408BF /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				E91FB40B19438B87007408BF /* MXIMessageTextView.h */,
+				E91FB40C19438B87007408BF /* MXIMessageTextView.m */,
+			);
+			name = "UI Components";
+			sourceTree = "<group>";
+		};
 		E920A1F519428AC0001C62AD /* View controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +266,7 @@
 				F2B4BDFC1943B0230024A0DD /* Rainchat.entitlements */,
 				335B908CC3894D2946017389 /* Commands */,
 				335B91E4A425A5FB80D58209 /* Events */,
+				E91FB40E19439A10007408BF /* UI Components */,
 				E920A1F519428AC0001C62AD /* View controllers */,
 				F288A9D317D35D1D00D4AF6A /* MXIAppDelegate.h */,
 				F288A9D417D35D1D00D4AF6A /* MXIAppDelegate.m */,
@@ -271,8 +281,6 @@
 				F288A9D917D35D1D00D4AF6A /* Images.xcassets */,
 				F288A9C817D35D1D00D4AF6A /* Supporting Files */,
 				F2ACECCC17D3F02200D3F5C1 /* Podfile.lock */,
-				E91FB40B19438B87007408BF /* MXIMessageTextField.h */,
-				E91FB40C19438B87007408BF /* MXIMessageTextField.m */,
 			);
 			path = Rainchat;
 			sourceTree = "<group>";
@@ -521,7 +529,7 @@
 				335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */,
 				D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */,
 				D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */,
-				E91FB40D19438B87007408BF /* MXIMessageTextField.m in Sources */,
+				E91FB40D19438B87007408BF /* MXIMessageTextView.m in Sources */,
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,

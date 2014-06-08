@@ -79,7 +79,6 @@
     NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
-    //self.messageTextField.delegate = self;
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 
@@ -108,8 +107,8 @@
 }
 
 - (void)focusMessageTextField {
-    [self.window makeFirstResponder:self.messageTextField];
-    self.messageTextField.currentEditor.selectedRange = NSMakeRange(self.messageTextField.stringValue.length, 0);
+    [self.window makeFirstResponder:self.messageTextView];
+    self.messageTextView.selectedRange = NSMakeRange(self.messageTextView.string.length, 0);
 }
 
 #pragma mark - IBActions
@@ -118,7 +117,6 @@
     [self.selectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }
-
 
 #pragma mark - MXIClientDelegate
 
@@ -223,7 +221,12 @@
     return [self.selectedBuffer.channel.members count];
 }
 
-#pragma mark - MXIMessageTextFieldDelegate
+#pragma mark - MXIMessageTextViewDelegate
+
+- (void)returnPressed:(NSTextView*)textView {
+    [self.selectedBuffer sendMessageWithString:textView.string];
+    textView.string = @"";
+}
 
 - (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
