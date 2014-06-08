@@ -14,13 +14,9 @@
     }];
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.methodName = @"say";
-    }
-
-    return self;
+- (NSString *)methodName {
+    return @"say";
 }
+
 
 @end

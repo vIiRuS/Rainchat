@@ -24,13 +24,8 @@
     self.seenEids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.methodName = @"heartbeat";
-    }
-    
-    return self;
+- (NSString *)methodName {
+    return @"heartbeat";
 }
 
 

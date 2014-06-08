@@ -8,6 +8,6 @@
 
 
 @interface MXIClientMethodCall : MTLModel <MTLJSONSerializing>
-@property(nonatomic) NSString *methodName;
+@property(nonatomic, readonly) NSString *methodName;
 @property(nonatomic) NSNumber *requestId;
 @end
