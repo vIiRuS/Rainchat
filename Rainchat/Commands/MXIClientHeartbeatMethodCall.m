@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Phillip on 05/06/14.
-//  Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIClientHeartbeatMethodCall.h"
@@ -14,7 +13,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
-        @"selectedBuffer" : @"selectedBuffer",
+        @"selectedBufferId" : @"selectedBuffer",
         @"seenEids" : @"seenEids",
     }];
 }
@@ -25,13 +24,8 @@
     self.seenEids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.methodName = @"heartbeat";
-    }
-    
-    return self;
+- (NSString *)methodName {
+    return @"heartbeat";
 }
 
 

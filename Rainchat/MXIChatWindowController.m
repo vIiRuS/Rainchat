@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Thomas Roth on 07/06/14.
-//  Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIChatWindowController.h"
@@ -20,6 +19,7 @@
 
 @interface MXIChatWindowController ()
 @property(nonatomic) BOOL backlogFinished;
+@property(nonatomic, readonly) MXIClientBuffer *selectedBuffer;
 @property(nonatomic, strong) MXILoginSheetController *sheetController;
 @end
 
@@ -82,7 +82,7 @@
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 
-- (MXIClientBuffer *)getSelectedBuffer {
+- (MXIClientBuffer *)selectedBuffer {
     if (self.buffersOutlineView.selectedRow == -1) {
         return nil;
     }
@@ -98,23 +98,6 @@
     return selectedBuffer;
 }
 
-- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
-    MXIClientBuffer *buffer = [self getSelectedBuffer];
-    if (!lastEvent) {
-        lastEvent = [buffer.events lastObject];
-    }
-    
-    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
-    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    if (![buffer.lastSeenEid isEqualToNumber:lastEvent.eventId]) {
-        buffer.lastSeenEid = lastEvent.eventId;
-        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
-                                                   @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
-                                               }];
-    }
-    [self.client.transport callMethod:heartbeatMethodCall];
-}
-
 - (void)displayUserNotificationForEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
     MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
     NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -128,16 +111,17 @@
     self.messageTextView.selectedRange = NSMakeRange(self.messageTextView.string.length, 0);
 }
 
-- (void)dealloc
-{
-    // This is needed because NSTextView does not support weak references.
-    self.messageTextView = nil;
+#pragma mark - IBActions
+
+- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
+    [self.selectedBuffer sendMessageWithString:sender.stringValue];
+    sender.stringValue = @"";
 }
 
 #pragma mark - MXIClientDelegate
 
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
-    if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
+    if (self.selectedBuffer.bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
         
@@ -146,7 +130,7 @@
         }
         
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [self sendHeartbeat:bufferEvent];
+            [self.selectedBuffer sendHeartbeatWithLastSeenEvent:bufferEvent];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -178,17 +162,16 @@
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    MXIClientBuffer *selectedBuffer = [self getSelectedBuffer];
-    if (selectedBuffer) {
+    if (self.selectedBuffer) {
         NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
-        for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
+        for (MXIClientBufferMessage *bufferMessage in self.selectedBuffer.events) {
             [bufferText appendAttributedString:[bufferMessage renderToAttributedString]];
         }
         self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
-        [self sendHeartbeat:nil];
+        [self.selectedBuffer sendHeartbeat];
     }
 }
 
@@ -225,7 +208,7 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
     
-    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
+    MXIClientUser *user = self.selectedBuffer.channel.members[row];
     cell.textField.stringValue = user.nick;
     //Set image to nil, until we have proper images for OP, voice, etc.
     cell.imageView.image = nil;
@@ -235,21 +218,21 @@
 #pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return [self.getSelectedBuffer.channel.members count];
+    return [self.selectedBuffer.channel.members count];
 }
 
 #pragma mark - MXIMessageTextViewDelegate
 
 - (void)returnPressed:(NSTextView*)textView {
-    [self.getSelectedBuffer sendMessageWithString:textView.string];
+    [self.selectedBuffer sendMessageWithString:textView.string];
     textView.string = @"";
 }
 
 - (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
-    for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
-        if ([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
-            if (isFirstWord) {
+    for (MXIClientUser *user in self.selectedBuffer.channel.members) {
+        if([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
+            if(isFirstWord) {
                 [ret addObject:[user.nick stringByAppendingString:@": "]];
             } else {
                 [ret addObject:[user.nick stringByAppendingString:@" "]];

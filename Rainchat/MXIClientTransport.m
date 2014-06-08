@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Maximilian Gaß on 01.09.13.
-//  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIClientTransport.h"
@@ -18,6 +17,7 @@
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
 #import "MXIClientBufferQuit.h"
+#import "MXIClientIdle.h"
 
 @interface MXIClientTransport ()
 @property(nonatomic) SRWebSocket *webSocket;
@@ -171,6 +171,7 @@
         @"joined_channel" : [MXIClientBufferJoin class],
         @"parted_channel" : [MXIClientBufferLeave class],
         @"quit" : [MXIClientBufferQuit class],
+        @"idle" : [MXIClientIdle class],
     };
     NSError *error;
     Class messageModelClass = messageModelClasses[messageAttributes[@"type"]];

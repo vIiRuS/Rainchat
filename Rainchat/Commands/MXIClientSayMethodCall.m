@@ -1,6 +1,5 @@
 //
 // Created by Maximilian Gaß on 26.03.14.
-// Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIClientSayMethodCall.h"
@@ -15,13 +14,9 @@
     }];
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.methodName = @"say";
-    }
-
-    return self;
+- (NSString *)methodName {
+    return @"say";
 }
+
 
 @end

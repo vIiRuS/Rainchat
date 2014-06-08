@@ -1,6 +1,5 @@
 //
 // Created by Maximilian Gaß on 11.04.14.
-// Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIAbstractClientBufferEvent.h"
@@ -36,9 +35,12 @@
 }
 
 - (NSMutableDictionary *)stringAttributes {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 2;
     NSMutableDictionary *stringAttributes = [@{
         NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
         NSForegroundColorAttributeName : [NSColor blackColor],
+        NSParagraphStyleAttributeName: paragraphStyle,
     } mutableCopy];
     if (self.highlightsUser.boolValue) {
         stringAttributes[NSForegroundColorAttributeName] = [NSColor redColor];

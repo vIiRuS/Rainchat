@@ -3,7 +3,6 @@
 //  Rainchat
 //
 //  Created by Maximilian Gaß on 02.09.13.
-//  Copyright (c) 2013 Maximilian Gaß. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -36,5 +35,6 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 
 - (void)didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
 - (void)sendMessageWithString:(NSString *)string;
-
+- (void)sendHeartbeatWithLastSeenEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
+- (void)sendHeartbeat;
 @end

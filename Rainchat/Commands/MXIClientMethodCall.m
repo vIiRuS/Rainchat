@@ -1,6 +1,5 @@
 //
 // Created by Maximilian Gaß on 26.03.14.
-// Copyright (c) 2014 Maximilian Gaß. All rights reserved.
 //
 
 #import "MXIClientMethodCall.h"
@@ -14,4 +13,17 @@
         @"connectionId" : @"cid",
     };
 }
+
++ (NSSet *)propertyKeys {
+    // Mantle ignores readonly properties, add manually
+    NSMutableSet *propertyKeys = [[super propertyKeys] mutableCopy];
+    [propertyKeys addObject:@"methodName"];
+    return propertyKeys;
+}
+
+- (NSString *)methodName {
+    [NSException raise:NSInternalInconsistencyException format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
+    return nil;
+}
+
 @end
