@@ -32,6 +32,7 @@
 		E920A1F319427D78001C62AD /* MXIChatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920A1F119427D78001C62AD /* MXIChatWindowController.m */; };
 		E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E920A1F219427D78001C62AD /* MXIChatWindowController.xib */; };
 		F2261585194312CE002C78EF /* MXIClientBufferQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = F2261584194312CE002C78EF /* MXIClientBufferQuit.m */; };
+		F270CBFB1944AD4B009781D3 /* MXIClientIdle.m in Sources */ = {isa = PBXBuildFile; fileRef = F270CBFA1944AD4B009781D3 /* MXIClientIdle.m */; };
 		F28399A917D659A800CF291D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9C217D35D1D00D4AF6A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288A9C117D35D1D00D4AF6A /* Cocoa.framework */; };
 		F288A9CC17D35D1D00D4AF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F288A9CA17D35D1D00D4AF6A /* InfoPlist.strings */; };
@@ -90,6 +91,8 @@
 		F21E0A8F19434FBB00064E1A /* MXIClientEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientEvent.h; sourceTree = "<group>"; };
 		F2261583194312CE002C78EF /* MXIClientBufferQuit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientBufferQuit.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F2261584194312CE002C78EF /* MXIClientBufferQuit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferQuit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		F270CBF91944AD4B009781D3 /* MXIClientIdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientIdle.h; sourceTree = "<group>"; };
+		F270CBFA1944AD4B009781D3 /* MXIClientIdle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientIdle.m; sourceTree = "<group>"; };
 		F28399A617D659A800CF291D /* RainchatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RainchatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9BE17D35D1D00D4AF6A /* Rainchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rainchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F288A9C117D35D1D00D4AF6A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -182,6 +185,8 @@
 				335B984AAA1E88A620B6F997 /* MXIClientServer.h */,
 				335B935019C388A9957D78D5 /* MXIClientServer.m */,
 				D93EF77D193F8EB0003699B3 /* MXIClientUser.h */,
+				F270CBF91944AD4B009781D3 /* MXIClientIdle.h */,
+				F270CBFA1944AD4B009781D3 /* MXIClientIdle.m */,
 				D93EF77E193F8EB0003699B3 /* MXIClientUser.m */,
 				335B9D0EABE271B4CD9EF937 /* MXIClientUserStats.h */,
 				335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */,
@@ -508,6 +513,7 @@
 				335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */,
 				D93EF77F193F8EB0003699B3 /* MXIClientUser.m in Sources */,
 				335B9D4F313F843624CF1AAA /* MXIClientBufferMessage.m in Sources */,
+				F270CBFB1944AD4B009781D3 /* MXIClientIdle.m in Sources */,
 				335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */,
 				F2261585194312CE002C78EF /* MXIClientBufferQuit.m in Sources */,
 				D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */,
