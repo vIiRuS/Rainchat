@@ -10,9 +10,9 @@
 
 #import "MXIClient.h"
 #import "MXIClientDelegate.h"
-#import "MXIMessageTextField.h"
+#import "MXIMessageTextView.h"
 
-@interface MXIChatWindowController : NSWindowController <MXIClientDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, MXIMessageTextFieldDelegate>
+@interface MXIChatWindowController : NSWindowController <MXIClientDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, MXIMessageTextViewDelegate>
 
 @property (nonatomic) MXIClient *client;
 
@@ -20,11 +20,7 @@
 
 @property(unsafe_unretained) IBOutlet NSTextView *bufferTextView;
 @property(weak) IBOutlet NSOutlineView *buffersOutlineView;
-@property(weak) IBOutlet MXIMessageTextField *messageTextField;
+@property(assign) IBOutlet MXIMessageTextView *messageTextView;
 @property (weak) IBOutlet NSTableView *nicklistTableView;
-
-#pragma mark - IBActions
-
-- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender;
 
 @end

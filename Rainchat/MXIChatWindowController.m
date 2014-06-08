@@ -124,17 +124,15 @@
 }
 
 - (void)focusMessageTextField {
-    [self.window makeFirstResponder:self.messageTextField];
-    self.messageTextField.currentEditor.selectedRange = NSMakeRange(self.messageTextField.stringValue.length, 0);
+    [self.window makeFirstResponder:self.messageTextView];
+    self.messageTextView.selectedRange = NSMakeRange(self.messageTextView.string.length, 0);
 }
 
-#pragma mark - IBActions
-
-- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
-    [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
-    sender.stringValue = @"";
+- (void)dealloc
+{
+    // This is needed because NSTextView does not support weak references.
+    self.messageTextView = nil;
 }
-
 
 #pragma mark - MXIClientDelegate
 
@@ -240,13 +238,18 @@
     return [self.getSelectedBuffer.channel.members count];
 }
 
-#pragma mark - MXIMessageTextFieldDelegate
+#pragma mark - MXIMessageTextViewDelegate
+
+- (void)returnPressed:(NSTextView*)textView {
+    [self.getSelectedBuffer sendMessageWithString:textView.string];
+    textView.string = @"";
+}
 
 - (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
-        if([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
-            if(isFirstWord) {
+        if ([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
+            if (isFirstWord) {
                 [ret addObject:[user.nick stringByAppendingString:@": "]];
             } else {
                 [ret addObject:[user.nick stringByAppendingString:@" "]];
