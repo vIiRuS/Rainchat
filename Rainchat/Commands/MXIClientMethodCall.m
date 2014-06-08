@@ -14,4 +14,16 @@
     };
 }
 
++ (NSSet *)propertyKeys {
+    // Mantle ignores readonly properties, add manually
+    NSMutableSet *propertyKeys = [[super propertyKeys] mutableCopy];
+    [propertyKeys addObject:@"methodName"];
+    return propertyKeys;
+}
+
+- (NSString *)methodName {
+    [NSException raise:NSInternalInconsistencyException format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
+    return nil;
+}
+
 @end
