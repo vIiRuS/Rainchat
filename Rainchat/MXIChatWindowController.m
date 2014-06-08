@@ -82,7 +82,7 @@
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
 }
 
-- (MXIClientBuffer *)getSelectedBuffer {
+- (MXIClientBuffer *)selectedBuffer {
     if (self.buffersOutlineView.selectedRow == -1) {
         return nil;
     }
@@ -99,7 +99,7 @@
 }
 
 - (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
-    MXIClientBuffer *buffer = [self getSelectedBuffer];
+    MXIClientBuffer *buffer = [self selectedBuffer];
     if (!lastEvent) {
         lastEvent = [buffer.events lastObject];
     }
@@ -131,7 +131,7 @@
 #pragma mark - IBActions
 
 - (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
-    [self.getSelectedBuffer sendMessageWithString:sender.stringValue];
+    [self.selectedBuffer sendMessageWithString:sender.stringValue];
     sender.stringValue = @"";
 }
 
@@ -139,7 +139,7 @@
 #pragma mark - MXIClientDelegate
 
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
-    if ([self getSelectedBuffer].bufferId == bufferEvent.bufferId) {
+    if ([self selectedBuffer].bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
         
@@ -180,7 +180,7 @@
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    MXIClientBuffer *selectedBuffer = [self getSelectedBuffer];
+    MXIClientBuffer *selectedBuffer = [self selectedBuffer];
     if (selectedBuffer) {
         NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
         for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
@@ -227,7 +227,7 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
     
-    MXIClientUser *user = self.getSelectedBuffer.channel.members[row];
+    MXIClientUser *user = self.selectedBuffer.channel.members[row];
     cell.textField.stringValue = user.nick;
     //Set image to nil, until we have proper images for OP, voice, etc.
     cell.imageView.image = nil;
@@ -237,14 +237,14 @@
 #pragma mark - NSTableViewDataSource
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return [self.getSelectedBuffer.channel.members count];
+    return [self.selectedBuffer.channel.members count];
 }
 
 #pragma mark - MXIMessageTextFieldDelegate
 
 - (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
-    for (MXIClientUser *user in self.getSelectedBuffer.channel.members) {
+    for (MXIClientUser *user in self.selectedBuffer.channel.members) {
         if([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
             if(isFirstWord) {
                 [ret addObject:[user.nick stringByAppendingString:@": "]];
