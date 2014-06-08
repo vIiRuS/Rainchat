@@ -13,7 +13,7 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return [[super JSONKeyPathsByPropertyKey] mtl_dictionaryByAddingEntriesFromDictionary:@{
-        @"selectedBuffer" : @"selectedBuffer",
+        @"selectedBufferId" : @"selectedBuffer",
         @"seenEids" : @"seenEids",
     }];
 }

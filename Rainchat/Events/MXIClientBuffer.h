@@ -35,5 +35,6 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 
 - (void)didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
 - (void)sendMessageWithString:(NSString *)string;
-
+- (void)sendHeartbeatWithLastSeenEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
+- (void)sendHeartbeat;
 @end

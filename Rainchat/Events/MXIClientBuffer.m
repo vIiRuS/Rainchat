@@ -10,6 +10,8 @@
 #import "MXIClientSayMethodCall.h"
 #import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
 #import "MXIClientServer.h"
+#import "MXIClientHeartbeatMethodCall.h"
+#import "MXIAbstractClientBufferEvent.h"
 
 @implementation MXIClientBuffer
 
@@ -59,5 +61,23 @@
         [server addBuffer:self];
     }
     client.buffers[self.bufferId] = self;
+}
+
+- (void)sendHeartbeat {
+    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+    heartbeatMethodCall.selectedBufferId = self.bufferId;
+    [self.transport callMethod:heartbeatMethodCall];
+}
+
+- (void)sendHeartbeatWithLastSeenEvent:(MXIAbstractClientBufferEvent *)lastEvent {
+    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
+    heartbeatMethodCall.selectedBufferId = self.bufferId;
+    if (![self.lastSeenEid isEqualToNumber:lastEvent.eventId]) {
+        self.lastSeenEid = lastEvent.eventId;
+        [heartbeatMethodCall setLastSeenEids:@{[self.connectionId stringValue ]:
+                                                   @{[self.bufferId stringValue]: self.lastSeenEid}
+                                               }];
+    }
+    [self.transport callMethod:heartbeatMethodCall];
 }
 @end

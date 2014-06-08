@@ -9,7 +9,7 @@
 
 @interface MXIClientHeartbeatMethodCall : MXIClientMethodCall
 
-@property(nonatomic) NSNumber *selectedBuffer;
+@property(nonatomic) NSNumber *selectedBufferId;
 @property(nonatomic) NSString *seenEids;
 
 -(void)setLastSeenEids:(NSDictionary*) dictionary;

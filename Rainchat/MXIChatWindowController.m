@@ -98,23 +98,6 @@
     return selectedBuffer;
 }
 
-- (void)sendHeartbeat:(MXIAbstractClientBufferEvent*)lastEvent {
-    MXIClientBuffer *buffer = [self selectedBuffer];
-    if (!lastEvent) {
-        lastEvent = [buffer.events lastObject];
-    }
-    
-    MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
-    heartbeatMethodCall.selectedBuffer = buffer.bufferId;
-    if (![buffer.lastSeenEid isEqualToNumber:lastEvent.eventId]) {
-        buffer.lastSeenEid = lastEvent.eventId;
-        [heartbeatMethodCall setLastSeenEids:@{[buffer.connectionId stringValue ]:
-                                                   @{[buffer.bufferId stringValue]: buffer.lastSeenEid}
-                                               }];
-    }
-    [self.client.transport callMethod:heartbeatMethodCall];
-}
-
 - (void)displayUserNotificationForEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
     MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
     NSUserNotification *notification = [[NSUserNotification alloc] init];
@@ -148,7 +131,7 @@
         }
         
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [self sendHeartbeat:bufferEvent];
+            [[self selectedBuffer] sendHeartbeatWithLastSeenEvent:bufferEvent];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -190,7 +173,7 @@
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
-        [self sendHeartbeat:nil];
+        [selectedBuffer sendHeartbeat];
     }
 }
 
