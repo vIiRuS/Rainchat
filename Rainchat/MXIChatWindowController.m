@@ -19,6 +19,7 @@
 
 @interface MXIChatWindowController ()
 @property(nonatomic) BOOL backlogFinished;
+@property(nonatomic, readonly) MXIClientBuffer *selectedBuffer;
 @property(nonatomic, strong) MXILoginSheetController *sheetController;
 @end
 
@@ -122,7 +123,7 @@
 #pragma mark - MXIClientDelegate
 
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
-    if ([self selectedBuffer].bufferId == bufferEvent.bufferId) {
+    if (self.selectedBuffer.bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
         
@@ -131,7 +132,7 @@
         }
         
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [[self selectedBuffer] sendHeartbeatWithLastSeenEvent:bufferEvent];
+            [self.selectedBuffer sendHeartbeatWithLastSeenEvent:bufferEvent];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -163,17 +164,16 @@
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    MXIClientBuffer *selectedBuffer = [self selectedBuffer];
-    if (selectedBuffer) {
+    if (self.selectedBuffer) {
         NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
-        for (MXIClientBufferMessage *bufferMessage in selectedBuffer.events) {
+        for (MXIClientBufferMessage *bufferMessage in self.selectedBuffer.events) {
             [bufferText appendAttributedString:[bufferMessage renderToAttributedString]];
         }
         self.bufferTextView.textStorage.attributedString = bufferText;
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
-        [selectedBuffer sendHeartbeat];
+        [self.selectedBuffer sendHeartbeat];
     }
 }
 
