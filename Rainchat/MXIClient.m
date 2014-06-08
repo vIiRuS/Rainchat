@@ -15,6 +15,7 @@
 #import "MXIClientBufferLeave.h"
 #import "MXIClientBufferQuit.h"
 #import "Events/MXIClientEvent.h"
+#import <Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h>
 
 
 
@@ -46,6 +47,20 @@
     [message processWithClient:self];
 }
 
+#pragma mark - MXIClientStatus helpers
 
++ (NSValueTransformer *)statusJSONTransformer {
+    NSDictionary *statusDict = @{
+                                 @"queued": @(MXIClientStatusQueued),
+                                 @"connecting": @(MXIClientStatusConnecting),
+                                 @"connected": @(MXIClientStatusConnected),
+                                 @"connected_joining": @(MXIClientStatusConnectedJoining),
+                                 @"connected_ready": @(MXIClientStatusConnectedReady),
+                                 @"quitting": @(MXIClientStatusQuitting),
+                                 @"disconnected": @(MXIClientStatusDisconnected),
+                                 @"waiting_to_retry": @(MXIClientStatusWaitingToRetry),
+                                 @"ip_retry": @(MXIClientStatusIPRetry)};
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:statusDict];
+}
 
 @end

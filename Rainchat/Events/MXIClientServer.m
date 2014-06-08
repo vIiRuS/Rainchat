@@ -7,6 +7,7 @@
 //
 
 #import "MXIClientServer.h"
+#import <Mantle/NSValueTransformer+MTLPredefinedTransformerAdditions.h>
 
 @implementation MXIClientServer
 #pragma clang diagnostic push
@@ -25,7 +26,12 @@
         @"connectionId" : @"cid",
         @"name" : @"name",
         @"nick" : @"nick",
+        @"status": @"status"
     };
+}
+
++ (NSValueTransformer *)statusJSONTransformer {
+    return [MXIClient statusJSONTransformer];
 }
 
 - (void)addBuffer:(MXIClientBuffer *)buffer {
@@ -40,4 +46,5 @@
     client.servers[self.connectionId] = self;
     [client.serverOrder addObject:self];
 }
+
 @end
