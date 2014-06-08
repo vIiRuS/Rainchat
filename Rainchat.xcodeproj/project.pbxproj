@@ -29,6 +29,7 @@
 		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
 		D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */; };
 		E91FB40D19438B87007408BF /* MXIMessageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91FB40C19438B87007408BF /* MXIMessageTextView.m */; };
+		E91FB45A1944E091007408BF /* MXIClientReconnectMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = E91FB4581944E091007408BF /* MXIClientReconnectMethodCall.m */; };
 		E920A1F319427D78001C62AD /* MXIChatWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E920A1F119427D78001C62AD /* MXIChatWindowController.m */; };
 		E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E920A1F219427D78001C62AD /* MXIChatWindowController.xib */; };
 		F2261585194312CE002C78EF /* MXIClientBufferQuit.m in Sources */ = {isa = PBXBuildFile; fileRef = F2261584194312CE002C78EF /* MXIClientBufferQuit.m */; };
@@ -85,6 +86,8 @@
 		D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientHeartbeatMethodCall.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E91FB40B19438B87007408BF /* MXIMessageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIMessageTextView.h; sourceTree = "<group>"; };
 		E91FB40C19438B87007408BF /* MXIMessageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIMessageTextView.m; sourceTree = "<group>"; };
+		E91FB4581944E091007408BF /* MXIClientReconnectMethodCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIClientReconnectMethodCall.m; sourceTree = "<group>"; };
+		E91FB4591944E091007408BF /* MXIClientReconnectMethodCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientReconnectMethodCall.h; sourceTree = "<group>"; };
 		E920A1F019427D78001C62AD /* MXIChatWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIChatWindowController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		E920A1F119427D78001C62AD /* MXIChatWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIChatWindowController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E920A1F219427D78001C62AD /* MXIChatWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MXIChatWindowController.xib; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				335B903961229A4D7781E25D /* MXIClientMethodCall.m */,
 				D9B42C33194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.h */,
 				D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */,
+				E91FB4591944E091007408BF /* MXIClientReconnectMethodCall.h */,
+				E91FB4581944E091007408BF /* MXIClientReconnectMethodCall.m */,
 				335B92031FC93CF0F562F1A1 /* MXIClientSayMethodCall.h */,
 				335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */,
 			);
@@ -533,6 +538,7 @@
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
+				E91FB45A1944E091007408BF /* MXIClientReconnectMethodCall.m in Sources */,
 				335B9697516EE43C6E61B008 /* MXIClientBufferNotice.m in Sources */,
 				335B9C71619BFD4E7FA59D10 /* MXILoginSheetController.m in Sources */,
 			);

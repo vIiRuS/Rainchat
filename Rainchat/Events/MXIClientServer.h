@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXIClient.h"
 #import "MXIClientBuffer.h"
 #import "MXIClientEvent.h"
 
@@ -13,6 +14,9 @@
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSString *nick;
+@property(nonatomic) MXIClientStatus status;
+
+@property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic) NSMutableArray *buffers;
 @property(nonatomic) MXIClientBuffer *serverConsoleBuffer;
 
