@@ -71,7 +71,11 @@
     
     NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:client.highlightStrings];
     [highlightStrings addObject:server.nick];
-    [self checkForHighlights:highlightStrings];
+
+    // Make sure we don't hilight ourselves.
+    if (![server.nick isEqualToString:self.fromNick]) {
+        [self checkForHighlights:highlightStrings];
+    }
 }
 
 - (void)processWithClient:(MXIClient *)client {
