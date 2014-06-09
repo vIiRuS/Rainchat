@@ -11,7 +11,6 @@
 #import "MXIAbstractClientBufferEvent.h"
 
 @interface MXIClientBufferMessage : MXIAbstractClientBufferEvent
-@property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *body;
 
 - (NSString *)string;

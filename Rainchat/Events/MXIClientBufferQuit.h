@@ -8,6 +8,5 @@
 #import "MXIAbstractClientBufferEvent.h"
 
 @interface MXIClientBufferQuit : MXIAbstractClientBufferEvent
-@property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *message;
 @end

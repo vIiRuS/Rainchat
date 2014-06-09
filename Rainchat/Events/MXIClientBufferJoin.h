@@ -9,7 +9,6 @@
 
 @interface MXIClientBufferJoin : MXIAbstractClientBufferEvent
 
-@property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSString *channelName;
 
 - (NSString *)string;

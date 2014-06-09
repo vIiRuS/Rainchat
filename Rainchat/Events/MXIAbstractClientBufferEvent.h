@@ -12,6 +12,7 @@
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSNumber *bufferId;
 @property(nonatomic) NSNumber *eventId;
+@property(nonatomic) NSString *fromNick;
 @property(nonatomic) NSDate *timestamp;
 @property(nonatomic) NSNumber *highlightsUser;
 
@@ -22,4 +23,5 @@
 - (void)checkForHighlights:(NSArray *)highlightStrings;
 
 - (NSString *)string;
+
 @end
