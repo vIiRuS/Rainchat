@@ -13,6 +13,7 @@
 		335B97C234D6731467F29409 /* MXIClientSayMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B90AE30F13437A58C4A03 /* MXIClientSayMethodCall.m */; };
 		335B9913D00117512108C628 /* MXIClientBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B955D1542C8EFA24D11E7 /* MXIClientBuffer.m */; };
 		335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B97AB0D165B8688A22FC5 /* MXIClientUserStats.m */; };
+		335B9A4539BADA52720957AE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 335B9D31190AC09C7720330E /* README.md */; };
 		335B9B86FE7889063E4229BD /* MXIClientMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B903961229A4D7781E25D /* MXIClientMethodCall.m */; };
 		335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B970CE11E796679ABF3DB /* MXIClientBufferAction.m */; };
 		335B9BEB3B1CE305CEB2F622 /* MXIClientServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 335B935019C388A9957D78D5 /* MXIClientServer.m */; };
@@ -73,6 +74,7 @@
 		335B9928C2B3DB09F42D6B18 /* MXIClientBufferMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferMessage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		335B9A51A168911D9D527341 /* MXIClientTransportDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientTransportDelegate.h; sourceTree = "<group>"; };
 		335B9D0EABE271B4CD9EF937 /* MXIClientUserStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIClientUserStats.h; sourceTree = "<group>"; };
+		335B9D31190AC09C7720330E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = file.md; path = README.md; sourceTree = "<group>"; };
 		83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-mxey-IRCCloudTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D93D89CC193F8AAD00BDD6D0 /* MXIClientChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientChannel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientChannel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -231,6 +233,7 @@
 				F288A9BF17D35D1D00D4AF6A /* Products */,
 				263842E134D146DEBCEB8203 /* Pods.xcconfig */,
 				FA753E9D36254A44B872A17C /* Pods-mxey-IRCCloudTests.xcconfig */,
+				335B9D31190AC09C7720330E /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -418,6 +421,7 @@
 				E920A1F419427D78001C62AD /* MXIChatWindowController.xib in Resources */,
 				F288A9D817D35D1D00D4AF6A /* MainMenu.xib in Resources */,
 				F2FA40611943B15B00C79347 /* LICENSE.txt in Resources */,
+				335B9A4539BADA52720957AE /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
