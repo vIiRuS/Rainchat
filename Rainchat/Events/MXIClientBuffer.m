@@ -63,13 +63,13 @@
     client.buffers[self.bufferId] = self;
 }
 
-- (void)sendHeartbeat {
+- (void)makeSelected {
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBufferId = self.bufferId;
     [self.transport callMethod:heartbeatMethodCall];
 }
 
-- (void)sendHeartbeatWithLastSeenEvent:(MXIAbstractClientBufferEvent *)lastEvent {
+- (void)markEventSeen:(MXIAbstractClientBufferEvent *)lastEvent {
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBufferId = self.bufferId;
     if (![self.lastSeenEid isEqualToNumber:lastEvent.eventId]) {

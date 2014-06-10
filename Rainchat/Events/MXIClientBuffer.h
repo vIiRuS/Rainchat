@@ -12,6 +12,7 @@
 #import "MXIClientChannel.h"
 #import "MXIClientTransport.h"
 #import "MXIClientEvent.h"
+
 @class MXIAbstractClientBufferEvent;
 
 typedef NS_ENUM(NSInteger, MXIClientBufferType) {
@@ -34,7 +35,10 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 @property(nonatomic) NSNumber *lastSeenEid;
 
 - (void)didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
+
 - (void)sendMessageWithString:(NSString *)string;
-- (void)sendHeartbeatWithLastSeenEvent:(MXIAbstractClientBufferEvent *)bufferEvent;
-- (void)sendHeartbeat;
+
+- (void)markEventSeen:(MXIAbstractClientBufferEvent *)bufferEvent;
+
+- (void)makeSelected;
 @end

@@ -129,7 +129,7 @@
         }
         
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
-            [self.selectedBuffer sendHeartbeatWithLastSeenEvent:bufferEvent];
+            [self.selectedBuffer markEventSeen:bufferEvent];
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -178,7 +178,7 @@
         [self.bufferTextView scrollToEndOfDocument:self];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
-        [self.selectedBuffer sendHeartbeat];
+        [self.selectedBuffer makeSelected];
     }
 }
 
