@@ -14,7 +14,7 @@
 @property(nonatomic) NSNumber *connectionId;
 @property(nonatomic) NSString *name;
 @property(nonatomic) NSString *nick;
-@property(nonatomic) MXIClientStatus status;
+@property(nonatomic) MXIClientServerStatus status;
 
 @property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic) NSMutableArray *buffers;

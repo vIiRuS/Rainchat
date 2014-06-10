@@ -12,7 +12,6 @@
 #import "MXIClientBufferLeave.h"
 #import "MXIClientBufferMessage.h"
 #import "MXIClientServer.h"
-#import "MXIClientHeartbeatMethodCall.h"
 #import "MXIClientUser.h"
 #import "MXILoginSheetController.h"
 #import "MXIClientBufferQuit.h"
@@ -154,7 +153,7 @@
         
         // TODO: Implement PartiallyAvailable.. There's a big list of potential statuses:
         // https://github.com/irccloud/irccloud-tools/wiki/API-Stream-Message-Reference#status_changed
-        if(server.status == MXIClientStatusConnectedReady) {
+        if (server.status == MXIClientServerStatusConnectedReady) {
             [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusAvailable"]];
         } else {
             [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusUnavailable"]];

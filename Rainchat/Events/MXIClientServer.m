@@ -30,7 +30,17 @@
 }
 
 + (NSValueTransformer *)statusJSONTransformer {
-    return [MXIClient statusJSONTransformer];
+    NSDictionary *statusDict = @{
+        @"queued" : @(MXIClientServerStatusQueued),
+        @"connecting" : @(MXIClientServerStatusConnecting),
+        @"connected" : @(MXIClientServerStatusConnected),
+        @"connected_joining" : @(MXIClientServerStatusConnectedJoining),
+        @"connected_ready" : @(MXIClientServerStatusConnectedReady),
+        @"quitting" : @(MXIClientServerStatusQuitting),
+        @"disconnected" : @(MXIClientServerStatusDisconnected),
+        @"waiting_to_retry" : @(MXIClientServerStatusWaitingToRetry),
+        @"ip_retry" : @(MXIClientServerStatusIPRetry)};
+    return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:statusDict];
 }
 
 - (void)addBuffer:(MXIClientBuffer *)buffer {

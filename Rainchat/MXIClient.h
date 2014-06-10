@@ -11,23 +11,21 @@
 #import "MXIClientTransport.h"
 #import "MXIClientTransportDelegate.h"
 
-typedef NS_ENUM(NSInteger, MXIClientStatus) {
-    MXIClientStatusQueued = 0,
-    MXIClientStatusConnecting,
-    MXIClientStatusConnected,
-    MXIClientStatusConnectedJoining,
-    MXIClientStatusConnectedReady,
-    MXIClientStatusQuitting,
-    MXIClientStatusDisconnected,
-    MXIClientStatusWaitingToRetry,
-    MXIClientStatusIPRetry
+typedef NS_ENUM(NSInteger, MXIClientServerStatus) {
+    MXIClientServerStatusQueued = 0,
+    MXIClientServerStatusConnecting,
+    MXIClientServerStatusConnected,
+    MXIClientServerStatusConnectedJoining,
+    MXIClientServerStatusConnectedReady,
+    MXIClientServerStatusQuitting,
+    MXIClientServerStatusDisconnected,
+    MXIClientServerStatusWaitingToRetry,
+    MXIClientServerStatusIPRetry
 };
 
 @interface MXIClient : NSObject <MXIClientTransportDelegate>
 
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
-+ (NSValueTransformer *)statusJSONTransformer;
-+ (NSString*)statusToString:(MXIClientStatus)status;
 
 @property(nonatomic) NSMutableDictionary *servers;
 
