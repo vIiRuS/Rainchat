@@ -151,6 +151,14 @@
     if ([self.client.serverOrder containsObject:item]) {
         NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
         MXIClientServer *server = item;
+        
+        // TODO: Implement PartiallyAvailable.. There's a big list of potential statuses:
+        // https://github.com/irccloud/irccloud-tools/wiki/API-Stream-Message-Reference#status_changed
+        if(server.status == MXIClientStatusConnectedReady) {
+            [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusAvailable"]];
+        } else {
+            [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusUnavailable"]];
+        }
         serverCellView.textField.stringValue = [server.name uppercaseString];
         return serverCellView;
     } else {

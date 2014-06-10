@@ -62,4 +62,28 @@
     return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:statusDict];
 }
 
++ (NSString*)statusToString:(MXIClientStatus)status {
+    switch (status) {
+        case MXIClientStatusQueued:
+            return @"MXIClientStatusQueued";
+        case MXIClientStatusConnecting:
+            return @"MXIClientStatusConnecting";
+        case MXIClientStatusConnected:
+            return @"MXIClientStatusConnected";
+        case MXIClientStatusConnectedJoining:
+            return @"MXIClientStatusConnectedJoining";
+        case MXIClientStatusConnectedReady:
+            return @"MXIClientStatusConnectedReady";
+        case MXIClientStatusQuitting:
+            return @"MXIClientStatusQuitting";
+        case MXIClientStatusDisconnected:
+            return @"MXIClientStatusDisconnected";
+        case MXIClientStatusWaitingToRetry:
+            return @"MXIClientStatusWaitingToRetry";
+        case MXIClientStatusIPRetry:
+            return @"MXIClientStatusIPRetry";
+    }
+    return @"Unknown";
+}
+
 @end

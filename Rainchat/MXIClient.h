@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, MXIClientStatus) {
 
 - (void)loginWithEmail:(NSString *)email andPassword:(NSString *)password;
 + (NSValueTransformer *)statusJSONTransformer;
++ (NSString*)statusToString:(MXIClientStatus)status;
 
 @property(nonatomic) NSMutableDictionary *servers;
 
