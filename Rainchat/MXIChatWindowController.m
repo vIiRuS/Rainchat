@@ -26,8 +26,7 @@
 
 #pragma mark - MXIChatWindowController
 
-- (id)initWithWindow:(NSWindow *)window
-{
+- (id)initWithWindow:(NSWindow *)window {
     self = [super initWithWindow:window];
     if (self) {
         // Initialization code here.
@@ -35,10 +34,9 @@
     return self;
 }
 
-- (void)windowDidLoad
-{
+- (void)windowDidLoad {
     [super windowDidLoad];
-    
+
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     if (self.userAccount && self.userPassword) {
         [self login];
@@ -85,7 +83,7 @@
     if (self.buffersOutlineView.selectedRow == -1) {
         return nil;
     }
-    
+
     NSObject *item = [self.buffersOutlineView itemAtRow:self.buffersOutlineView.selectedRow];
     MXIClientBuffer *selectedBuffer;
     if ([item isKindOfClass:[MXIClientServer class]]) {
@@ -118,11 +116,11 @@
     if (self.selectedBuffer.bufferId == bufferEvent.bufferId) {
         [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
         [self.bufferTextView scrollToEndOfDocument:self];
-        
+
         if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]] || [bufferEvent isKindOfClass:[MXIClientBufferQuit class]]) {
             [self.nicklistTableView reloadData];
         }
-        
+
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
             [self.selectedBuffer markEventSeen:bufferEvent];
         }
@@ -130,7 +128,7 @@
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];
     }
-    
+
 }
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client {
@@ -149,7 +147,7 @@
     if ([self.client.serverOrder containsObject:item]) {
         NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
         MXIClientServer *server = item;
-        
+
         // TODO: Implement PartiallyAvailable.. There's a big list of potential statuses:
         // https://github.com/irccloud/irccloud-tools/wiki/API-Stream-Message-Reference#status_changed
         if (server.status == MXIClientServerStatusConnectedReady) {
@@ -231,16 +229,16 @@
 
 #pragma mark - MXIMessageTextViewDelegate
 
-- (void)returnPressed:(NSTextView*)textView {
-    [self.selectedBuffer sendMessageWithString:textView.string];
-    textView.string = @"";
+- (void)messageTextViewPressedReturn:(MXIMessageTextView *)messageTextView {
+    [self.selectedBuffer sendMessageWithString:messageTextView.string];
+    messageTextView.string = @"";
 }
 
-- (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord {
+- (NSArray *)messageTextView:(MXIMessageTextView *)messageTextView completionsForWord:(NSString *)word isFirstWord:(BOOL)isFirstWord {
     NSMutableArray *ret = [[NSMutableArray alloc] init];
     for (MXIClientUser *user in self.selectedBuffer.channel.members) {
-        if([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
-            if(isFirstWord) {
+        if ([user.nick.lowercaseString hasPrefix:word.lowercaseString]) {
+            if (isFirstWord) {
                 [ret addObject:[user.nick stringByAppendingString:@": "]];
             } else {
                 [ret addObject:[user.nick stringByAppendingString:@" "]];

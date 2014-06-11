@@ -7,15 +7,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol MXIMessageTextViewDelegate <NSTextFieldDelegate>
-
-- (void)returnPressed:(NSTextView*)textView;
-- (NSArray*)completionsForWord:(NSString*)word isFirstWord:(BOOL)isFirstWord;
-
-@end
+@protocol MXIMessageTextViewDelegate;
 
 @interface MXIMessageTextView : NSTextView
 
-@property(nonatomic) id <MXIMessageTextViewDelegate> delegate;
+@property(nonatomic, weak) id <MXIMessageTextViewDelegate> delegate;
 
 @end
+
+@protocol MXIMessageTextViewDelegate
+
+- (void)messageTextViewPressedReturn:(MXIMessageTextView *)messageTextView;
+
+- (NSArray *)messageTextView:(MXIMessageTextView *)messageTextView completionsForWord:(NSString *)word isFirstWord:(BOOL)isFirstWord;
+
+@end
+

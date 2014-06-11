@@ -14,13 +14,13 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self setFont: [NSFont fontWithName:@"HelveticaNeue" size:14]];
+        [self setFont:[NSFont fontWithName:@"HelveticaNeue" size:14]];
     }
     return self;
 }
 
 - (void)insertNewline:(id)sender {
-    [self.delegate returnPressed:self];
+    [self.delegate messageTextViewPressedReturn:self];
 }
 
 - (void)insertTab:(id)sender {
@@ -30,10 +30,7 @@
 - (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
     NSString *currentWord = [self.string substringWithRange:charRange];
     BOOL isFirstWord = charRange.location == 0;
-    if (![self.delegate respondsToSelector:@selector(completionsForWord:isFirstWord:)]) {
-        return @[];
-    }
-    NSArray *completions = [self.delegate completionsForWord:currentWord isFirstWord:isFirstWord];
+    NSArray *completions = [self.delegate messageTextView:self completionsForWord:currentWord isFirstWord:isFirstWord];
     if (completions.count == 1) {
         NSMutableString *text = [self.string mutableCopy];
         [text deleteCharactersInRange:charRange];
