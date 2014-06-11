@@ -3,15 +3,8 @@
 //
 
 #import "MXIAbstractClientBufferEvent.h"
-#import "MXIAppDelegate.h"
 #import "MTLValueTransformer.h"
-#import "MXIClientBuffer.h"
 #import "MXIClientServer.h"
-
-@interface MXIAbstractClientBufferEvent ()
-- (NSString *)formattedTimestamp;
-
-@end
 
 @implementation MXIAbstractClientBufferEvent {
 
@@ -20,7 +13,7 @@
     return @{
         @"connectionId" : @"cid",
         @"bufferId" : @"bid",
-        @"eventId": @"eid",
+        @"eventId" : @"eid",
         // eid is converted into an NSDate in timestampJSONTransformer
         @"timestamp" : @"eid",
     };
@@ -40,7 +33,7 @@
     NSMutableDictionary *stringAttributes = [@{
         NSFontAttributeName : [NSFont fontWithName:@"HelveticaNeue" size:14],
         NSForegroundColorAttributeName : [NSColor blackColor],
-        NSParagraphStyleAttributeName: paragraphStyle,
+        NSParagraphStyleAttributeName : paragraphStyle,
     } mutableCopy];
     if (self.highlightsUser.boolValue) {
         stringAttributes[NSForegroundColorAttributeName] = [NSColor redColor];
@@ -68,7 +61,7 @@
 
 - (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer {
     MXIClientServer *server = client.servers[buffer.connectionId];
-    
+
     NSMutableArray *highlightStrings = [[NSMutableArray alloc] initWithArray:client.highlightStrings];
     [highlightStrings addObject:server.nick];
 
@@ -84,7 +77,7 @@
         NSLog(@"Received buffer event for non-existent buffer: %@", self.bufferId);
         return;
     }
-    
+
     [self processWithClient:client buffer:buffer];
     [buffer didReceiveBufferEvent:self];
     [client.delegate client:client didReceiveBufferEvent:self];

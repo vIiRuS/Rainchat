@@ -34,7 +34,7 @@
     }];
 }
 
-+ (NSValueTransformer *)membersJSONTransformer {
++ (NSValueTransformer *)membersJSONTransformer __unused {
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:[MXIClientUser class]];
 }
 

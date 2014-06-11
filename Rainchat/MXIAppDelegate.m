@@ -6,7 +6,6 @@
 //
 
 #import "MXIAppDelegate.h"
-#import "MXIChatWindowController.h"
 
 @interface MXIAppDelegate ()
 @end

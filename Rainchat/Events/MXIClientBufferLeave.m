@@ -22,7 +22,7 @@
     return [NSString stringWithFormat:@"<<< %@ left %@ (%@)", self.fromNick, self.channelName, self.message];
 }
 
-- (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer {
+- (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer __unused {
     [buffer.channel removeUserWithNick:self.fromNick];
 }
 @end

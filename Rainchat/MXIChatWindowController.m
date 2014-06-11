@@ -112,11 +112,6 @@
 
 #pragma mark - IBActions
 
-- (IBAction)pressedEnterInMessageTextField:(NSTextFieldCell *)sender {
-    [self.selectedBuffer sendMessageWithString:sender.stringValue];
-    sender.stringValue = @"";
-}
-
 #pragma mark - MXIClientDelegate
 
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
@@ -146,6 +141,10 @@
 
 #pragma mark - NSOutlineViewDelegate
 
+// NSStatusAvailable and NSStatusUnavailable are not local assets
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "ResourceNotFoundInspection"
+
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if ([self.client.serverOrder containsObject:item]) {
         NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
@@ -167,6 +166,8 @@
         return bufferCellView;
     }
 }
+
+#pragma clang diagnostic pop
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     if (self.selectedBuffer) {
@@ -214,8 +215,8 @@
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSTableCellView *cell = [tableView makeViewWithIdentifier:@"NickCell" owner:self];
-    
-    MXIClientUser *user = self.selectedBuffer.channel.members[row];
+
+    MXIClientUser *user = self.selectedBuffer.channel.members[(NSUInteger) row];
     cell.textField.stringValue = user.nick;
     //Set image to nil, until we have proper images for OP, voice, etc.
     cell.imageView.image = nil;

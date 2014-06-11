@@ -13,7 +13,6 @@
 #import "MXIClientUserStats.h"
 #import "MXIClientBufferAction.h"
 #import "MXIClientBufferNotice.h"
-#import "MXIClientChannel.h"
 #import "MXIClientBufferJoin.h"
 #import "MXIClientBufferLeave.h"
 #import "MXIClientBufferQuit.h"

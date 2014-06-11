@@ -9,8 +9,6 @@
 
 @implementation MXIMessageTextView
 
-@synthesize delegate;
-
 #pragma mark - NSTextView
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -31,7 +29,7 @@
 
 - (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index {
     NSString *currentWord = [self.string substringWithRange:charRange];
-    BOOL isFirstWord = charRange.location == 0 ? YES : NO;
+    BOOL isFirstWord = charRange.location == 0;
     if (![self.delegate respondsToSelector:@selector(completionsForWord:isFirstWord:)]) {
         return @[];
     }

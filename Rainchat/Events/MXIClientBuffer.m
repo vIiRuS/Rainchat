@@ -26,7 +26,7 @@
     };
 }
 
-+ (NSValueTransformer *)typeJSONTransformer {
++ (NSValueTransformer *)typeJSONTransformer __unused {
     return [NSValueTransformer mtl_valueMappingTransformerWithDictionary:@{
         @"console" : @(MXIClientBufferTypeServerConsole),
         @"channel" : @(MXIClientBufferTypeChannel),

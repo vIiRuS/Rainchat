@@ -7,7 +7,6 @@
 
 #import "MXIClient.h"
 #import "MXIClientBuffer.h"
-#import "MXIClientBufferJoin.h"
 
 
 @implementation MXIClient

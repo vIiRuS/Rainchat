@@ -29,7 +29,7 @@
     };
 }
 
-+ (NSValueTransformer *)statusJSONTransformer {
++ (NSValueTransformer *)statusJSONTransformer __unused {
     NSDictionary *statusDict = @{
         @"queued" : @(MXIClientServerStatusQueued),
         @"connecting" : @(MXIClientServerStatusConnecting),
