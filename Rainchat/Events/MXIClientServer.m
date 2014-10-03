@@ -47,7 +47,15 @@
     if (buffer.type == MXIClientBufferTypeServerConsole) {
         self.serverConsoleBuffer = buffer;
     } else {
-        [self.buffers addObject:buffer];
+        NSUInteger newIndex = [self.buffers indexOfObject:buffer
+                                     inSortedRange:(NSRange){0, [self.buffers count]}
+                                           options:NSBinarySearchingInsertionIndex
+                                          usingComparator:^(id buffer1, id buffer2) {
+                                              NSString *buffer1Name = [buffer1 valueForKey:@"name"];
+                                              NSString *buffer2Name = [buffer2 valueForKey:@"name"];
+                                              return (NSComparisonResult)[buffer1Name compare:buffer2Name];
+                                          }];
+        [self.buffers insertObject:buffer atIndex:newIndex];
     }
 }
 
