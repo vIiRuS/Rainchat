@@ -50,12 +50,16 @@
     formTokenRequest.HTTPMethod = @"POST";
 
     [NSURLConnection sendAsynchronousRequest:formTokenRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-
-        if ([decodedResponse[@"success"] isEqual:@YES]) {
-            [self performLoginWithEmail:email password:password token:decodedResponse[@"token"]];
+        if (!connectionError) {
+            NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            
+            if ([decodedResponse[@"success"] isEqual:@YES]) {
+                [self performLoginWithEmail:email password:password token:decodedResponse[@"token"]];
+            } else {
+                NSLog(@"failed to get auth token: %@", decodedResponse[@"message"]);
+            }
         } else {
-            NSLog(@"failed to get auth token: %@", decodedResponse[@"message"]);
+            NSLog(@"Connection failed with error %@", connectionError);
         }
     }];
 }
@@ -69,13 +73,17 @@
     loginRequest.HTTPShouldHandleCookies = false;
 
     [NSURLConnection sendAsynchronousRequest:loginRequest queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-        if ([decodedResponse[@"success"] isEqual:@YES]) {
-            // Set cookie manually from session ID, instead of copying it from HTTP response, because IRCCloud's WebSocket will not accept their own cookie flags
-            self.cookie = [NSString stringWithFormat:@"%@=%@", @"session", decodedResponse[@"session"]];
-            [self openWebSocket];
+        if (!connectionError) {
+            NSDictionary *decodedResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+            if ([decodedResponse[@"success"] isEqual:@YES]) {
+                // Set cookie manually from session ID, instead of copying it from HTTP response, because IRCCloud's WebSocket will not accept their own cookie flags
+                self.cookie = [NSString stringWithFormat:@"%@=%@", @"session", decodedResponse[@"session"]];
+                [self openWebSocket];
+            } else {
+                NSLog(@"failed to log in: %@", decodedResponse[@"message"]);
+            }
         } else {
-            NSLog(@"failed to log in: %@", decodedResponse[@"message"]);
+            NSLog(@"Connection failed with error %@", connectionError);
         }
     }];
 }
@@ -124,6 +132,10 @@
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error; {
+    if (error.code == 57) {
+        [self openWebSocket];
+        [self.delegate transportLostConnection];
+    }
     NSLog(@":( Websocket Failed With Error %@", error);
     self.webSocket = nil;
 }

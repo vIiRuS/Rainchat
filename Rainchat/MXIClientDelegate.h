@@ -14,4 +14,6 @@
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferMsg;
 
 - (void)clientDidFinishInitialBacklog:(MXIClient *)client;
+
+- (void)clientLostConnection;
 @end

@@ -10,4 +10,6 @@
 - (void)transport:(MXIClientTransport *)transport receivedMessage:(id)message fromBacklog:(BOOL)fromBacklog;
 
 - (void)transportDidFinishInitialBacklog:(MXIClientTransport *)transport;
+
+- (void)transportLostConnection;
 @end

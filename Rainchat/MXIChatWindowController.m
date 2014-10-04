@@ -79,7 +79,6 @@
 }
 
 - (void)login {
-    NSLog(@"Logging in");
     self.client = [[MXIClient alloc] init];
     self.client.delegate = self;
     [self.client loginWithEmail:self.userAccount andPassword:self.userPassword];
