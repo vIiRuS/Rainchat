@@ -44,6 +44,11 @@
     } else {
         [self presentLoginSheet];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidBecomeActive:)
+                                                 name:NSApplicationDidBecomeActiveNotification
+                                               object:[NSApplication sharedApplication]];
 }
 
 // TODO: This should probably be in a model
@@ -117,7 +122,20 @@
         }
     }
     NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
-    [dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", numberOfUnreadHighlights]];
+    if (numberOfUnreadHighlights) {
+        [dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", numberOfUnreadHighlights]];
+    } else {
+        [dockTile setBadgeLabel:nil];
+    }
+}
+
+-(void)applicationDidBecomeActive:(NSNotification *) notification {
+    if (self.selectedBuffer.numberOfUnreadHighlights) {
+        self.selectedBuffer.numberOfUnreadHighlights = 0;
+        [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:self.buffersOutlineView.selectedRow]
+                                           columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [self updateDockTile];
+    }
 }
 
 #pragma mark - IBActions
@@ -133,19 +151,25 @@
             [self.nicklistTableView reloadData];
         }
 
-        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
+        if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]] &&  [NSApplication sharedApplication].active) {
             [self.selectedBuffer markEventSeen:bufferEvent];
         }
-    } else {
-        if (bufferEvent.highlightsUser.boolValue) {
+    }
+    
+    if (bufferEvent.highlightsUser.boolValue) {
+        //Display when buffer is not visible or app is not active
+        if (self.selectedBuffer.bufferId == bufferEvent.bufferId || ![NSApplication sharedApplication].active) {
             MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
             if (bufferEvent.eventId > buffer.lastSeenEid) {
                 buffer.numberOfUnreadHighlights++;
-                [self.buffersOutlineView reloadData];
+                NSInteger row = [self.buffersOutlineView rowForItem:buffer];
+                [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:row]
+                                                   columnIndexes:[NSIndexSet indexSetWithIndex:0]];
                 [self updateDockTile];
             }
         }
     }
+    
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
         [self displayUserNotificationForEvent:bufferEvent];
     }
@@ -156,6 +180,9 @@
     [self.buffersOutlineView reloadData];
     [self.buffersOutlineView expandItem:nil expandChildren:YES];
     self.backlogFinished = YES;
+    if (self.client.lastSelectedBid) {
+        
+    }
 }
 
 #pragma mark - NSOutlineViewDelegate
@@ -195,7 +222,8 @@
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
         [self.selectedBuffer makeSelected];
-        [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:self.buffersOutlineView.selectedRow] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:self.buffersOutlineView.selectedRow]
+                                           columnIndexes:[NSIndexSet indexSetWithIndex:0]];
         [self updateDockTile];
     }
 }
