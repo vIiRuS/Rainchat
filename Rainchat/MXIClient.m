@@ -37,4 +37,8 @@
     [message processWithClient:self];
 }
 
+- (void)transportLostConnection {
+    [self.delegate clientLostConnection];
+}
+
 @end

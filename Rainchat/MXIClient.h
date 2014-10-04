@@ -34,5 +34,6 @@ typedef NS_ENUM(NSInteger, MXIClientServerStatus) {
 @property(nonatomic, strong) NSMutableDictionary *buffers;
 @property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic, strong) NSArray *highlightStrings;
+@property(nonatomic) NSNumber *lastSelectedBid;
 
 @end
