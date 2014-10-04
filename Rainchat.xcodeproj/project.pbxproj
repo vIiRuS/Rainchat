@@ -26,6 +26,7 @@
 		D74764FF18C74A72BA6E5B45 /* libPods-mxey-IRCCloudTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83266AF4E83B48749B8A6023 /* libPods-mxey-IRCCloudTests.a */; };
 		D93D89CE193F8AAD00BDD6D0 /* MXIClientChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */; };
 		D93EF77F193F8EB0003699B3 /* MXIClientUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EF77E193F8EB0003699B3 /* MXIClientUser.m */; };
+		D9AF896319E00C850082EE30 /* MXIBufferTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AF896219E00C850082EE30 /* MXIBufferTableCellView.m */; };
 		D9B42C2C1940EEA700C7EFB4 /* MXIClientBufferJoin.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */; };
 		D9B42C2F1940EF1200C7EFB4 /* MXIClientBufferLeave.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C2E1940EF1200C7EFB4 /* MXIClientBufferLeave.m */; };
 		D9B42C35194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B42C34194119D800C7EFB4 /* MXIClientHeartbeatMethodCall.m */; };
@@ -80,6 +81,8 @@
 		D93D89CD193F8AAD00BDD6D0 /* MXIClientChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientChannel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D93EF77D193F8EB0003699B3 /* MXIClientUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientUser.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D93EF77E193F8EB0003699B3 /* MXIClientUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D9AF896119E00C850082EE30 /* MXIBufferTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXIBufferTableCellView.h; sourceTree = "<group>"; };
+		D9AF896219E00C850082EE30 /* MXIBufferTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXIBufferTableCellView.m; sourceTree = "<group>"; };
 		D9B42C2A1940EEA700C7EFB4 /* MXIClientBufferJoin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientBufferJoin.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D9B42C2B1940EEA700C7EFB4 /* MXIClientBufferJoin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MXIClientBufferJoin.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D9B42C2D1940EF1200C7EFB4 /* MXIClientBufferLeave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MXIClientBufferLeave.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -206,6 +209,8 @@
 			children = (
 				E91FB40B19438B87007408BF /* MXIMessageTextView.h */,
 				E91FB40C19438B87007408BF /* MXIMessageTextView.m */,
+				D9AF896119E00C850082EE30 /* MXIBufferTableCellView.h */,
+				D9AF896219E00C850082EE30 /* MXIBufferTableCellView.m */,
 			);
 			name = "UI Components";
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 				335B9994983418E7B8C6C584 /* MXIClientUserStats.m in Sources */,
 				335B9E9CC2933F6E208BDD64 /* MXIAbstractClientBufferEvent.m in Sources */,
 				335B9BBD4836E56DDA16BF23 /* MXIClientBufferAction.m in Sources */,
+				D9AF896319E00C850082EE30 /* MXIBufferTableCellView.m in Sources */,
 				E91FB45A1944E091007408BF /* MXIClientReconnectMethodCall.m in Sources */,
 				335B9697516EE43C6E61B008 /* MXIClientBufferNotice.m in Sources */,
 				335B9C71619BFD4E7FA59D10 /* MXILoginSheetController.m in Sources */,
@@ -704,7 +710,7 @@
 				GCC_PREFIX_HEADER = "Rainchat/Rainchat-Prefix.pch";
 				INFOPLIST_FILE = "Rainchat/Rainchat-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = Rainchat;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -726,7 +732,7 @@
 				GCC_PREFIX_HEADER = "Rainchat/Rainchat-Prefix.pch";
 				INFOPLIST_FILE = "Rainchat/Rainchat-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = Rainchat;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;

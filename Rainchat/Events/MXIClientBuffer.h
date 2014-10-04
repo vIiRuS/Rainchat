@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, MXIClientBufferType) {
 @property(nonatomic, strong) NSMutableArray *events;
 @property(nonatomic) MXIClientTransport *transport;
 @property(nonatomic) MXIClientChannel *channel;
+@property(nonatomic) NSInteger numberOfUnreadHighlights;
 
 @property(nonatomic) NSNumber *lastSeenEid;
 

@@ -67,6 +67,8 @@
     MXIClientHeartbeatMethodCall *heartbeatMethodCall = [[MXIClientHeartbeatMethodCall alloc] init];
     heartbeatMethodCall.selectedBufferId = self.bufferId;
     [self.transport callMethod:heartbeatMethodCall];
+    [self markEventSeen:[self.events lastObject]];
+    self.numberOfUnreadHighlights = 0;
 }
 
 - (void)markEventSeen:(MXIAbstractClientBufferEvent *)lastEvent {

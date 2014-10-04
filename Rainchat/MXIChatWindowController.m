@@ -15,6 +15,7 @@
 #import "MXIClientUser.h"
 #import "MXILoginSheetController.h"
 #import "MXIClientBufferQuit.h"
+#import "MXIBufferTableCellView.h"
 
 @interface MXIChatWindowController ()
 @property(nonatomic) BOOL backlogFinished;
@@ -108,6 +109,17 @@
     self.messageTextView.selectedRange = NSMakeRange(self.messageTextView.string.length, 0);
 }
 
+- (void)updateDockTile {
+    NSInteger numberOfUnreadHighlights = 0;
+    for (MXIClientBuffer *buffer in [self.client.buffers allValues]) {
+        if (buffer.numberOfUnreadHighlights) {
+            numberOfUnreadHighlights = numberOfUnreadHighlights + buffer.numberOfUnreadHighlights;
+        }
+    }
+    NSDockTile *dockTile = [[NSApplication sharedApplication] dockTile];
+    [dockTile setBadgeLabel:[NSString stringWithFormat:@"%ld", numberOfUnreadHighlights]];
+}
+
 #pragma mark - IBActions
 
 #pragma mark - MXIClientDelegate
@@ -123,6 +135,15 @@
 
         if (self.backlogFinished && [bufferEvent isKindOfClass:[MXIClientBufferMessage class]]) {
             [self.selectedBuffer markEventSeen:bufferEvent];
+        }
+    } else {
+        if (bufferEvent.highlightsUser.boolValue) {
+            MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
+            if (bufferEvent.eventId > buffer.lastSeenEid) {
+                buffer.numberOfUnreadHighlights++;
+                [self.buffersOutlineView reloadData];
+                [self updateDockTile];
+            }
         }
     }
     if (self.backlogFinished && bufferEvent.highlightsUser.boolValue) {
@@ -145,22 +166,18 @@
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if ([self.client.serverOrder containsObject:item]) {
-        NSTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
+        MXIBufferTableCellView *serverCellView = [outlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
         MXIClientServer *server = item;
-
-        // TODO: Implement PartiallyAvailable.. There's a big list of potential statuses:
-        // https://github.com/irccloud/irccloud-tools/wiki/API-Stream-Message-Reference#status_changed
-        if (server.status == MXIClientServerStatusConnectedReady) {
-            [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusAvailable"]];
-        } else {
-            [serverCellView.imageView setImage:[NSImage imageNamed:@"NSStatusUnavailable"]];
-        }
-        serverCellView.textField.stringValue = [server.name uppercaseString];
+        
+        [serverCellView setStatusImageForStatus:server.status];
+        serverCellView.titleField.stringValue = [server.name uppercaseString];
+        [serverCellView setBadgeNumberTo:server.serverConsoleBuffer.numberOfUnreadHighlights];
         return serverCellView;
     } else {
-        NSTableCellView *bufferCellView = [outlineView makeViewWithIdentifier:@"DataCell" owner:self];
         MXIClientBuffer *buffer = item;
-        bufferCellView.textField.stringValue = buffer.name;
+        MXIBufferTableCellView *bufferCellView = [outlineView makeViewWithIdentifier:@"DataCell" owner:self];
+        bufferCellView.titleField.stringValue = buffer.name;
+        [bufferCellView setBadgeNumberTo:buffer.numberOfUnreadHighlights];
         return bufferCellView;
     }
 }
@@ -178,6 +195,8 @@
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
         [self.selectedBuffer makeSelected];
+        [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:self.buffersOutlineView.selectedRow] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
+        [self updateDockTile];
     }
 }
 
