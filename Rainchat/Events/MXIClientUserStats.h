@@ -10,4 +10,6 @@
 
 @interface MXIClientUserStats : MTLModel <MTLJSONSerializing, MXIClientEvent>
 @property(nonatomic) NSArray *highlightStrings;
+@property(nonatomic) NSNumber *lastSelectedBid;
+
 @end

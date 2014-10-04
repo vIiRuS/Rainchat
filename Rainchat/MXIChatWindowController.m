@@ -181,7 +181,9 @@
     [self.buffersOutlineView expandItem:nil expandChildren:YES];
     self.backlogFinished = YES;
     if (self.client.lastSelectedBid) {
-        
+        MXIClientBuffer *buffer = self.client.buffers[self.client.lastSelectedBid];
+        NSInteger row = [self.buffersOutlineView rowForItem:buffer];
+        [self.buffersOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
     }
 }
 

@@ -10,10 +10,12 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
         @"highlightStrings" : @"highlights",
+        @"lastSelectedBid" : @"last_selected_bid",
     };
 }
 
 - (void)processWithClient:(MXIClient *)client {
     client.highlightStrings = self.highlightStrings;
+    client.lastSelectedBid = self.lastSelectedBid;
 }
 @end
