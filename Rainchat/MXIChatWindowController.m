@@ -157,7 +157,7 @@
     
     if (bufferEvent.highlightsUser.boolValue) {
         //Display when buffer is not visible or app is not active
-        if (self.selectedBuffer.bufferId == bufferEvent.bufferId || ![NSApplication sharedApplication].active) {
+        if (self.selectedBuffer.bufferId != bufferEvent.bufferId || ![NSApplication sharedApplication].active) {
             MXIClientBuffer *buffer = self.client.buffers[bufferEvent.bufferId];
             if (bufferEvent.eventId > buffer.lastSeenEid) {
                 buffer.numberOfUnreadHighlights++;
