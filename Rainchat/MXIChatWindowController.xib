@@ -2,11 +2,12 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6249" systemVersion="14A379b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6249"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6249"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MXIChatWindowController">
             <connections>
-                <outlet property="bufferTextView" destination="8FP-ps-IZr" id="brr-ap-u1w"/>
+                <outlet property="bufferWebView" destination="Hbe-SV-KaN" id="b8P-wn-GNU"/>
                 <outlet property="buffersOutlineView" destination="Ded-mw-7uV" id="0tO-4a-TKm"/>
                 <outlet property="messageTextView" destination="aBi-3V-THe" id="KSg-Cn-Vx8"/>
                 <outlet property="nicklistTableView" destination="fi8-et-ejc" id="owc-yf-o10"/>
@@ -60,8 +61,8 @@
                                                             </constraints>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusUnavailable" id="Etn-al-0fz"/>
                                                         </imageView>
-                                                        <textField wantsLayer="YES" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" misplaced="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="2Q5-bm-9AY">
-                                                            <rect key="frame" x="171" y="2" width="24" height="13"/>
+                                                        <textField wantsLayer="YES" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="2Q5-bm-9AY">
+                                                            <rect key="frame" x="171" y="2" width="24" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" priority="500" constant="34" id="fGn-dG-niI"/>
                                                                 <constraint firstAttribute="width" priority="500" constant="20" id="p9b-kh-NT8"/>
@@ -182,34 +183,6 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <scrollView wantsLayer="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="feJ-IK-i9n">
-                        <rect key="frame" x="199" y="30" width="467" height="531"/>
-                        <clipView key="contentView" id="IxS-z6-hqz">
-                            <rect key="frame" x="1" y="1" width="483" height="515"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <textView editable="NO" importsGraphics="NO" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="8FP-ps-IZr">
-                                    <rect key="frame" x="0.0" y="0.0" width="483" height="531"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="467" height="531"/>
-                                    <size key="maxSize" width="655" height="10000000"/>
-                                    <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="467" height="531"/>
-                                    <size key="maxSize" width="655" height="10000000"/>
-                                </textView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="Eav-1e-cgU">
-                            <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="3Vy-R0-mph">
-                            <rect key="frame" x="468" y="1" width="16" height="515"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                    </scrollView>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGl-nk-GzV">
                         <rect key="frame" x="203" y="4" width="609" height="22"/>
                         <clipView key="contentView" id="Hns-ez-l5A">
@@ -312,21 +285,25 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="Hbe-SV-KaN" customClass="MXIBufferWebView">
+                        <rect key="frame" x="199" y="30" width="467" height="531"/>
+                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12"/>
+                    </webView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="feJ-IK-i9n" firstAttribute="top" secondItem="0EU-9c-Wnu" secondAttribute="top" id="34k-Me-Eer"/>
+                    <constraint firstItem="Hbe-SV-KaN" firstAttribute="top" secondItem="0EU-9c-Wnu" secondAttribute="top" id="8R3-aP-E8f"/>
                     <constraint firstAttribute="bottom" secondItem="aGl-nk-GzV" secondAttribute="bottom" constant="4" id="9ee-y9-KAN"/>
+                    <constraint firstItem="2Jz-iF-9V2" firstAttribute="leading" secondItem="Hbe-SV-KaN" secondAttribute="trailing" id="IRw-5V-sQg"/>
+                    <constraint firstItem="aGl-nk-GzV" firstAttribute="top" secondItem="Hbe-SV-KaN" secondAttribute="bottom" constant="4" id="Nji-Fs-Ctl"/>
                     <constraint firstItem="6Xy-nA-sIU" firstAttribute="top" secondItem="0EU-9c-Wnu" secondAttribute="top" constant="-1" id="Nnw-Us-FMK"/>
                     <constraint firstAttribute="trailing" secondItem="2Jz-iF-9V2" secondAttribute="trailing" id="Srh-Wc-QfY"/>
-                    <constraint firstItem="feJ-IK-i9n" firstAttribute="leading" secondItem="6Xy-nA-sIU" secondAttribute="trailing" id="XQS-6X-A8h"/>
-                    <constraint firstItem="2Jz-iF-9V2" firstAttribute="bottom" secondItem="feJ-IK-i9n" secondAttribute="bottom" id="aj8-UC-03q"/>
                     <constraint firstItem="6Xy-nA-sIU" firstAttribute="leading" secondItem="0EU-9c-Wnu" secondAttribute="leading" constant="-1" id="d1G-te-J3g"/>
-                    <constraint firstItem="2Jz-iF-9V2" firstAttribute="leading" secondItem="feJ-IK-i9n" secondAttribute="trailing" id="iLi-Ff-u8H"/>
+                    <constraint firstItem="2Jz-iF-9V2" firstAttribute="bottom" secondItem="Hbe-SV-KaN" secondAttribute="bottom" id="gBe-Jc-3ms"/>
                     <constraint firstItem="aGl-nk-GzV" firstAttribute="leading" secondItem="6Xy-nA-sIU" secondAttribute="trailing" constant="4" id="iuS-g2-j1a"/>
                     <constraint firstAttribute="bottom" secondItem="6Xy-nA-sIU" secondAttribute="bottom" constant="-1" id="jLG-Xc-60W"/>
                     <constraint firstItem="2Jz-iF-9V2" firstAttribute="top" secondItem="0EU-9c-Wnu" secondAttribute="top" id="qCm-dj-Za2"/>
                     <constraint firstAttribute="trailing" secondItem="aGl-nk-GzV" secondAttribute="trailing" constant="4" id="syJ-bh-ssN"/>
-                    <constraint firstItem="aGl-nk-GzV" firstAttribute="top" secondItem="feJ-IK-i9n" secondAttribute="bottom" constant="4" id="xp5-An-5mr"/>
+                    <constraint firstItem="Hbe-SV-KaN" firstAttribute="leading" secondItem="6Xy-nA-sIU" secondAttribute="trailing" id="zQN-c0-UkI"/>
                 </constraints>
             </view>
             <connections>

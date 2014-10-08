@@ -10,6 +10,7 @@
 #import "MXIClient.h"
 #import "MXIClientDelegate.h"
 #import "MXIMessageTextView.h"
+#import "MXIBufferWebView.h"
 
 @interface MXIChatWindowController : NSWindowController <MXIClientDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, MXIMessageTextViewDelegate>
 
@@ -17,9 +18,9 @@
 
 #pragma mark - IBOutlets
 
-@property(unsafe_unretained) IBOutlet NSTextView *bufferTextView;
 @property(weak) IBOutlet NSOutlineView *buffersOutlineView;
 @property(assign) IBOutlet MXIMessageTextView *messageTextView;
 @property (weak) IBOutlet NSTableView *nicklistTableView;
+@property (weak) IBOutlet MXIBufferWebView *bufferWebView;
 
 @end

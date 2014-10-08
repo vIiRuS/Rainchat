@@ -19,7 +19,7 @@
 }
 
 - (NSString *)string {
-    return [NSString stringWithFormat:@"<<< %@ left %@ (%@)", self.fromNick, self.channelName, self.message];
+    return [NSString stringWithFormat:@"&lt;&lt;&lt; %@ left %@ (%@)", self.fromNick, self.channelName, self.message];
 }
 
 - (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer __unused {

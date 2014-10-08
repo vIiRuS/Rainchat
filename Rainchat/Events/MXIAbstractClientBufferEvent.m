@@ -50,6 +50,11 @@
     return [[NSAttributedString alloc] initWithString:stringWithTimestamp attributes:self.stringAttributes];
 }
 
+- (NSString *)renderToHtmlString {
+    NSString *stringWithTimestamp = [NSString stringWithFormat:@"<li><span class='timestamp'>%@</span><span>%@</span></li>", self.formattedTimestamp, self.string];
+    return stringWithTimestamp;
+}
+
 - (void)checkForHighlights:(NSArray *)highlightStrings {
     self.highlightsUser = @NO;
 }

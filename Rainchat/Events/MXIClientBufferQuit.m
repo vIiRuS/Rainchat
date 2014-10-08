@@ -18,7 +18,7 @@
 }
 
 - (NSString *)string {
-    return [NSString stringWithFormat:@"<<< %@ quit (%@)", self.fromNick, self.message];
+    return [NSString stringWithFormat:@"&lt;&lt;&lt; %@ quit (%@)", self.fromNick, self.message];
 }
 
 - (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer __unused {

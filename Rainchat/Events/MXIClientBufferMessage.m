@@ -17,10 +17,14 @@
     }];
 }
 
+- (NSString *)body {
+    return [_body stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+}
+
 - (NSString *)string {
     // Server messages have the nick set to null and we don't want to show "<null> servermessage"
     if (self.fromNick) {
-        return [NSString stringWithFormat:@"<%@> %@", self.fromNick, self.body];
+        return [NSString stringWithFormat:@"&lt;%@&gt; %@", self.fromNick, self.body];
     } else {
         return [NSString stringWithFormat:@"%@", self.body];
     }

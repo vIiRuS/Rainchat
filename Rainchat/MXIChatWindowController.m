@@ -30,7 +30,6 @@
 - (id)initWithWindow:(NSWindow *)window {
     self = [super initWithWindow:window];
     if (self) {
-        // Initialization code here.
     }
     return self;
 }
@@ -128,7 +127,7 @@
     }
 }
 
--(void)applicationDidBecomeActive:(NSNotification *) notification {
+- (void)applicationDidBecomeActive:(NSNotification *) notification {
     if (self.selectedBuffer.numberOfUnreadHighlights) {
         self.selectedBuffer.numberOfUnreadHighlights = 0;
         [self.buffersOutlineView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:self.buffersOutlineView.selectedRow]
@@ -137,15 +136,17 @@
     }
 }
 
+- (void)clientLostConnection {
+    
+}
+
 #pragma mark - IBActions
 
 #pragma mark - MXIClientDelegate
 
 - (void)client:(MXIClient *)client didReceiveBufferEvent:(MXIAbstractClientBufferEvent *)bufferEvent {
     if (self.selectedBuffer.bufferId == bufferEvent.bufferId) {
-        [self.bufferTextView.textStorage appendAttributedString:[bufferEvent renderToAttributedString]];
-        [self.bufferTextView scrollToEndOfDocument:self];
-
+        [self.bufferWebView appendItemWithContent:[bufferEvent renderToHtmlString]];
         if ([bufferEvent isKindOfClass:[MXIClientBufferJoin class]] || [bufferEvent isKindOfClass:[MXIClientBufferLeave class]] || [bufferEvent isKindOfClass:[MXIClientBufferQuit class]]) {
             [self.nicklistTableView reloadData];
         }
@@ -214,12 +215,11 @@
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     if (self.selectedBuffer) {
-        NSMutableAttributedString *bufferText = [[NSMutableAttributedString alloc] init];
+        NSMutableString *bufferText = [[NSMutableString alloc] init];
         for (MXIClientBufferMessage *bufferMessage in self.selectedBuffer.events) {
-            [bufferText appendAttributedString:[bufferMessage renderToAttributedString]];
+            [bufferText appendString:[bufferMessage renderToHtmlString]];
         }
-        self.bufferTextView.textStorage.attributedString = bufferText;
-        [self.bufferTextView scrollToEndOfDocument:self];
+        [self.bufferWebView setItems:bufferText];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
         [self.selectedBuffer makeSelected];

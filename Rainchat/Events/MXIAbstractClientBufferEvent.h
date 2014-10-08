@@ -19,6 +19,7 @@
 - (NSMutableDictionary *)stringAttributes;
 
 - (NSAttributedString *)renderToAttributedString;
+- (NSString *)renderToHtmlString;
 
 - (void)checkForHighlights:(NSArray *)highlightStrings;
 

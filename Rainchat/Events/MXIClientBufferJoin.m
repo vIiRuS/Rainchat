@@ -18,7 +18,7 @@
 }
 
 - (NSString *)string {
-    return [NSString stringWithFormat:@">>> %@ joined %@", self.fromNick, self.channelName];
+    return [NSString stringWithFormat:@"&gt;&gt;&gt; %@ joined %@", self.fromNick, self.channelName];
 }
 
 - (void)processWithClient:(MXIClient *)client buffer:(MXIClientBuffer *)buffer __unused {
