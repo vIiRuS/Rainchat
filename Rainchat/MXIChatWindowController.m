@@ -215,11 +215,11 @@
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
     if (self.selectedBuffer) {
-        NSMutableString *bufferText = [[NSMutableString alloc] init];
+        NSMutableArray *bufferMessages = [[NSMutableArray alloc] init];
         for (MXIClientBufferMessage *bufferMessage in self.selectedBuffer.events) {
-            [bufferText appendString:[bufferMessage renderToHtmlString]];
+            [bufferMessages addObject:[bufferMessage renderToHtmlString]];
         }
-        [self.bufferWebView setItems:bufferText];
+        [self.bufferWebView setItems:bufferMessages];
         [self focusMessageTextField];
         [self.nicklistTableView reloadData];
         [self.selectedBuffer makeSelected];

@@ -51,7 +51,7 @@
 }
 
 - (NSString *)renderToHtmlString {
-    NSString *stringWithTimestamp = [NSString stringWithFormat:@"<li><span class='timestamp'>%@</span><span>%@</span></li>", self.formattedTimestamp, self.string];
+    NSString *stringWithTimestamp = [NSString stringWithFormat:@"<span class='timestamp'>%@</span><span>%@</span>", self.formattedTimestamp, self.string];
     return stringWithTimestamp;
 }
 

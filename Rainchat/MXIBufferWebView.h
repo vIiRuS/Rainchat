@@ -11,6 +11,6 @@
 @interface MXIBufferWebView : WebView
 
 -(void)appendItemWithContent:(NSString*)content;
--(void)setItems:(NSString*)items;
+-(void)setItems:(NSArray*)items;
 
 @end
